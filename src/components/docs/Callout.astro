@@ -1,0 +1,48 @@
+---
+interface Props {
+  title?: string;
+  tone?: 'info' | 'success' | 'warning' | 'danger';
+}
+
+const {
+  title,
+  tone = 'info',
+} = Astro.props;
+
+const tones = {
+  info: {
+    toneClass: 'docs-callout-info',
+    symbol: 'info',
+  },
+  success: {
+    toneClass: 'docs-callout-success',
+    symbol: 'check_circle',
+  },
+  warning: {
+    toneClass: 'docs-callout-warning',
+    symbol: 'warning',
+  },
+  danger: {
+    toneClass: 'docs-callout-danger',
+    symbol: 'error',
+  },
+} as const;
+
+const toneStyles = tones[tone];
+---
+
+<aside class:list={['docs-callout not-prose my-8 border px-5 py-4', toneStyles.toneClass]}>
+  <div class="flex items-start gap-4">
+    <span class="inline-flex h-6 w-6 shrink-0 items-center justify-center">
+      <svg class="docs-callout-icon h-5 w-5" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <use href={`/icons/material-callouts.svg#${toneStyles.symbol}`}></use>
+      </svg>
+    </span>
+    <div class="min-w-0">
+      {title && <p class="docs-callout-title text-sm font-semibold tracking-[0.16em] uppercase">{title}</p>}
+      <div class="mt-2 text-sm leading-6">
+        <slot />
+      </div>
+    </div>
+  </div>
+</aside>

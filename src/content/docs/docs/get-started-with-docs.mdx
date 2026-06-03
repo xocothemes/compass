@@ -1,0 +1,67 @@
+---
+title: "Write Your First Article"
+description: "Create a real Compass article, connect it to a category, and see how it appears across the site."
+category: "docs"
+order: 1
+updatedAt: 2026-06-03
+---
+
+Every article in Compass is just a Markdown or MDX file with a little frontmatter. Once you add one document and connect it to a category, the homepage, sidebar, and article route all update automatically.
+
+<Callout title="Markdown first, components when needed" tone="success">
+  Keep simple guides in Markdown. Reach for MDX when a page needs richer callouts, comparison blocks, or structured presentation beyond standard prose.
+</Callout>
+
+## Start with frontmatter
+
+Use frontmatter to define how the article is listed:
+
+```mdx
+---
+title: "Deploy Compass"
+description: "Publish your docs site to your hosting platform."
+category: "docs"
+order: 5
+updatedAt: 2026-06-03
+---
+```
+
+## Add the body content
+
+Below the frontmatter, write normal Markdown or MDX content:
+
+```mdx
+## Publish checklist
+
+- Confirm `siteUrl`
+- Run `npm run build`
+- Verify links and metadata
+```
+
+## Where it shows up
+
+Once saved, the article will appear in:
+
+- the category page for its `category`
+- the sidebar for that section
+- the direct article route generated from the filename
+
+## MDX when you need more than Markdown
+
+Most docs can stay plain Markdown, but MDX is helpful when you want:
+
+- custom components
+- richer callouts
+- embedded demos or previews
+
+<ComponentShowcase
+  title="Good uses for MDX"
+  description="These are the moments where reusable components make docs easier to maintain and easier to read."
+>
+  <ShowcaseItem label="Highlight risk">
+    Add a callout when a setup step could break navigation or confuse editors if it is missed.
+  </ShowcaseItem>
+  <ShowcaseItem label="Explain a section">
+    Use a feature heading when a new section needs a short explanation before the details begin.
+  </ShowcaseItem>
+</ComponentShowcase>

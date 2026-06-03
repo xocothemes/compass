@@ -1,0 +1,23 @@
+---
+title: "Launch a Chat Widget"
+description: "Cover the basics of adding a lightweight support or onboarding chat experience."
+category: "embeds-and-chat"
+order: 2
+updatedAt: 2026-06-03
+---
+
+Chat widgets work best when they feel like an extension of the product, not a separate destination.
+
+## Implementation checklist
+
+- Match the widget to your product language
+- Link to relevant docs from common replies
+- Keep the first-run prompts focused
+
+```js
+const widgetConfig = {
+  placement: 'bottom-right',
+  showLauncher: true,
+  welcomeMessage: 'Need a hand getting started?',
+};
+```

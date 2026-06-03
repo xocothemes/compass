@@ -1,0 +1,43 @@
+{
+  "name": "compass-docs-theme",
+  "version": "0.1.0",
+  "description": "A clean documentation theme for Astro, built with Tailwind CSS.",
+  "type": "module",
+  "license": "MIT",
+  "private": false,
+  "scripts": {
+    "dev": "astro dev --host 0.0.0.0 --port 3000",
+    "start": "astro dev --host 0.0.0.0 --port 3000",
+    "build": "astro build",
+    "preview": "astro preview --host 0.0.0.0 --port 3000",
+    "check": "astro check",
+    "lint": "astro check",
+    "clean": "node -e \"import('node:fs').then((fs) => ['dist', '.astro'].forEach((dir) => fs.rmSync(dir, { recursive: true, force: true })))\""
+  },
+  "keywords": [
+    "astro",
+    "tailwindcss",
+    "documentation",
+    "docs-theme",
+    "mdx",
+    "theme"
+  ],
+  "dependencies": {
+    "@astrojs/mdx": "^6.0.1",
+    "@astrojs/sitemap": "^3.6.0",
+    "@fontsource-variable/manrope": "^5.2.6",
+    "@tailwindcss/typography": "^0.5.16",
+    "@tailwindcss/vite": "^4.1.14",
+    "astro": "^6.4.3",
+    "tailwindcss": "^4.1.14"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.9",
+    "typescript": "^5.9.3"
+  },
+  "overrides": {
+    "yaml-language-server": {
+      "yaml": "2.9.0"
+    }
+  }
+}

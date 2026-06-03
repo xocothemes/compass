@@ -1,0 +1,114 @@
+---
+interface Item {
+  title: string;
+  href: string;
+}
+
+interface Props {
+  items: Item[];
+  idPrefix: string;
+  pageSize?: number;
+  itemClassName?: string;
+}
+
+const {
+  items,
+  idPrefix,
+  pageSize = 6,
+  itemClassName = 'docs-article-list-link block py-4 text-xl font-medium tracking-tight text-slate-950 transition hover:text-[var(--color-accent)]',
+} = Astro.props;
+---
+
+<div
+  class="paginated-article-list"
+  data-pagination-root
+  data-pagination-page-size={pageSize}
+  data-pagination-id={idPrefix}
+>
+  <div class="space-y-0">
+    {items.map((item, index) => (
+      <a
+        href={item.href}
+        class={itemClassName}
+        data-page-item
+        data-item-index={index}
+      >
+        {item.title}
+      </a>
+    ))}
+  </div>
+
+  <div class="pagination-controls mt-8 hidden items-center gap-2" data-pagination-controls></div>
+</div>
+
+<script is:inline>
+  const paginationRoots = document.querySelectorAll('[data-pagination-root]:not([data-pagination-ready])');
+
+  paginationRoots.forEach((root) => {
+    if (!(root instanceof HTMLElement)) return;
+
+    root.setAttribute('data-pagination-ready', 'true');
+
+    const pageSize = Number(root.dataset.paginationPageSize ?? '6');
+    const items = Array.from(root.querySelectorAll('[data-page-item]'));
+    const controls = root.querySelector('[data-pagination-controls]');
+
+    if (!(controls instanceof HTMLElement) || items.length <= pageSize) {
+      return;
+    }
+
+    const pageCount = Math.ceil(items.length / pageSize);
+    let currentPage = 1;
+
+    const renderPage = () => {
+      items.forEach((item, index) => {
+        const page = Math.floor(index / pageSize) + 1;
+        item.toggleAttribute('hidden', page !== currentPage);
+      });
+
+      controls.classList.remove('hidden');
+      controls.innerHTML = '';
+
+      const previousButton = document.createElement('button');
+      previousButton.type = 'button';
+      previousButton.className = 'pagination-button';
+      previousButton.textContent = 'Prev';
+      previousButton.disabled = currentPage === 1;
+      previousButton.addEventListener('click', () => {
+        if (currentPage > 1) {
+          currentPage -= 1;
+          renderPage();
+        }
+      });
+      controls.append(previousButton);
+
+      for (let page = 1; page <= pageCount; page += 1) {
+        const pageButton = document.createElement('button');
+        pageButton.type = 'button';
+        pageButton.className = `pagination-button${page === currentPage ? ' is-active' : ''}`;
+        pageButton.textContent = String(page);
+        pageButton.setAttribute('aria-label', `Go to page ${page}`);
+        pageButton.addEventListener('click', () => {
+          currentPage = page;
+          renderPage();
+        });
+        controls.append(pageButton);
+      }
+
+      const nextButton = document.createElement('button');
+      nextButton.type = 'button';
+      nextButton.className = 'pagination-button';
+      nextButton.textContent = 'Next';
+      nextButton.disabled = currentPage === pageCount;
+      nextButton.addEventListener('click', () => {
+        if (currentPage < pageCount) {
+          currentPage += 1;
+          renderPage();
+        }
+      });
+      controls.append(nextButton);
+    };
+
+    renderPage();
+  });
+</script>

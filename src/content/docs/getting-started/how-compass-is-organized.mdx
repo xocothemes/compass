@@ -1,0 +1,67 @@
+---
+title: "How Compass Is Organized"
+description: "Understand how Compass is structured so you know where to customize content, navigation, and layout."
+category: "setting-up-compass"
+order: 2
+updatedAt: 2026-06-03
+---
+
+Compass is a docs theme built around a small set of moving parts. Once you know where each part lives, the project becomes much easier to customize.
+
+## Theme structure
+
+The theme is organized into a few main areas:
+
+- `src/pages` controls routes
+- `src/components` contains shared UI pieces
+- `src/layouts` wraps page structure
+- `src/content/docs` stores article content
+- `src/data/docs.ts` defines the docs information architecture
+
+## How content is grouped
+
+Compass uses a three-level model:
+
+1. Parent categories such as `Getting Started` or `Integrations`
+2. Sub-categories such as `Compass Docs` or `Setting Up Compass`
+3. Individual articles inside those sub-categories
+
+This structure powers:
+
+- the homepage sections
+- the left sidebar on docs pages
+- the article search experience
+
+## Where navigation comes from
+
+The docs navigation is not inferred only from folders. It is primarily defined in `src/data/docs.ts`, which gives you explicit control over:
+
+- labels
+- slugs
+- parent grouping
+- card descriptions
+- icons for the homepage
+
+## Where article metadata comes from
+
+Each article in `src/content/docs` uses frontmatter like this:
+
+```mdx
+---
+title: "Syntax Highlighting"
+description: "Add clean, readable code examples to your Compass docs."
+category: "docs"
+order: 4
+updatedAt: 2026-06-03
+---
+```
+
+The `category` value links an article to one of the sub-categories declared in `src/data/docs.ts`.
+
+## How the pages connect
+
+- `/` renders the homepage sections and cards
+- `/:category` renders a sub-category page or a parent landing page
+- `/:category/:slug` renders the individual article
+
+Once this model makes sense, you can start swapping in your own structure without fighting the theme.

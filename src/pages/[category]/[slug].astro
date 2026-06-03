@@ -1,0 +1,161 @@
+---
+import { getCollection, render } from 'astro:content';
+import Sidebar from '../../components/Sidebar.astro';
+import { mdxComponents } from '../../components/docs/mdx-components';
+import {
+  docsCategoryDataMap,
+  docsParentMap,
+  getArticleHref,
+  getCategoriesForParent,
+  getCategoryHref,
+  getCleanDocSlug,
+  getParentForCategory,
+} from '../../data/docs';
+import Layout from '../../layouts/Layout.astro';
+
+export async function getStaticPaths() {
+  const allDocs = await getCollection('docs');
+
+  return allDocs.map((doc) => {
+    const cleanSlug = getCleanDocSlug(doc.id);
+
+    return {
+      params: {
+        category: doc.data.category,
+        slug: cleanSlug,
+      },
+      props: { doc },
+    };
+  });
+}
+
+const { doc } = Astro.props;
+const { Content } = await render(doc);
+const categoryData = docsCategoryDataMap[doc.data.category as keyof typeof docsCategoryDataMap];
+const parentSlug = getParentForCategory(doc.data.category);
+const parent = parentSlug ? docsParentMap[parentSlug] : undefined;
+const allDocs = await getCollection('docs');
+const sidebarSections = parent
+  ? getCategoriesForParent(parent.slug).map((section) => ({
+      name: section.name,
+      slug: section.slug,
+      href: getCategoryHref(section.slug),
+    }))
+  : [];
+const searchIndex = allDocs.map((entry) => {
+  const cleanSlug = getCleanDocSlug(entry.id);
+  return {
+    title: entry.data.title,
+    description: entry.data.description ?? '',
+    category: docsCategoryDataMap[entry.data.category as keyof typeof docsCategoryDataMap]?.name ?? entry.data.category,
+    url: getArticleHref(entry.data.category, cleanSlug),
+  };
+});
+---
+
+<Layout title={`${doc.data.title} | ${categoryData?.name ?? doc.data.category}`} description={doc.data.description}>
+    <div class="mx-auto flex max-w-[1280px] flex-col gap-10 px-4 py-10 md:flex-row md:px-8">
+      {parent && (
+        <Sidebar
+          sections={sidebarSections}
+          activeCategory={doc.data.category}
+          searchIndex={searchIndex}
+        />
+      )}
+
+      <div class="min-w-0 max-w-3xl flex-1">
+        <nav class="docs-breadcrumbs mb-6 flex flex-wrap items-center gap-2 text-sm text-slate-500">
+          <a href="/" class="breadcrumb-link transition hover:text-slate-950">Home</a>
+          <span>/</span>
+          {parent && <a href={`/${parent.slug}`} class="breadcrumb-link transition hover:text-slate-950">{parent.name}</a>}
+          {parent && <span>/</span>}
+          <a href={getCategoryHref(doc.data.category)} class="breadcrumb-link transition hover:text-slate-950">{categoryData?.name ?? doc.data.category}</a>
+          <span>/</span>
+          <span class="breadcrumb-current text-slate-700">{doc.data.title}</span>
+        </nav>
+
+        <article class="site-panel docs-article rounded-none border border-[var(--color-border)] bg-[var(--color-surface)] p-8 md:p-10">
+          <h1 class="text-4xl font-semibold tracking-tight text-slate-950 md:text-5xl">{doc.data.title}</h1>
+          {doc.data.description && (
+            <p class="mt-5 max-w-2xl text-base leading-7 text-slate-600">{doc.data.description}</p>
+          )}
+
+          <div class="prose prose-slate mt-10 max-w-none prose-headings:font-semibold prose-a:text-[var(--color-accent)] prose-a:no-underline hover:prose-a:text-blue-700 prose-code:rounded prose-code:bg-slate-100 prose-code:px-1 prose-code:py-0.5 prose-code:text-slate-800 prose-pre:bg-transparent prose-pre:p-0">
+            <Content components={mdxComponents} />
+          </div>
+
+          {doc.data.updatedAt && (
+            <p class="mt-10 pt-6 text-xs font-semibold uppercase tracking-[0.22em] text-slate-400">
+              Updated {doc.data.updatedAt.toLocaleDateString('en-US', {
+                month: 'long',
+                day: 'numeric',
+                year: 'numeric',
+              })}
+            </p>
+          )}
+        </article>
+      </div>
+    </div>
+</Layout>
+
+<script is:inline>
+  const articleCodeBlocks = document.querySelectorAll('.astro-code');
+
+  articleCodeBlocks.forEach((block) => {
+    if (!(block instanceof HTMLElement) || block.querySelector('.code-block-copy')) return;
+
+    const codeElement = block.querySelector('code');
+    const codeText = codeElement?.textContent;
+    if (!codeText) return;
+
+    const copyButton = document.createElement('button');
+    copyButton.type = 'button';
+    copyButton.className = 'code-block-copy';
+    copyButton.setAttribute('aria-label', 'Copy code');
+    copyButton.setAttribute('title', 'Copy code');
+
+    const copyIcon = `
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+        <rect x="9" y="9" width="10" height="10" rx="2"></rect>
+        <path stroke-linecap="round" stroke-linejoin="round" d="M15 9V7a2 2 0 0 0-2-2H7a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h2"></path>
+      </svg>
+    `;
+    const copiedIcon = `
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+        <path stroke-linecap="round" stroke-linejoin="round" d="m5 12.75 4.25 4.25L19 7.25"></path>
+      </svg>
+    `;
+    const failedIcon = `
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M6 6l12 12M18 6 6 18"></path>
+      </svg>
+    `;
+
+    copyButton.innerHTML = copyIcon;
+
+    copyButton.addEventListener('click', async () => {
+      try {
+        await navigator.clipboard.writeText(codeText);
+        copyButton.innerHTML = copiedIcon;
+        copyButton.setAttribute('aria-label', 'Copied');
+        copyButton.setAttribute('title', 'Copied');
+        window.setTimeout(() => {
+          copyButton.innerHTML = copyIcon;
+          copyButton.setAttribute('aria-label', 'Copy code');
+          copyButton.setAttribute('title', 'Copy code');
+        }, 1600);
+      } catch {
+        copyButton.innerHTML = failedIcon;
+        copyButton.setAttribute('aria-label', 'Copy failed');
+        copyButton.setAttribute('title', 'Copy failed');
+        window.setTimeout(() => {
+          copyButton.innerHTML = copyIcon;
+          copyButton.setAttribute('aria-label', 'Copy code');
+          copyButton.setAttribute('title', 'Copy code');
+        }, 1600);
+      }
+    });
+
+    block.append(copyButton);
+  });
+</script>

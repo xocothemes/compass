@@ -1,0 +1,14 @@
+---
+interface Props {
+  label: string;
+}
+
+const { label } = Astro.props;
+---
+
+<div class="border border-[var(--color-border)] bg-[var(--color-surface)] px-4 py-4">
+  <p class="mb-3 text-xs font-semibold uppercase tracking-[0.24em] text-[var(--color-accent)]">{label}</p>
+  <div class="text-sm leading-6 text-slate-700 dark:text-slate-200">
+    <slot />
+  </div>
+</div>

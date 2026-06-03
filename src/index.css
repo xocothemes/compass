@@ -1,0 +1,495 @@
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
+
+@theme {
+  --font-sans: "Manrope Variable", ui-sans-serif, system-ui, sans-serif;
+}
+
+:root {
+  --color-canvas: #f8fafc;
+  --color-ink: #0f172a;
+  --color-accent: #2563eb;
+  --color-soft: #eff6ff;
+  --color-surface: #ffffff;
+  --color-surface-muted: #f8fafc;
+  --color-border: rgb(226 232 240 / 0.9);
+  --color-border-strong: rgb(203 213 225 / 0.92);
+  --color-search-text: #0f172a;
+  --color-search-placeholder: #94a3b8;
+  --color-hover-surface: #eff6ff;
+  color-scheme: light;
+}
+
+html.dark {
+  --color-canvas: #0b1120;
+  --color-ink: #e5edf9;
+  --color-soft: #14213d;
+  --color-surface: #121a2b;
+  --color-surface-muted: #0f1726;
+  --color-border: rgb(59 72 97 / 0.62);
+  --color-border-strong: rgb(82 98 128 / 0.72);
+  --color-search-text: #f8fbff;
+  --color-search-placeholder: #8fa1c2;
+  --color-hover-surface: rgb(37 99 235 / 0.14);
+  color-scheme: dark;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-sans);
+  background: var(--color-canvas);
+  color: var(--color-ink);
+  transition: background-color 180ms ease, color 180ms ease;
+}
+
+.astro-code {
+  position: relative;
+  border-radius: 0;
+  padding: 1rem 1.25rem;
+  overflow-x: auto;
+  border: 1px solid rgb(226 232 240 / 0.9);
+  background: #ffffff !important;
+  box-shadow: none;
+}
+
+.astro-code code {
+  background: transparent !important;
+  display: block;
+  margin: 0;
+  padding: 0 !important;
+  text-indent: 0;
+}
+
+.theme-toggle svg {
+  height: 1.1rem;
+  width: 1.1rem;
+}
+
+.theme-toggle {
+  cursor: pointer;
+}
+
+.prose code::before,
+.prose code::after {
+  content: none;
+}
+
+.code-block-copy {
+  position: absolute;
+  top: 0.75rem;
+  right: 0.75rem;
+  display: inline-flex;
+  height: 2.25rem;
+  width: 2.25rem;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgb(226 232 240 / 0.95);
+  background: rgba(255, 255, 255, 0.96);
+  color: rgb(71 85 105);
+  border-radius: 0;
+  padding: 0;
+  cursor: pointer;
+  transition: color 150ms ease, border-color 150ms ease, background-color 150ms ease;
+}
+
+.code-block-copy svg {
+  height: 1rem;
+  width: 1rem;
+}
+
+.code-block-copy:hover {
+  color: var(--color-accent);
+  border-color: rgb(191 219 254 / 1);
+  background: rgb(239 246 255 / 1);
+}
+
+.pagination-controls {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.pagination-button {
+  min-width: 2.5rem;
+  border: 1px solid rgb(226 232 240 / 0.95);
+  background: #fff;
+  color: rgb(71 85 105);
+  padding: 0.55rem 0.85rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: color 150ms ease, border-color 150ms ease, background-color 150ms ease;
+}
+
+.pagination-button:hover:not(:disabled),
+.pagination-button.is-active {
+  border-color: rgb(191 219 254 / 1);
+  background: rgb(239 246 255 / 1);
+  color: var(--color-accent);
+}
+
+.pagination-button:disabled {
+  cursor: not-allowed;
+  opacity: 0.45;
+}
+
+.docs-callout {
+  color: rgb(51 65 85);
+}
+
+.docs-callout-info {
+  border-color: rgb(191 219 254 / 0.95);
+  background: rgb(239 246 255 / 0.9);
+}
+
+.docs-callout-info .docs-callout-icon {
+  color: rgb(37 99 235);
+}
+
+.docs-callout-info .docs-callout-title {
+  color: rgb(30 64 175);
+}
+
+.docs-callout-success {
+  border-color: rgb(167 243 208 / 0.95);
+  background: rgb(236 253 245 / 0.9);
+}
+
+.docs-callout-success .docs-callout-icon {
+  color: rgb(5 150 105);
+}
+
+.docs-callout-success .docs-callout-title {
+  color: rgb(6 95 70);
+}
+
+.docs-callout-warning {
+  border-color: rgb(253 230 138 / 0.95);
+  background: rgb(255 251 235 / 0.95);
+}
+
+.docs-callout-warning .docs-callout-icon {
+  color: rgb(180 83 9);
+}
+
+.docs-callout-warning .docs-callout-title {
+  color: rgb(146 64 14);
+}
+
+.docs-callout-danger {
+  border-color: rgb(254 205 211 / 0.95);
+  background: rgb(255 241 242 / 0.95);
+}
+
+.docs-callout-danger .docs-callout-icon {
+  color: rgb(225 29 72);
+}
+
+.docs-callout-danger .docs-callout-title {
+  color: rgb(159 18 57);
+}
+
+html.dark .site-header,
+html.dark #mobile-menu-panel,
+html.dark .site-footer,
+html.dark .site-panel,
+html.dark .site-card,
+html.dark .search-hero,
+html.dark .search-results,
+html.dark .sidebar-search-results,
+html.dark .sidebar-search-input,
+html.dark .search-input,
+html.dark .category-empty {
+  border-color: var(--color-border) !important;
+  background: var(--color-surface) !important;
+  color: var(--color-ink) !important;
+}
+
+html.dark .astro-code {
+  border-color: rgb(71 85 105 / 0.95) !important;
+  background: transparent !important;
+  color: var(--shiki-dark) !important;
+}
+
+html.dark .theme-toggle,
+html.dark .code-block-copy {
+  border-color: var(--color-border);
+  background: rgb(24 35 55 / 0.96);
+  color: rgb(226 232 240);
+}
+
+html.dark .theme-toggle:hover,
+html.dark .code-block-copy:hover {
+  background: rgb(37 99 235 / 0.16);
+  color: rgb(147 197 253);
+}
+
+html.dark .theme-toggle {
+  background: transparent;
+  border-color: transparent;
+  color: rgb(226 232 240);
+}
+
+html.dark .theme-toggle:hover {
+  background: transparent;
+  border-color: transparent;
+  color: rgb(255 255 255);
+}
+
+html.dark #mobile-menu-toggle {
+  border-color: var(--color-border);
+  background: rgb(24 35 55 / 0.96);
+  color: rgb(226 232 240);
+}
+
+html.dark #mobile-menu-toggle:hover {
+  background: rgb(37 99 235 / 0.16);
+  color: rgb(255 255 255);
+}
+
+html.dark .search-submit {
+  box-shadow: 0 0 0 1px rgb(59 130 246 / 0.18);
+}
+
+html.dark .category-section-title,
+html.dark .search-hero-title,
+html.dark .site-card h3,
+html.dark .site-panel h1,
+html.dark .site-panel h2,
+html.dark .site-panel .text-slate-950,
+html.dark .site-panel .text-slate-900,
+html.dark .site-header .text-slate-900 {
+  color: rgb(248 250 252) !important;
+}
+
+html.dark .category-section-description,
+html.dark .site-card p,
+html.dark .site-footer,
+html.dark .site-panel .text-slate-600,
+html.dark .site-panel .text-slate-500,
+html.dark .site-panel .text-slate-400,
+html.dark .docs-sidebar .text-slate-400,
+html.dark .docs-sidebar .text-slate-500,
+html.dark .search-hero .text-slate-400,
+html.dark .search-hero .text-slate-500 {
+  color: rgb(148 163 184) !important;
+}
+
+html.dark .docs-sidebar a,
+html.dark .site-header nav a,
+html.dark #mobile-menu-panel a,
+html.dark .site-panel a,
+html.dark .site-card .text-slate-400 {
+  color: rgb(203 213 225);
+}
+
+html.dark .docs-sidebar a:hover,
+html.dark .site-header nav a:hover,
+html.dark #mobile-menu-panel a:hover {
+  color: rgb(255 255 255) !important;
+}
+
+html.dark .docs-sidebar a:hover,
+html.dark #mobile-menu-panel a:hover,
+html.dark .search-results a:hover,
+html.dark .sidebar-search-results a:hover {
+  background: var(--color-hover-surface) !important;
+}
+
+html.dark .prose,
+html.dark .prose p,
+html.dark .prose li,
+html.dark .prose strong,
+html.dark .prose h1,
+html.dark .prose h2,
+html.dark .prose h3,
+html.dark .prose h4,
+html.dark .prose blockquote {
+  color: rgb(226 232 240) !important;
+}
+
+html.dark .prose a {
+  color: rgb(96 165 250) !important;
+}
+
+html.dark .prose code,
+html.dark .site-panel code {
+  background: rgb(30 41 59) !important;
+  color: rgb(191 219 254) !important;
+}
+
+html.dark .astro-code code,
+html.dark .astro-code span {
+  background: transparent !important;
+}
+
+html.dark .astro-code span {
+  color: var(--shiki-dark) !important;
+}
+
+html.dark .search-input::placeholder,
+html.dark .sidebar-search-input::placeholder {
+  color: var(--color-search-placeholder);
+}
+
+html.dark .site-card {
+  box-shadow: inset 0 0 0 1px var(--color-border);
+}
+
+html.dark .category-card-icon {
+  color: rgb(255 255 255) !important;
+}
+
+html.dark .category-card-count {
+  color: rgb(125 176 255) !important;
+}
+
+html.dark .search-result-title {
+  color: rgb(125 176 255) !important;
+}
+
+html.dark .pagination-button {
+  border-color: var(--color-border);
+  background: var(--color-surface-muted);
+  color: rgb(203 213 225);
+}
+
+html.dark .pagination-button:hover:not(:disabled),
+html.dark .pagination-button.is-active {
+  border-color: rgb(96 165 250 / 0.95);
+  background: rgb(37 99 235 / 0.12);
+  color: rgb(255 255 255);
+}
+
+html.dark .docs-breadcrumbs {
+  color: rgb(148 163 184) !important;
+}
+
+html.dark .docs-breadcrumbs span {
+  color: rgb(100 116 139) !important;
+}
+
+html.dark .docs-breadcrumbs .breadcrumb-link {
+  color: rgb(203 213 225) !important;
+}
+
+html.dark .docs-breadcrumbs .breadcrumb-link:hover {
+  color: rgb(96 165 250) !important;
+}
+
+html.dark .docs-breadcrumbs .breadcrumb-current {
+  color: rgb(248 250 252) !important;
+}
+
+html.dark .docs-sidebar .sidebar-search-input,
+html.dark .search-input {
+  color: var(--color-search-text) !important;
+  border-color: var(--color-border-strong) !important;
+  background: var(--color-surface-muted) !important;
+}
+
+html.dark .docs-sidebar .sidebar-search-input:focus,
+html.dark .search-input:focus {
+  border-color: rgb(96 165 250 / 0.92) !important;
+  box-shadow: 0 0 0 2px rgb(59 130 246 / 0.2);
+}
+
+html.dark .docs-sidebar .sidebar-search-results,
+html.dark .search-results {
+  border-color: var(--color-border) !important;
+  background: var(--color-surface) !important;
+}
+
+html.dark .docs-sidebar .sidebar-search-icon {
+  color: var(--color-search-placeholder) !important;
+}
+
+html.dark .docs-sidebar .sidebar-link {
+  color: rgb(197 209 228) !important;
+}
+
+html.dark .docs-sidebar .sidebar-link:hover {
+  color: rgb(240 246 255) !important;
+}
+
+html.dark .docs-sidebar .sidebar-link.is-active {
+  color: rgb(125 176 255) !important;
+}
+
+html.dark .docs-article-link,
+html.dark .docs-article .prose a,
+html.dark .docs-article-list-link {
+  color: rgb(224 232 245) !important;
+}
+
+html.dark .docs-article-link:hover,
+html.dark .docs-article .prose a:hover,
+html.dark .docs-article-list-link:hover {
+  color: rgb(96 165 250) !important;
+}
+
+html.dark .docs-divider {
+  border-color: var(--color-border) !important;
+}
+
+html.dark .docs-callout {
+  color: rgb(226 232 240) !important;
+}
+
+html.dark .docs-callout-info {
+  border-color: rgb(59 130 246 / 0.28) !important;
+  background: rgb(23 37 84 / 0.55) !important;
+}
+
+html.dark .docs-callout-info .docs-callout-icon {
+  color: rgb(147 197 253) !important;
+}
+
+html.dark .docs-callout-info .docs-callout-title {
+  color: rgb(219 234 254) !important;
+}
+
+html.dark .docs-callout-success {
+  border-color: rgb(16 185 129 / 0.28) !important;
+  background: rgb(6 78 59 / 0.42) !important;
+}
+
+html.dark .docs-callout-success .docs-callout-icon {
+  color: rgb(110 231 183) !important;
+}
+
+html.dark .docs-callout-success .docs-callout-title {
+  color: rgb(209 250 229) !important;
+}
+
+html.dark .docs-callout-warning {
+  border-color: rgb(245 158 11 / 0.3) !important;
+  background: rgb(120 53 15 / 0.34) !important;
+}
+
+html.dark .docs-callout-warning .docs-callout-icon {
+  color: rgb(253 186 116) !important;
+}
+
+html.dark .docs-callout-warning .docs-callout-title {
+  color: rgb(254 243 199) !important;
+}
+
+html.dark .docs-callout-danger {
+  border-color: rgb(244 63 94 / 0.32) !important;
+  background: rgb(76 5 25 / 0.46) !important;
+}
+
+html.dark .docs-callout-danger .docs-callout-icon {
+  color: rgb(253 164 175) !important;
+}
+
+html.dark .docs-callout-danger .docs-callout-title {
+  color: rgb(255 228 230) !important;
+}
+
+::selection {
+  background: rgba(59, 130, 246, 0.18);
+}

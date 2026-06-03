@@ -1,0 +1,138 @@
+---
+import site from '../../site.config.mjs';
+import { docsParentCategories } from '../data/docs';
+---
+
+<header class="site-header sticky top-0 z-40 w-full shrink-0 border-b border-[var(--color-border)] bg-[color:color-mix(in_srgb,var(--color-surface)_95%,transparent)] backdrop-blur">
+  <div class="mx-auto flex h-16 max-w-[1280px] items-center justify-between px-4 md:px-8">
+    <a href="/" class="text-2xl font-bold tracking-tight text-slate-900 transition-opacity hover:opacity-80">
+      Compass
+    </a>
+
+    <nav class="hidden items-center gap-6 text-sm font-medium text-slate-600 lg:flex">
+      {docsParentCategories.map((category) => (
+        <a
+          href={`/${category.slug}`}
+          class="py-5 transition-colors hover:text-[var(--color-accent)]"
+        >
+          {category.name}
+        </a>
+      ))}
+    </nav>
+
+    <div class="hidden items-center gap-3 lg:flex">
+      <button
+        type="button"
+        class="theme-toggle inline-flex h-10 w-10 items-center justify-center rounded-none bg-transparent text-slate-700 transition hover:bg-transparent"
+        aria-label="Toggle dark mode"
+        title="Toggle dark mode"
+      >
+        <svg class="theme-toggle-moon h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M20.354 15.354A9 9 0 0 1 8.646 3.646a9 9 0 1 0 11.708 11.708Z" />
+        </svg>
+        <svg class="theme-toggle-sun hidden h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M12 3.75v2.5M12 17.75v2.5M18.25 12h2.5M3.25 12h2.5M17.127 6.873l1.768-1.768M5.105 18.895l1.768-1.768M17.127 17.127l1.768 1.768M5.105 5.105l1.768 1.768M15.25 12A3.25 3.25 0 1 1 8.75 12a3.25 3.25 0 0 1 6.5 0Z" />
+        </svg>
+      </button>
+
+      <a
+        href={site.navCtaHref}
+        class="hidden rounded-none bg-[var(--color-accent)] px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-blue-700 lg:inline-flex"
+      >
+        {site.navCtaLabel}
+      </a>
+    </div>
+
+    <button
+      id="mobile-menu-toggle"
+      type="button"
+      class="inline-flex h-10 w-10 items-center justify-center rounded-none border border-[var(--color-border)] bg-[var(--color-surface-muted)] text-slate-700 transition hover:bg-[var(--color-hover-surface)] lg:hidden"
+      aria-expanded="false"
+      aria-controls="mobile-menu-panel"
+      aria-label="Toggle menu"
+    >
+      <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M4 7h16M4 12h16M4 17h16" />
+      </svg>
+    </button>
+  </div>
+
+  <div id="mobile-menu-panel" class="hidden border-t border-[var(--color-border)] bg-[var(--color-surface)] lg:hidden">
+    <div class="mx-auto max-w-[1280px] px-4 py-4 md:px-8">
+      <nav class="flex flex-col gap-1">
+        {docsParentCategories.map((category) => (
+          <a
+          href={`/${category.slug}`}
+          class="block w-full rounded-none px-4 py-3 text-sm font-medium text-slate-700 transition-colors hover:bg-[var(--color-hover-surface)] hover:text-[var(--color-accent)]"
+          >
+            {category.name}
+          </a>
+        ))}
+      </nav>
+
+      <div class="mt-4 flex items-center gap-3">
+        <button
+          type="button"
+          class="theme-toggle inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-none bg-transparent text-slate-700 transition hover:bg-transparent"
+          aria-label="Toggle dark mode"
+          title="Toggle dark mode"
+        >
+          <svg class="theme-toggle-moon h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M20.354 15.354A9 9 0 0 1 8.646 3.646a9 9 0 1 0 11.708 11.708Z" />
+          </svg>
+          <svg class="theme-toggle-sun hidden h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 3.75v2.5M12 17.75v2.5M18.25 12h2.5M3.25 12h2.5M17.127 6.873l1.768-1.768M5.105 18.895l1.768-1.768M17.127 17.127l1.768 1.768M5.105 5.105l1.768 1.768M15.25 12A3.25 3.25 0 1 1 8.75 12a3.25 3.25 0 0 1 6.5 0Z" />
+          </svg>
+        </button>
+
+        <a
+          href={site.navCtaHref}
+          class="inline-flex w-full items-center justify-center rounded-none bg-[var(--color-accent)] px-4 py-3 text-sm font-semibold text-white transition-colors hover:bg-blue-700"
+        >
+          {site.navCtaLabel}
+        </a>
+      </div>
+    </div>
+  </div>
+</header>
+
+<script is:inline>
+  const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
+  const mobileMenuPanel = document.getElementById('mobile-menu-panel');
+
+  if (mobileMenuToggle instanceof HTMLButtonElement && mobileMenuPanel instanceof HTMLDivElement) {
+    mobileMenuToggle.addEventListener('click', () => {
+      const isOpen = !mobileMenuPanel.classList.contains('hidden');
+      mobileMenuPanel.classList.toggle('hidden', isOpen);
+      mobileMenuToggle.setAttribute('aria-expanded', String(!isOpen));
+    });
+  }
+
+  const root = document.documentElement;
+  const themeToggleButtons = document.querySelectorAll('.theme-toggle');
+
+  const syncThemeButtons = () => {
+    const isDark = root.classList.contains('dark');
+
+    themeToggleButtons.forEach((button) => {
+      const moonIcon = button.querySelector('.theme-toggle-moon');
+      const sunIcon = button.querySelector('.theme-toggle-sun');
+
+      moonIcon?.classList.toggle('hidden', isDark);
+      sunIcon?.classList.toggle('hidden', !isDark);
+      button.setAttribute('aria-label', isDark ? 'Switch to light mode' : 'Switch to dark mode');
+      button.setAttribute('title', isDark ? 'Switch to light mode' : 'Switch to dark mode');
+    });
+  };
+
+  syncThemeButtons();
+
+  themeToggleButtons.forEach((button) => {
+    button.addEventListener('click', () => {
+      const nextTheme = root.classList.contains('dark') ? 'light' : 'dark';
+      root.classList.toggle('dark', nextTheme === 'dark');
+      localStorage.setItem('compass-theme', nextTheme);
+      syncThemeButtons();
+    });
+  });
+</script>

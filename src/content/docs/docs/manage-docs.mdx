@@ -1,0 +1,36 @@
+---
+title: "Manage Docs"
+description: "Maintain collections, navigation order, and article publishing workflows."
+category: "docs"
+order: 2
+updatedAt: 2026-06-03
+---
+
+Compass keeps content management intentionally simple: categories live in one data file, and articles live in content folders.
+
+## Update the information architecture
+
+Edit `src/data/docs.ts` when you need to:
+
+- rename a parent section
+- add or remove a sub-category
+- change card descriptions
+- change category slugs and icons
+
+## Reorder articles
+
+Inside each article, the `order` field controls its position within a category. Lower numbers appear first.
+
+## Keep routes predictable
+
+Compass generates article slugs from filenames, so it helps to keep names short and descriptive:
+
+- `deploying-to-vercel.mdx`
+- `editing-site-config.mdx`
+- `using-mdx-components.mdx`
+
+## Suggested maintenance rhythm
+
+- update categories when the docs structure changes
+- update articles when the product or repo changes
+- run `npm run check` before merging content changes

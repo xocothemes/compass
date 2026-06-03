@@ -1,0 +1,53 @@
+---
+import '@fontsource-variable/manrope';
+import '../index.css';
+import Header from '../components/Header.astro';
+import site from '../../site.config.mjs';
+
+interface Props {
+  title: string;
+  description?: string;
+}
+
+const {
+  title,
+  description = site.description,
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="description" content={description} />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="color-scheme" content="light dark" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="canonical" href={new URL(Astro.url.pathname, site.siteUrl).toString()} />
+    <meta name="generator" content={Astro.generator} />
+    <title>{title}</title>
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={Astro.url.toString()} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <script is:inline>
+      const storedTheme = localStorage.getItem('compass-theme');
+      const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      const shouldUseDark = storedTheme ? storedTheme === 'dark' : systemPrefersDark;
+      document.documentElement.classList.toggle('dark', shouldUseDark);
+    </script>
+  </head>
+  <body class="relative flex min-h-screen flex-col bg-[var(--color-canvas)] font-sans text-slate-800 antialiased">
+    <div class="flex min-h-screen flex-col">
+      <Header />
+      <main class="flex-1">
+        <slot />
+      </main>
+      <footer class="site-footer mt-20 border-t border-[var(--color-border)] px-4 py-10 text-center text-sm text-slate-500 md:px-8">
+        <p>{site.footerText}</p>
+        <p class="mt-2">&copy; {new Date().getFullYear()} {site.name}. Released under the MIT License.</p>
+      </footer>
+    </div>
+  </body>
+</html>

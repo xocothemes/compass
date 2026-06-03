@@ -1,0 +1,42 @@
+---
+title: "Customize Your Docs Site"
+description: "Adjust branding, layout choices, and content presentation across your docs."
+category: "docs"
+order: 3
+updatedAt: 2026-06-03
+---
+
+Compass is meant to be re-skinned. The fastest way to make it feel like your product is to update the shared site config first, then refine the content model and styles.
+
+<Callout title="Style system tip" tone="info">
+  Reusable MDX blocks help your docs feel branded even before you redesign every page template. They are a fast way to introduce personality and consistency together.
+</Callout>
+
+## Update the shared config
+
+Start in `site.config.mjs`:
+
+- `name`
+- `title`
+- `description`
+- `siteUrl`
+- CTA label and link values
+
+## Adjust the docs structure
+
+Then update `src/data/docs.ts` so the homepage cards and navigation match your actual docs sections.
+
+## Refine presentation
+
+<FeatureHeading
+  eyebrow="Presentation"
+  title="Use components, not one-off markup"
+  body="When a pattern appears in more than one article, turn it into a reusable block. That keeps the content model simpler and gives your docs a more intentional visual voice."
+/>
+
+Common customizations include:
+
+- changing copy across the homepage and article descriptions
+- adjusting typography and spacing in `src/index.css`
+- editing layouts in `src/layouts`
+- adding reusable MDX components for callouts or demos

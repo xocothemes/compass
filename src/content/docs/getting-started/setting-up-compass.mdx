@@ -1,0 +1,58 @@
+---
+title: "Setting Up Compass"
+description: "Install Compass, run it locally, and make the first project-level updates."
+category: "setting-up-compass"
+order: 1
+updatedAt: 2026-06-03
+---
+
+Compass is a docs starter, so the first setup step is really about making the repository yours: get it running, update the site identity, and replace the sample information architecture.
+
+## Install and run locally
+
+From the project root:
+
+```bash
+npm install
+npm run dev
+```
+
+That starts Astro's local server so you can preview the homepage, category pages, and article templates while you edit.
+
+## Update the project identity
+
+These are the first files most teams touch:
+
+- `site.config.mjs` for title, URLs, and repository links
+- `src/data/docs.ts` for parent categories and sub-categories
+- `src/content/docs` for article content
+- `README.md` for package and contributor guidance
+
+## Confirm the core scripts
+
+Compass ships with a small set of scripts you can use during development:
+
+```bash
+npm run dev
+npm run check
+npm run build
+npm run preview
+```
+
+- `dev` runs the local Astro server
+- `check` validates Astro, TypeScript, and content usage
+- `build` generates the production site
+- `preview` serves the production build locally
+
+## Recommended first edits
+
+Once the project is running, make these changes before publishing:
+
+1. Replace the placeholder `siteUrl` in `site.config.mjs`
+2. Rename the sample categories in `src/data/docs.ts`
+3. Rewrite the sample content in `src/content/docs`
+4. Confirm the navigation labels in the header match your docs structure
+
+## What to expect next
+
+After that, the next step is learning how Compass organizes categories, articles, and routes so you can reshape it without guesswork.

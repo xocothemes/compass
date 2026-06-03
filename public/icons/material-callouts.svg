@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" style="display:none">
+  <symbol id="info" viewBox="0 0 24 24">
+    <path d="M12 17v-5" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+    <path d="M12 8.5h.01" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+    <circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2"/>
+  </symbol>
+  <symbol id="check_circle" viewBox="0 0 24 24">
+    <path d="m8.5 12.5 2.5 2.5 5-5.5" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+    <circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2"/>
+  </symbol>
+  <symbol id="warning" viewBox="0 0 24 24">
+    <path d="M12 9v4" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+    <path d="M12 16.5h.01" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+    <path d="M10.29 4.86 3.86 16a2 2 0 0 0 1.73 3h12.82a2 2 0 0 0 1.73-3L13.71 4.86a2 2 0 0 0-3.42 0Z" fill="none" stroke="currentColor" stroke-linejoin="round" stroke-width="2"/>
+  </symbol>
+  <symbol id="error" viewBox="0 0 24 24">
+    <path d="m9 9 6 6" fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="2"/>
+    <path d="m15 9-6 6" fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="2"/>
+    <circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2"/>
+  </symbol>
+</svg>
