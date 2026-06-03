@@ -1,11 +1,17 @@
+import Accordion from './Accordion.astro';
+import ButtonLink from './ButtonLink.astro';
 import Callout from './Callout.astro';
-import ComponentShowcase from './ComponentShowcase.astro';
-import FeatureHeading from './FeatureHeading.astro';
-import ShowcaseItem from './ShowcaseItem.astro';
+import QuoteBlock from './QuoteBlock.astro';
+import Step from './Step.astro';
+import Steps from './Steps.astro';
+import Tabs from './Tabs.astro';
 
 export const mdxComponents = {
+  Accordion,
+  ButtonLink,
   Callout,
-  ComponentShowcase,
-  FeatureHeading,
-  ShowcaseItem,
+  QuoteBlock,
+  Step,
+  Steps,
+  Tabs,
 };

@@ -1,0 +1,21 @@
+---
+interface Props {
+  href: string;
+  variant?: 'primary' | 'secondary';
+}
+
+const {
+  href,
+  variant = 'primary',
+} = Astro.props;
+---
+
+<a
+  href={href}
+  class:list={[
+    'docs-button not-prose inline-flex items-center gap-2 px-4 py-2 text-sm font-semibold transition',
+    variant === 'primary' ? 'docs-button-primary' : 'docs-button-secondary',
+  ]}
+>
+  <slot />
+</a>

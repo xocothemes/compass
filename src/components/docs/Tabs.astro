@@ -1,0 +1,68 @@
+---
+interface Props {
+  labels: string[];
+}
+
+const { labels = [] } = Astro.props;
+const tabId = `tabs-${Math.random().toString(36).slice(2, 10)}`;
+const panels = await Promise.all(
+  labels.map((_, index) => Astro.slots.render(`panel-${index + 1}`)),
+);
+---
+
+<div class="docs-tabs not-prose my-8" data-tabs-root={tabId}>
+  <div class="docs-tabs-list flex flex-wrap gap-6 border-b border-[var(--color-border)]" role="tablist" aria-label="Tabs">
+    {labels.map((label, index) => (
+      <button
+        type="button"
+        class:list={['docs-tab pb-3 text-sm font-semibold transition', index === 0 && 'is-active']}
+        role="tab"
+        aria-selected={index === 0 ? 'true' : 'false'}
+        data-tab-trigger
+        data-tab-target={`${tabId}-panel-${index}`}
+      >
+        {label}
+      </button>
+    ))}
+  </div>
+
+  {panels.map((panel, index) => (
+    <section
+      class:list={['docs-tab-panel pt-6', index !== 0 && 'hidden']}
+      role="tabpanel"
+      id={`${tabId}-panel-${index}`}
+      data-tab-panel
+      set:html={panel}
+    />
+  ))}
+</div>
+
+<script is:inline>
+  document.querySelectorAll('[data-tabs-root]').forEach((tabsRoot) => {
+    if (!(tabsRoot instanceof HTMLElement) || tabsRoot.dataset.tabsReady === 'true') return;
+    tabsRoot.dataset.tabsReady = 'true';
+
+    const triggers = Array.from(tabsRoot.querySelectorAll('[data-tab-trigger]'));
+    const panels = Array.from(tabsRoot.querySelectorAll('[data-tab-panel]'));
+
+    triggers.forEach((trigger) => {
+      if (!(trigger instanceof HTMLButtonElement)) return;
+
+      trigger.addEventListener('click', () => {
+        const target = trigger.dataset.tabTarget;
+
+        triggers.forEach((button) => {
+          if (!(button instanceof HTMLButtonElement)) return;
+          const isActive = button === trigger;
+          button.classList.toggle('is-active', isActive);
+          button.setAttribute('aria-selected', isActive ? 'true' : 'false');
+        });
+
+        panels.forEach((panel) => {
+          if (!(panel instanceof HTMLElement)) return;
+          panel.classList.toggle('hidden', panel.id !== target);
+        });
+      });
+    });
+  });
+</script>

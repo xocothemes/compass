@@ -8,8 +8,8 @@ updatedAt: 2026-06-03
 
 Every article in Compass is just a Markdown or MDX file with a little frontmatter. Once you add one document and connect it to a category, the homepage, sidebar, and article route all update automatically.
 
-<Callout title="Markdown first, components when needed" tone="success">
-  Keep simple guides in Markdown. Reach for MDX when a page needs richer callouts, comparison blocks, or structured presentation beyond standard prose.
+<Callout tone="success">
+  Keep simple guides in Markdown. Reach for MDX when a page needs richer callouts, steps, tabs, accordions, or structured presentation beyond standard prose.
 </Callout>
 
 ## Start with frontmatter
@@ -52,16 +52,5 @@ Most docs can stay plain Markdown, but MDX is helpful when you want:
 
 - custom components
 - richer callouts
+- buttons, steps, tabs, or accordions
 - embedded demos or previews
-
-<ComponentShowcase
-  title="Good uses for MDX"
-  description="These are the moments where reusable components make docs easier to maintain and easier to read."
->
-  <ShowcaseItem label="Highlight risk">
-    Add a callout when a setup step could break navigation or confuse editors if it is missed.
-  </ShowcaseItem>
-  <ShowcaseItem label="Explain a section">
-    Use a feature heading when a new section needs a short explanation before the details begin.
-  </ShowcaseItem>
-</ComponentShowcase>

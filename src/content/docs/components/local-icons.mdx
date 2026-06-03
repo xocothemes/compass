@@ -1,0 +1,48 @@
+---
+title: "Local Icons"
+description: "Use Lucide or Google-style icons locally in MDX without adding a runtime icon dependency."
+category: "components"
+order: 5
+updatedAt: 2026-06-03
+---
+
+Compass does not require a single icon library. The easiest and most stable approach is to keep icons local.
+
+## Use in MDX
+
+If you only need a one-off icon, you can paste inline SVG directly into an `.mdx` article:
+
+```mdx
+<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor">
+  <path d="M12 5v14M5 12h14" />
+</svg>
+```
+
+## Implementation notes
+
+For reusable icons:
+
+- save SVG files in `public/icons`
+- or add symbols to a local sprite such as `public/icons/material-callouts.svg`
+- then reference them from Astro or MDX
+
+For Lucide icons:
+
+- copy the SVG markup from Lucide
+- paste it inline or save it as a local SVG asset
+
+For Google or Material icons:
+
+- export the SVG you want
+- keep it in `public/icons`
+- or add it to your local sprite file
+
+Keeping icons local avoids extra runtime dependencies and makes styling easier to control.
+
+## Preview
+
+```mdx
+<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor">
+  <path d="M12 5v14M5 12h14" />
+</svg>
+```

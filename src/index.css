@@ -140,8 +140,7 @@ body {
 }
 
 .docs-callout-info {
-  border-color: rgb(191 219 254 / 0.95);
-  background: rgb(239 246 255 / 0.9);
+  background: rgb(239 246 255 / 0.72);
 }
 
 .docs-callout-info .docs-callout-icon {
@@ -153,8 +152,7 @@ body {
 }
 
 .docs-callout-success {
-  border-color: rgb(167 243 208 / 0.95);
-  background: rgb(236 253 245 / 0.9);
+  background: rgb(236 253 245 / 0.72);
 }
 
 .docs-callout-success .docs-callout-icon {
@@ -166,8 +164,7 @@ body {
 }
 
 .docs-callout-warning {
-  border-color: rgb(253 230 138 / 0.95);
-  background: rgb(255 251 235 / 0.95);
+  background: rgb(255 251 235 / 0.78);
 }
 
 .docs-callout-warning .docs-callout-icon {
@@ -179,8 +176,7 @@ body {
 }
 
 .docs-callout-danger {
-  border-color: rgb(254 205 211 / 0.95);
-  background: rgb(255 241 242 / 0.95);
+  background: rgb(255 241 242 / 0.8);
 }
 
 .docs-callout-danger .docs-callout-icon {
@@ -439,8 +435,7 @@ html.dark .docs-callout {
 }
 
 html.dark .docs-callout-info {
-  border-color: rgb(59 130 246 / 0.28) !important;
-  background: rgb(23 37 84 / 0.55) !important;
+  background: rgb(30 58 138 / 0.22) !important;
 }
 
 html.dark .docs-callout-info .docs-callout-icon {
@@ -452,8 +447,7 @@ html.dark .docs-callout-info .docs-callout-title {
 }
 
 html.dark .docs-callout-success {
-  border-color: rgb(16 185 129 / 0.28) !important;
-  background: rgb(6 78 59 / 0.42) !important;
+  background: rgb(6 95 70 / 0.22) !important;
 }
 
 html.dark .docs-callout-success .docs-callout-icon {
@@ -465,8 +459,7 @@ html.dark .docs-callout-success .docs-callout-title {
 }
 
 html.dark .docs-callout-warning {
-  border-color: rgb(245 158 11 / 0.3) !important;
-  background: rgb(120 53 15 / 0.34) !important;
+  background: rgb(146 64 14 / 0.2) !important;
 }
 
 html.dark .docs-callout-warning .docs-callout-icon {
@@ -478,8 +471,7 @@ html.dark .docs-callout-warning .docs-callout-title {
 }
 
 html.dark .docs-callout-danger {
-  border-color: rgb(244 63 94 / 0.32) !important;
-  background: rgb(76 5 25 / 0.46) !important;
+  background: rgb(136 19 55 / 0.22) !important;
 }
 
 html.dark .docs-callout-danger .docs-callout-icon {
@@ -488,6 +480,172 @@ html.dark .docs-callout-danger .docs-callout-icon {
 
 html.dark .docs-callout-danger .docs-callout-title {
   color: rgb(255 228 230) !important;
+}
+
+.docs-button {
+  border-radius: 0;
+}
+
+.docs-button-primary {
+  background: var(--color-accent);
+  color: white !important;
+}
+
+.docs-button-primary:hover {
+  background: rgb(29 78 216);
+}
+
+.docs-button-secondary {
+  background: rgb(241 245 249);
+  color: rgb(15 23 42) !important;
+}
+
+.docs-button-secondary:hover {
+  background: rgb(226 232 240);
+}
+
+.docs-quote {
+  background: rgb(248 250 252);
+  border-left: 3px solid rgb(51 65 85);
+  padding-left: 1.25rem;
+}
+
+.docs-quote-author {
+  color: rgb(71 85 105);
+}
+
+.docs-accordion {
+  background: transparent;
+  border: 1px solid rgb(226 232 240 / 0.9);
+}
+
+.docs-accordion-summary {
+  align-items: center;
+  color: rgb(15 23 42);
+  display: flex;
+  justify-content: space-between;
+}
+
+.docs-accordion-summary::-webkit-details-marker {
+  display: none;
+}
+
+.docs-accordion[open] .docs-accordion-marker {
+  transform: rotate(45deg);
+}
+
+.docs-accordion-marker {
+  color: rgb(100 116 139);
+  font-size: 1.2rem;
+  line-height: 1;
+  transition: transform 160ms ease;
+}
+
+.docs-accordion-content p,
+.docs-step-body p,
+.docs-tab-panel p {
+  margin: 0;
+}
+
+.docs-steps {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.docs-step:last-child {
+  padding-bottom: 0;
+}
+
+.docs-step-number {
+  border: 1px solid rgb(203 213 225 / 0.95);
+  color: rgb(15 23 42);
+}
+
+.docs-step-title {
+  color: rgb(51 65 85);
+  font-size: 1.15rem;
+}
+
+.docs-step-line {
+  background: rgb(226 232 240);
+}
+
+.docs-step-body {
+  color: rgb(82 82 82);
+}
+
+.docs-tabs-list {
+  margin-bottom: 0;
+}
+
+.docs-tab {
+  color: rgb(51 65 85);
+  padding-left: 0.2rem;
+  padding-right: 0.2rem;
+}
+
+.docs-tab:hover {
+  color: rgb(15 23 42);
+}
+
+.docs-tab.is-active {
+  color: rgb(37 99 235);
+}
+
+.docs-tab-panel {
+  color: inherit;
+}
+
+html.dark .docs-button-secondary {
+  background: rgb(15 23 42);
+  color: rgb(226 232 240) !important;
+}
+
+html.dark .docs-button-secondary:hover {
+  background: rgb(30 41 59);
+}
+
+html.dark .docs-quote,
+html.dark .docs-accordion {
+  background: transparent;
+}
+
+html.dark .docs-accordion {
+  border-color: rgb(51 65 85 / 0.9);
+}
+
+html.dark .docs-quote {
+  border-left-color: rgb(148 163 184);
+}
+
+html.dark .docs-quote-author,
+html.dark .docs-accordion-marker {
+  color: rgb(148 163 184);
+}
+
+html.dark .docs-accordion-summary,
+html.dark .docs-step-number,
+html.dark .docs-step-title,
+html.dark .docs-tab:hover {
+  color: rgb(248 250 252);
+}
+
+html.dark .docs-step-number {
+  border-color: rgb(71 85 105 / 0.95);
+}
+
+html.dark .docs-step-line {
+  background: rgb(51 65 85);
+}
+
+html.dark .docs-step-body,
+html.dark .docs-tab {
+  color: rgb(203 213 225);
+}
+
+html.dark .docs-tab.is-active {
+  color: rgb(147 197 253);
 }
 
 ::selection {
