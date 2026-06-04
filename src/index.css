@@ -246,6 +246,15 @@ body {
   background-color: transparent !important;
 }
 
+.astro-code[data-language='md'] span,
+.astro-code[data-language='mdx'] span,
+.astro-code[data-language='text'] span {
+  color: inherit !important;
+  font-style: inherit !important;
+  font-weight: inherit !important;
+  text-decoration: inherit !important;
+}
+
 html.dark .astro-code {
   background-color: var(--color-code-block-bg) !important;
   color: var(--shiki-dark, inherit) !important;
@@ -256,6 +265,15 @@ html.dark .astro-code span {
   font-style: var(--shiki-dark-font-style, inherit) !important;
   font-weight: var(--shiki-dark-font-weight, inherit) !important;
   text-decoration: var(--shiki-dark-text-decoration, inherit) !important;
+}
+
+html.dark .astro-code[data-language='md'] span,
+html.dark .astro-code[data-language='mdx'] span,
+html.dark .astro-code[data-language='text'] span {
+  color: inherit !important;
+  font-style: inherit !important;
+  font-weight: inherit !important;
+  text-decoration: inherit !important;
 }
 
 .theme-toggle svg {
@@ -544,8 +562,17 @@ html.dark .astro-code span {
   border-radius: 0;
 }
 
+.prose a.docs-button {
+  text-decoration: none;
+}
+
 .docs-button-primary {
   background: var(--color-brand);
+  color: var(--color-text-inverse);
+}
+
+.prose a.docs-button-primary,
+.prose a.docs-button-primary:hover {
   color: var(--color-text-inverse);
 }
 
@@ -555,6 +582,11 @@ html.dark .astro-code span {
 
 .docs-button-secondary {
   background: var(--color-button-secondary-bg);
+  color: var(--color-button-secondary-text);
+}
+
+.prose a.docs-button-secondary,
+.prose a.docs-button-secondary:hover {
   color: var(--color-button-secondary-text);
 }
 

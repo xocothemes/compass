@@ -17,6 +17,7 @@ Compass is a clean Astro documentation theme for product docs, support centers, 
 - Parent categories, sub-category pages, and article routes
 - Searchable docs landing page and sidebar search powered by Pagefind
 - Reusable docs components like callouts, tabs, steps, accordions, buttons, and quotes
+- Syntax-aware code blocks with language headers for code-focused snippets
 - Light and dark mode support
 - Shared site config for branding, links, and CTA text
 - Sitemap support for production builds

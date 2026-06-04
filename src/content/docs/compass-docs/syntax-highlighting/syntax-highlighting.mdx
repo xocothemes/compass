@@ -50,7 +50,8 @@ export function formatTitle(title: string) {
 
 ## Common languages
 
-Compass will highlight many common languages out of the box, including:
+Compass supports many common fenced code block languages out of the box.
+Code-focused languages keep full syntax highlighting, including:
 
 - `ts`
 - `js`
@@ -61,7 +62,8 @@ Compass will highlight many common languages out of the box, including:
 - `html`
 - `css`
 - `astro`
-- `md`
+
+Markdown-style source examples such as `md`, `mdx`, and `text` are also supported, but Compass renders them in a calmer plain monospace style.
 
 ## More examples
 
@@ -103,3 +105,5 @@ For short references inside a paragraph, wrap code in single backticks like `ast
 Official Astro guide:
 
 https://docs.astro.build/en/guides/syntax-highlighting/
+
+If you want to use custom callouts, tabs, buttons, and other reusable content blocks alongside fenced code snippets, see [Register MDX Components](/getting-started/compass-docs/register-mdx-components).

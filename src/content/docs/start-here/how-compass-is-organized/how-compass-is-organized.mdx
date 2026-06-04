@@ -50,7 +50,7 @@ Each article in `src/content/docs` uses frontmatter like this:
 ---
 title: "Manage Docs"
 description: "Update structure, copy, and article metadata across your Compass docs."
-category: "docs"
+category: "compass-docs"
 order: 2
 updatedAt: 2026-06-03
 ---
@@ -61,7 +61,8 @@ The `category` value links an article to one of the sub-categories declared in `
 ## How the pages connect
 
 - `/` renders the homepage sections and cards
-- `/:category` renders a sub-category page or a parent landing page
-- `/:category/:slug` renders the individual article
+- `/:parent` renders a parent landing page such as `getting-started`
+- `/:parent/:category` renders a sub-category page such as `getting-started/compass-docs`
+- `/:parent/:category/:slug` renders the individual article
 
-Once this model makes sense, you can start swapping in your own structure without fighting the theme.
+Once this model makes sense, you can start swapping in your own structure without fighting the theme. For a deeper route-specific walkthrough, see [How Navigation Works](/getting-started/compass-docs/how-navigation-works).
