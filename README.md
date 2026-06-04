@@ -10,7 +10,7 @@ Compass is a clean Astro documentation theme for product docs, support centers, 
 
 **Preview:** [https://compass-lilac-tau.vercel.app/](https://compass-lilac-tau.vercel.app/)
 
-[![Compass preview screenshot](./screenshot.png)](https://compass-lilac-tau.vercel.app/)
+[![Compass preview screenshot](./screenshot.webp)](https://compass-lilac-tau.vercel.app/)
 
 ## Highlights
 
