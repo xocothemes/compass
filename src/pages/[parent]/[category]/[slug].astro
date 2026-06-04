@@ -101,28 +101,38 @@ const sidebarSections = getCategoriesForParent(parent.slug).map((section) => ({
     yaml: 'YAML',
     yml: 'YAML',
   };
+  const visibleCodeLanguages = new Set(Object.keys(codeLanguageLabels).filter((language) => !['md', 'mdx', 'text'].includes(language)));
 
   const articleCodeBlocks = document.querySelectorAll('.astro-code');
 
   articleCodeBlocks.forEach((block) => {
-    if (!(block instanceof HTMLElement) || block.querySelector('.code-block-copy')) return;
+    if (!(block instanceof HTMLElement) || block.parentElement?.classList.contains('code-block-shell')) return;
 
     const codeElement = block.querySelector('code');
     const codeText = codeElement?.textContent;
     if (!codeText) return;
     const language = (block.dataset.language ?? '').trim().toLowerCase();
-    const languageLabel = codeLanguageLabels[language] ?? (language ? language.toUpperCase() : 'Code');
+    const languageLabel = codeLanguageLabels[language] ?? (language ? language.toUpperCase() : '');
 
-    const header = document.createElement('div');
-    header.className = 'code-block-header';
+    if (language && languageLabel && visibleCodeLanguages.has(language)) {
+      const header = document.createElement('div');
+      header.className = 'code-block-header';
 
-    const languageTab = document.createElement('span');
-    languageTab.className = 'code-block-language-tab';
-    languageTab.textContent = languageLabel;
-    languageTab.dataset.languageLong = languageLabel.length > 8 ? 'true' : 'false';
+      const languageTab = document.createElement('span');
+      languageTab.className = 'code-block-language-tab';
+      languageTab.textContent = languageLabel;
+      languageTab.dataset.languageLong = languageLabel.length > 8 ? 'true' : 'false';
 
-    header.append(languageTab);
-    block.append(header);
+      header.append(languageTab);
+      block.append(header);
+    } else {
+      block.classList.add('astro-code-without-header');
+    }
+
+    const shell = document.createElement('div');
+    shell.className = 'code-block-shell';
+    block.parentNode?.insertBefore(shell, block);
+    shell.append(block);
 
     const copyButton = document.createElement('button');
     copyButton.type = 'button';
@@ -172,6 +182,6 @@ const sidebarSections = getCategoriesForParent(parent.slug).map((section) => ({
       }
     });
 
-    block.append(copyButton);
+    shell.append(copyButton);
   });
 </script>

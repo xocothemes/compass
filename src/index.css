@@ -216,6 +216,10 @@ body {
   color: var(--color-inline-code-fg);
 }
 
+.code-block-shell {
+  position: relative;
+}
+
 .astro-code {
   position: relative;
   overflow-x: auto;
@@ -224,6 +228,10 @@ body {
   background-color: var(--color-code-block-bg) !important;
   box-shadow: none;
   padding: 3.5rem 1.25rem 1rem;
+}
+
+.astro-code.astro-code-without-header {
+  padding-top: 1rem;
 }
 
 .astro-code code {
@@ -285,6 +293,7 @@ html.dark .astro-code span {
   position: absolute;
   top: 0.625rem;
   right: 0.75rem;
+  z-index: 1;
   display: inline-flex;
   height: 2.25rem;
   width: 2.25rem;
