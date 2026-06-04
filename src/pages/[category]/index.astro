@@ -54,7 +54,7 @@ const sections = parent ? buildSidebarSections(parent.slug) : [];
 const categoryDocs = allDocs
   .filter((doc) => doc.data.category === category)
   .sort((a, b) => a.data.order - b.data.order);
-
+---
 
 <Layout title={`${isParentView ? parentData?.name : subcategory?.name ?? category} | Compass`}>
     <div class="mx-auto flex max-w-[1280px] flex-col gap-10 px-4 py-10 md:flex-row md:px-8">
