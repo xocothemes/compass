@@ -1,4 +1,11 @@
 ---
+// Note: This file handles both top-level category slugs (e.g. `/start-here`)
+// and parent category slugs (e.g. `/getting-started`). The routes
+// `src/pages/[parent]/[category]/index.astro` and
+// `src/pages/[parent]/[category]/[slug].astro` also exist and are built by
+// Astro. They produce different URL paths (e.g. `/getting-started/start-here`).
+// Keep the dual-behavior intentionally — don't remove parent-handling
+// here without checking those sibling route files.
 import { getCollection } from 'astro:content';
 import PaginatedArticleList from '../../components/PaginatedArticleList.astro';
 import Sidebar from '../../components/Sidebar.astro';
@@ -47,7 +54,7 @@ const sections = parent ? buildSidebarSections(parent.slug) : [];
 const categoryDocs = allDocs
   .filter((doc) => doc.data.category === category)
   .sort((a, b) => a.data.order - b.data.order);
----
+
 
 <Layout title={`${isParentView ? parentData?.name : subcategory?.name ?? category} | Compass`}>
     <div class="mx-auto flex max-w-[1280px] flex-col gap-10 px-4 py-10 md:flex-row md:px-8">
