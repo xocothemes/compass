@@ -2,11 +2,18 @@
 interface Props {
   title?: string;
   placeholder?: string;
+  suggestions?: {
+    title: string;
+    excerpt: string;
+    category: string;
+    url: string;
+  }[];
 }
 
 const {
   title = 'How can we help?',
   placeholder = 'Search the docs...',
+  suggestions = [],
 } = Astro.props;
 ---
 
@@ -19,6 +26,7 @@ const {
       data-docs-search
       data-search-empty="No matching articles yet."
       data-search-error="Search is available after running npm run build and npm run preview."
+      data-search-suggestions={JSON.stringify(suggestions)}
     >
       <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-4 text-[var(--color-search-placeholder)]">
         <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
@@ -28,7 +36,7 @@ const {
       <input
         type="text"
         data-search-input
-        class="search-input block w-full rounded-[15px] border border-[var(--color-border-strong)] bg-[var(--color-surface)] py-4 pl-12 pr-28 text-lg text-[var(--color-search-text)] outline-none transition-all placeholder:text-[var(--color-search-placeholder)] focus:border-blue-400 focus:ring-2 focus:ring-blue-400/20"
+        class="search-input block w-full rounded-[15px] border border-[var(--color-border-strong)] bg-[var(--color-surface)] py-4 pl-12 pr-28 text-base text-[var(--color-search-text)] outline-none transition-all placeholder:text-[var(--color-search-placeholder)] focus:border-blue-400 focus:ring-2 focus:ring-blue-400/20 md:text-lg"
         placeholder={placeholder}
         autocomplete="off"
       />

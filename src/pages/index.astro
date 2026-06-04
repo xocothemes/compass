@@ -3,15 +3,16 @@ import { getCollection } from 'astro:content';
 import CategoryCard from '../components/CategoryCard.astro';
 import CategorySection from '../components/CategorySection.astro';
 import SearchHero from '../components/SearchHero.astro';
-import { docsCategories, docsParentCategories, getCategoryHref } from '../data/docs';
+import { docsCategories, docsParentCategories, getCategoryHref, getSuggestedSearchArticles } from '../data/docs';
 import Layout from '../layouts/Layout.astro';
 import site from '../../site.config.mjs';
 
 const allDocs = await getCollection('docs');
+const suggestedArticles = getSuggestedSearchArticles(allDocs);
 ---
 
 <Layout title={`${site.title} | Astro docs theme`} description={site.description}>
-  <SearchHero />
+  <SearchHero suggestions={suggestedArticles} />
 
   <div class="py-8 md:py-10">
     {docsParentCategories.map((parent) => (

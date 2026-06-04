@@ -8,9 +8,15 @@ interface SidebarSection {
 interface Props {
   sections: SidebarSection[];
   activeCategory?: string;
+  suggestions?: {
+    title: string;
+    excerpt: string;
+    category: string;
+    url: string;
+  }[];
 }
 
-const { sections, activeCategory } = Astro.props;
+const { sections, activeCategory, suggestions = [] } = Astro.props;
 ---
 
 <aside class="docs-sidebar w-full shrink-0 md:sticky md:top-24 md:w-72">
@@ -19,10 +25,11 @@ const { sections, activeCategory } = Astro.props;
     data-docs-search
     data-search-empty="No matching articles found."
     data-search-error="Search is available after running npm run build and npm run preview."
+    data-search-suggestions={JSON.stringify(suggestions)}
   >
     <input
       type="search"
-      placeholder="Search"
+      placeholder="Search..."
       data-search-input
       class="sidebar-search-input w-full rounded-[15px] border border-[var(--color-border-strong)] bg-[var(--color-surface)] py-3 pl-4 pr-10 text-sm text-[var(--color-search-text)] outline-none placeholder:text-[var(--color-search-placeholder)] focus:border-blue-400 focus:ring-2 focus:ring-blue-400/20"
     />

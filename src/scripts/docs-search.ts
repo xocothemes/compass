@@ -38,6 +38,7 @@ const SEARCH_DEBOUNCE_MS = 150;
 const PAGEFIND_BUNDLE_URL = '/pagefind/pagefind.js';
 
 let pagefindPromise: Promise<PagefindApi | null> | undefined;
+let searchShortcutsBound = false;
 
 const escapeHtml = (value: string) =>
   value
@@ -73,6 +74,59 @@ const getSearchElements = (root: HTMLElement): SearchElements | null => {
   return { input, results };
 };
 
+const isEditableTarget = (target: EventTarget | null) => {
+  if (!(target instanceof HTMLElement)) return false;
+
+  return (
+    target instanceof HTMLInputElement ||
+    target instanceof HTMLTextAreaElement ||
+    target instanceof HTMLSelectElement ||
+    target.isContentEditable
+  );
+};
+
+const getPreferredSearchInput = () => {
+  const roots = Array.from(document.querySelectorAll<HTMLElement>('[data-docs-search]'));
+
+  for (const root of roots) {
+    if (root.offsetParent === null) continue;
+
+    const elements = getSearchElements(root);
+    if (!elements || elements.input.disabled) continue;
+
+    return elements.input;
+  }
+
+  return null;
+};
+
+const focusSearchInput = () => {
+  const input = getPreferredSearchInput();
+  if (!input) return;
+
+  input.focus();
+  input.select();
+};
+
+const bindSearchShortcuts = () => {
+  if (searchShortcutsBound) return;
+  searchShortcutsBound = true;
+
+  document.addEventListener('keydown', (event) => {
+    if (event.defaultPrevented) return;
+    if (isEditableTarget(event.target)) return;
+
+    const isSlashShortcut = event.key === '/' && !event.metaKey && !event.ctrlKey && !event.altKey;
+    const isCommandPaletteShortcut =
+      event.key.toLowerCase() === 'k' && (event.metaKey || event.ctrlKey) && !event.altKey;
+
+    if (!isSlashShortcut && !isCommandPaletteShortcut) return;
+
+    event.preventDefault();
+    focusSearchInput();
+  });
+};
+
 const renderEmptyState = (results: HTMLDivElement, message: string) => {
   results.innerHTML = `<p class="px-4 py-4 text-sm text-[var(--color-text-muted)]">${escapeHtml(message)}</p>`;
   results.classList.remove('hidden');
@@ -90,6 +144,29 @@ const renderResults = (results: HTMLDivElement, entries: SearchEntry[]) => {
     )
     .join('');
   results.classList.remove('hidden');
+};
+
+const getSuggestions = (root: HTMLElement): SearchEntry[] => {
+  const rawSuggestions = root.dataset.searchSuggestions;
+  if (!rawSuggestions) return [];
+
+  try {
+    const parsed = JSON.parse(rawSuggestions) as SearchEntry[];
+    return Array.isArray(parsed) ? parsed : [];
+  } catch {
+    return [];
+  }
+};
+
+const renderSuggestions = (root: HTMLElement, results: HTMLDivElement) => {
+  const suggestions = getSuggestions(root);
+  if (suggestions.length === 0) {
+    results.classList.add('hidden');
+    results.innerHTML = '';
+    return;
+  }
+
+  renderResults(results, suggestions);
 };
 
 const setSearchUnavailable = (input: HTMLInputElement, results: HTMLDivElement, message: string) => {
@@ -132,17 +209,24 @@ const attachSearch = (root: HTMLElement) => {
     'focus',
     () => {
       void getPagefind();
+      if (!input.value.trim()) {
+        renderSuggestions(root, results);
+      }
     },
-    { once: true },
   );
+
+  input.addEventListener('click', () => {
+    if (!input.value.trim()) {
+      renderSuggestions(root, results);
+    }
+  });
 
   input.addEventListener('input', async () => {
     const query = input.value.trim();
     latestQuery = query;
 
     if (!query) {
-      results.classList.add('hidden');
-      results.innerHTML = '';
+      renderSuggestions(root, results);
       return;
     }
 
@@ -176,6 +260,8 @@ const attachSearch = (root: HTMLElement) => {
 };
 
 const initDocsSearch = () => {
+  bindSearchShortcuts();
+
   document.querySelectorAll<HTMLElement>('[data-docs-search]').forEach((root) => {
     if (root.dataset.searchBound === 'true') return;
     root.dataset.searchBound = 'true';

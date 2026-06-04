@@ -8,6 +8,7 @@ import {
   getCategoriesForParent,
   getCategoryHref,
   getCleanDocSlug,
+  getSuggestedSearchArticles,
 } from '../../../data/docs';
 import Layout from '../../../layouts/Layout.astro';
 
@@ -25,6 +26,7 @@ export async function getStaticPaths() {
 }
 
 const { doc } = Astro.props;
+const allDocs = await getCollection('docs');
 const { Content } = await render(doc);
 const categoryData = docsCategoryDataMap[doc.data.category as keyof typeof docsCategoryDataMap];
 const parent = docsParentMap[categoryData.parent as keyof typeof docsParentMap];
@@ -34,6 +36,7 @@ const sidebarSections = getCategoriesForParent(parent.slug).map((section) => ({
   slug: section.slug,
   href: getCategoryHref(section.slug),
 }));
+const suggestedArticles = getSuggestedSearchArticles(allDocs);
 ---
 
 <Layout title={`${doc.data.title} | ${categoryData?.name ?? doc.data.category}`} description={doc.data.description}>
@@ -41,6 +44,7 @@ const sidebarSections = getCategoriesForParent(parent.slug).map((section) => ({
     <Sidebar
       sections={sidebarSections}
       activeCategory={doc.data.category}
+      suggestions={suggestedArticles}
     />
 
     <div class="min-w-0 max-w-3xl flex-1">

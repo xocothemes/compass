@@ -77,3 +77,36 @@ export function getArticleHref(categorySlug: string, articleSlug: string) {
 export function getCleanDocSlug(docId: string) {
   return docId.split('/').at(-1) ?? docId;
 }
+
+type SearchSuggestionSource = {
+  id: string;
+  data: {
+    title: string;
+    description?: string;
+    category: string;
+    order?: number;
+  };
+};
+
+export type SearchSuggestion = {
+  title: string;
+  excerpt: string;
+  category: string;
+  url: string;
+};
+
+export function getSuggestedSearchArticles(
+  docs: SearchSuggestionSource[],
+  { limit = 4, category = 'start-here' }: { limit?: number; category?: string } = {},
+): SearchSuggestion[] {
+  return docs
+    .filter((doc) => doc.data.category === category)
+    .sort((a, b) => (a.data.order ?? 100) - (b.data.order ?? 100))
+    .slice(0, limit)
+    .map((doc) => ({
+      title: doc.data.title,
+      excerpt: doc.data.description ?? '',
+      category: docsCategoryDataMap[doc.data.category as keyof typeof docsCategoryDataMap]?.name ?? doc.data.category,
+      url: getArticleHref(doc.data.category, getCleanDocSlug(doc.id)),
+    }));
+}
