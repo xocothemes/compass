@@ -6,8 +6,10 @@ import {
   docsCategoryDataMap,
   docsParentMap,
   getCategoriesForParent,
+  getArticleHref,
   getCategoryHref,
   getCleanDocSlug,
+  getOrderedDocsForCategory,
   getSearchPreviewLookup,
   getSuggestedSearchArticles,
 } from '../../../data/docs';
@@ -32,6 +34,10 @@ const { Content } = await render(doc);
 const categoryData = docsCategoryDataMap[doc.data.category as keyof typeof docsCategoryDataMap];
 const parent = docsParentMap[categoryData.parent as keyof typeof docsParentMap];
 const pagefindCategory = categoryData?.name ?? doc.data.category;
+const orderedCategoryDocs = getOrderedDocsForCategory(allDocs, doc.data.category);
+const currentDocIndex = orderedCategoryDocs.findIndex((entry) => entry.id === doc.id);
+const previousDoc = currentDocIndex > 0 ? orderedCategoryDocs[currentDocIndex - 1] : undefined;
+const nextDoc = currentDocIndex >= 0 ? orderedCategoryDocs[currentDocIndex + 1] : undefined;
 const sidebarSections = getCategoriesForParent(parent.slug).map((section) => ({
   name: section.name,
   slug: section.slug,
@@ -86,6 +92,34 @@ const searchPreviews = getSearchPreviewLookup(allDocs);
               year: 'numeric',
             })}
           </p>
+        )}
+
+        {(previousDoc || nextDoc) && (
+          <nav class="docs-article-pagination mt-10 border-t border-[var(--color-border)] pt-6" aria-label="Article navigation">
+            <div class="grid gap-3 md:grid-cols-2">
+              {previousDoc ? (
+                <a
+                  href={getArticleHref(previousDoc.data.category, getCleanDocSlug(previousDoc.id))}
+                  class="docs-article-pagination-link"
+                >
+                  <span class="docs-article-pagination-label">Previous article</span>
+                  <span class="docs-article-pagination-title">{previousDoc.data.title}</span>
+                </a>
+              ) : (
+                <div class="hidden md:block"></div>
+              )}
+
+              {nextDoc && (
+                <a
+                  href={getArticleHref(nextDoc.data.category, getCleanDocSlug(nextDoc.id))}
+                  class="docs-article-pagination-link md:text-right"
+                >
+                  <span class="docs-article-pagination-label">Next article</span>
+                  <span class="docs-article-pagination-title">{nextDoc.data.title}</span>
+                </a>
+              )}
+            </div>
+          </nav>
         )}
       </article>
     </div>

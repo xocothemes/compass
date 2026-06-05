@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 
 The format is based on Keep a Changelog, and this project follows semantic versioning when tagged or released.
 
+## [Unreleased]
+
+### Added
+- Previous and next article navigation on docs pages, ordered by each section's article sequence.
+
 ## [0.1.1] - 2026-06-05
 
 ### Added

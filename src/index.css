@@ -479,6 +479,45 @@ html.dark .astro-code[data-language='text'] span {
   color: var(--color-accent);
 }
 
+.docs-article-pagination-link {
+  display: flex;
+  min-height: 100%;
+  flex-direction: column;
+  gap: 0.35rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-ui);
+  padding: 1rem 1.1rem;
+  color: var(--color-link-subtle);
+  text-decoration: none;
+  transition:
+    border-color 150ms ease,
+    background-color 150ms ease,
+    color 150ms ease,
+    transform 150ms ease;
+}
+
+.docs-article-pagination-link:hover {
+  transform: translateY(-1px);
+  border-color: var(--color-border-strong);
+  background: var(--color-hover-surface);
+  color: var(--color-accent);
+}
+
+.docs-article-pagination-label {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-text-soft);
+}
+
+.docs-article-pagination-title {
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 1.5;
+  color: var(--color-text-strong);
+}
+
 .search-result-title,
 .category-card-count {
   color: var(--color-accent);

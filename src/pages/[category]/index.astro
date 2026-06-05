@@ -18,6 +18,7 @@ import {
   getCategoriesForParent,
   getCategoryHref,
   getCleanDocSlug,
+  getOrderedDocsForCategory,
   getParentForCategory,
   getSearchPreviewLookup,
   getSuggestedSearchArticles,
@@ -53,9 +54,7 @@ const subcategory = !isParentView && category
 const parentSlug = subcategory ? getParentForCategory(subcategory.slug) : parentData?.slug;
 const parent = parentSlug ? docsParentMap[parentSlug] : parentData;
 const sections = parent ? buildSidebarSections(parent.slug) : [];
-const categoryDocs = allDocs
-  .filter((doc) => doc.data.category === category)
-  .sort((a, b) => a.data.order - b.data.order);
+const categoryDocs = category ? getOrderedDocsForCategory(allDocs, category) : [];
 const suggestedArticles = isParentView && parent
   ? getSuggestedSearchArticles(allDocs, {
       limit: 3,
@@ -96,18 +95,19 @@ const searchPreviews = getSearchPreviewLookup(allDocs);
                     {section.name}
                   </a>
                   <div class="mt-4">
-                    <PaginatedArticleList
-                      idPrefix={`parent-${parentData.slug}-${section.slug}`}
-                      pageSize={6}
-                      itemClassName="docs-article-list-link block px-4 py-3 text-sm text-[var(--color-link-subtle)] transition hover:text-[var(--color-accent)]"
-                      items={allDocs
-                      .filter((doc) => doc.data.category === section.slug)
-                      .sort((a, b) => a.data.order - b.data.order)
-                      .map((article) => ({
-                        title: article.data.title,
-                        href: getArticleHref(section.slug, getCleanDocSlug(article.id)),
-                      }))}
-                    />
+                    <div class="space-y-0">
+                      {allDocs
+                        .filter((doc) => doc.data.category === section.slug)
+                        .sort((a, b) => (a.data.order ?? 100) - (b.data.order ?? 100))
+                        .map((article) => (
+                          <a
+                            href={getArticleHref(section.slug, getCleanDocSlug(article.id))}
+                            class="docs-article-list-link block px-4 py-3 text-sm text-[var(--color-link-subtle)] transition hover:text-[var(--color-accent)]"
+                          >
+                            {article.data.title}
+                          </a>
+                        ))}
+                    </div>
                   </div>
                 </section>
               ))}

@@ -88,6 +88,13 @@ type SearchSuggestionSource = {
   };
 };
 
+type OrderedDocSource = {
+  data: {
+    category: string;
+    order?: number;
+  };
+};
+
 export type SearchSuggestion = {
   title: string;
   excerpt: string;
@@ -139,4 +146,10 @@ export function getSuggestedSearchArticles(
       category: docsCategoryDataMap[doc.data.category as keyof typeof docsCategoryDataMap]?.name ?? doc.data.category,
       url: getArticleHref(doc.data.category, getCleanDocSlug(doc.id)),
     }));
+}
+
+export function getOrderedDocsForCategory<T extends OrderedDocSource>(docs: T[], category: string) {
+  return docs
+    .filter((doc) => doc.data.category === category)
+    .sort((a, b) => (a.data.order ?? 100) - (b.data.order ?? 100));
 }
