@@ -24,7 +24,9 @@ type PagefindApi = {
 
 type SearchEntry = {
   title: string;
+  titleHtml?: string;
   excerpt: string;
+  excerptHtml?: string;
   category: string;
   url: string;
 };
@@ -52,6 +54,41 @@ const escapeHtml = (value: string) =>
     .replaceAll("'", '&#39;');
 
 const stripTags = (value: string) => value.replace(/<[^>]*>/g, '').trim();
+
+const escapeRegExp = (value: string) => value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+
+const getSearchTerms = (query: string) =>
+  Array.from(
+    new Set(
+      query
+        .trim()
+        .split(/\s+/)
+        .map((term) => term.trim())
+        .filter(Boolean)
+        .sort((left, right) => right.length - left.length),
+    ),
+  );
+
+const highlightText = (value: string, query: string) => {
+  const terms = getSearchTerms(query);
+  if (!value || terms.length === 0) {
+    return escapeHtml(value);
+  }
+
+  const matcher = new RegExp(`(${terms.map(escapeRegExp).join('|')})`, 'gi');
+  const highlighted = value.replace(matcher, '\u0000$1\u0001');
+
+  return escapeHtml(highlighted)
+    .replaceAll('\u0000', '<mark class="search-highlight">')
+    .replaceAll('\u0001', '</mark>');
+};
+
+const sanitizeHighlightedHtml = (value: string) =>
+  escapeHtml(value)
+    .replaceAll('&lt;mark&gt;', '<mark class="search-highlight">')
+    .replaceAll('&lt;/mark&gt;', '</mark>')
+    .replaceAll('&lt;mark class=&quot;pagefind-highlight&quot;&gt;', '<mark class="search-highlight">')
+    .replaceAll('&lt;mark class=&quot;search-highlight&quot;&gt;', '<mark class="search-highlight">');
 
 const normalizeSearchUrl = (value: string) => {
   try {
@@ -189,8 +226,8 @@ const renderResults = (
       (entry) => `
         <li>
           <a href="${escapeHtml(entry.url)}" class="block px-4 py-3 transition-colors hover:bg-[var(--color-hover-surface)]">
-            <div class="search-result-title text-sm font-medium text-[var(--color-accent)]">${escapeHtml(entry.title)}</div>
-            ${entry.excerpt ? `<div class="mt-1 text-xs leading-5 text-[var(--color-text-muted)]">${escapeHtml(entry.excerpt)}</div>` : ''}
+            <div class="search-result-title text-sm font-medium text-[var(--color-accent)]">${entry.titleHtml ?? escapeHtml(entry.title)}</div>
+            ${entry.excerpt ? `<div class="mt-1 text-xs leading-5 text-[var(--color-text-muted)]">${entry.excerptHtml ?? escapeHtml(entry.excerpt)}</div>` : ''}
           </a>
         </li>
       `,
@@ -267,11 +304,21 @@ const searchPagefind = async (
     search.results.slice(0, MAX_RESULTS).map(async (result) => {
       const data = await result.data();
       const normalizedUrl = normalizeSearchUrl(data.url);
-      const preview = searchPreviews[normalizedUrl] ?? data.meta.preview ?? stripTags(data.excerpt ?? '');
+      const preview = data.excerpt
+        ? stripTags(data.excerpt)
+        : searchPreviews[normalizedUrl] ?? data.meta.preview ?? '';
+      const title = data.meta.title ?? 'Untitled';
+      const excerptHtml = data.excerpt
+        ? sanitizeHighlightedHtml(data.excerpt)
+        : preview
+          ? highlightText(preview, query)
+          : '';
 
       return {
-        title: data.meta.title ?? 'Untitled',
+        title,
+        titleHtml: highlightText(title, query),
         excerpt: preview,
+        excerptHtml,
         category: data.meta.category ?? 'Docs',
         url: data.url,
       };

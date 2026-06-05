@@ -680,6 +680,13 @@ html.dark .astro-code[data-language='text'] span {
   color: var(--color-accent);
 }
 
+.search-highlight {
+  border-radius: 0.3rem;
+  background: color-mix(in srgb, var(--color-accent) 20%, transparent);
+  color: inherit;
+  padding: 0 0.12rem;
+}
+
 .docs-divider {
   border-color: var(--color-border);
 }

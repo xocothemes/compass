@@ -15,6 +15,7 @@ The format is based on Keep a Changelog, and this project follows semantic versi
 - Article pages now support optional hero images and "Edit this page" links from frontmatter.
 - Hidden docs are excluded from suggested article search prompts and the Pagefind indexed article set.
 - Moved article metadata like "Updated" and "Edit this page" below the article panel while keeping previous/next navigation inside the content card.
+- Search results now highlight matched terms in titles and excerpts, using Pagefind hit excerpts when available.
 - Updated starter docs, README, and contributing guidance to document the new frontmatter workflow.
 
 ## [0.1.2] - 2026-06-05

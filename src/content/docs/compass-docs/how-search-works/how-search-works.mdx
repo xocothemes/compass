@@ -40,7 +40,7 @@ This keeps search focused on docs content rather than indexing:
 - repeated sidebar navigation text
 - homepage marketing copy
 
-Compass also attaches article metadata for the category label, while the custom search UI uses each article's frontmatter `description` as the preview snippet.
+Compass also attaches article metadata for the category label. For active queries, the custom search UI prefers Pagefind's matched excerpt so readers can see highlighted hit context, then falls back to each article's frontmatter `description` when no excerpt is available.
 
 If an article should not appear in search, set:
 
@@ -63,6 +63,6 @@ During `npm run dev`, the site UI still works, but the generated Pagefind bundle
 
 ## When to customize search
 
-- change `src/scripts/docs-search.ts` when you want to change result rendering
+- change `src/scripts/docs-search.ts` when you want to change result rendering or highlight behavior
 - change the search components when you want different layouts or messages
 - change the article templates when you want to adjust what Pagefind indexes
