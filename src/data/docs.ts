@@ -80,7 +80,6 @@ export function getCleanDocSlug(docId: string) {
 
 type SearchSuggestionSource = {
   id: string;
-  body?: string;
   data: {
     title: string;
     description?: string;
@@ -107,37 +106,8 @@ const clampText = (value: string, maxChars = SEARCH_PREVIEW_MAX_CHARS) => {
   return `${(lastSpaceIndex > 60 ? truncated.slice(0, lastSpaceIndex) : truncated).trimEnd()}...`;
 };
 
-const stripMarkdown = (value: string) =>
-  value
-    .replace(/```[\s\S]*?```/g, ' ')
-    .replace(/`([^`]+)`/g, '$1')
-    .replace(/!\[([^\]]*)\]\([^)]+\)/g, ' ')
-    .replace(/\[([^\]]+)\]\([^)]+\)/g, '$1')
-    .replace(/<[^>]+>/g, ' ')
-    .replace(/[*_~>#-]/g, ' ')
-    .replace(/\s+/g, ' ')
-    .trim();
-
 export function getDocSearchPreview(doc: SearchSuggestionSource, maxChars = SEARCH_PREVIEW_MAX_CHARS) {
-  const body = doc.body ?? '';
-  const paragraphBlocks = body
-    .split(/\n\s*\n/)
-    .map((block) => block.trim())
-    .filter(Boolean);
-
-  const firstContentParagraph = paragraphBlocks.find((block) => {
-    const firstLine = block.split('\n')[0]?.trim() ?? '';
-
-    return !(
-      firstLine.startsWith('#') ||
-      firstLine.startsWith('import ') ||
-      firstLine.startsWith('export ') ||
-      firstLine.startsWith('<')
-    );
-  });
-
-  const previewSource = firstContentParagraph ?? doc.data.description ?? '';
-  return clampText(stripMarkdown(previewSource), maxChars);
+  return clampText(doc.data.description?.trim() ?? '', maxChars);
 }
 
 export function getSearchPreviewLookup(docs: SearchSuggestionSource[]) {

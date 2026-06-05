@@ -76,6 +76,8 @@
   --color-accordion-border: rgb(226 232 240 / 0.9);
   --color-accordion-summary: #0f172a;
   --color-accordion-marker: #64748b;
+  --color-checklist-text: #334155;
+  --color-checklist-text-checked: #0f172a;
   --color-step-number-border: rgb(203 213 225 / 0.95);
   --color-step-number-text: #0f172a;
   --color-step-title: #334155;
@@ -156,6 +158,8 @@ html.dark {
   --color-accordion-border: rgb(51 65 85 / 0.9);
   --color-accordion-summary: #f8fafc;
   --color-accordion-marker: #94a3b8;
+  --color-checklist-text: #cbd5e1;
+  --color-checklist-text-checked: #f8fafc;
   --color-step-number-border: rgb(71 85 105 / 0.95);
   --color-step-number-text: #f8fafc;
   --color-step-title: #f8fafc;
@@ -761,6 +765,55 @@ html.dark .astro-code[data-language='text'] span {
 .docs-step-body p,
 .docs-tab-panel p {
   margin: 0;
+}
+
+.docs-checklist {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.docs-checklist-item + .docs-checklist-item {
+  margin-top: 0.4rem;
+}
+
+.docs-checklist-label {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.65rem;
+  padding: 0;
+  color: var(--color-checklist-text);
+  cursor: pointer;
+  transition: color 150ms ease;
+}
+
+.docs-checklist-input {
+  width: 1.05rem;
+  height: 1.05rem;
+  margin-top: 0.32rem;
+  flex: none;
+  accent-color: var(--color-accent);
+}
+
+.docs-checklist-copy {
+  flex: 1;
+  font-size: 1rem;
+  line-height: 1.75;
+}
+
+.docs-checklist-copy > :first-child {
+  margin-top: 0;
+}
+
+.docs-checklist-copy > :last-child {
+  margin-bottom: 0;
+}
+
+.docs-checklist-input:checked + .docs-checklist-copy {
+  color: var(--color-checklist-text-checked);
+  text-decoration: line-through;
+  text-decoration-thickness: 1.5px;
+  text-decoration-color: color-mix(in srgb, var(--color-accent) 55%, transparent);
 }
 
 .docs-steps {

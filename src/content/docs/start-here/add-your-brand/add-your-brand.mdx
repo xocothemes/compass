@@ -1,0 +1,70 @@
+---
+title: "Add Your Brand"
+description: "Replace Compass defaults with your project's title, links, visuals, and overall identity."
+category: "start-here"
+order: 7
+updatedAt: 2026-06-05
+---
+
+Compass is designed to be rebranded quickly, so one of the best early improvements is swapping out the starter identity for your own.
+
+## Update the site configuration
+
+The main branding settings live in `site.config.mjs`.
+
+Start by replacing:
+
+- the site name
+- the page title
+- the site description
+- GitHub or repository links
+- the navigation CTA label and destination
+- the footer text
+
+These changes affect the homepage, page metadata, and shared layout areas.
+
+## Replace icons and social assets
+
+The default favicons and Open Graph image live in `public/`.
+
+The most common files to update are:
+
+- `public/favicon.svg`
+- `public/favicon-light.svg`
+- `public/favicon-dark.svg`
+- `public/og-image.png`
+
+Use `public/` for these assets because they need stable URLs and should not be processed as article-owned content.
+
+## Make the category language yours
+
+Branding is not only visual. It also includes the way your docs are named and organized.
+
+Review:
+
+- parent category names in `src/data/docs.ts`
+- category descriptions on the homepage
+- sample article titles in `src/content/docs`
+- CTA wording in the navigation
+
+Even small copy changes can make the site feel much more intentional.
+
+## Check the overall experience
+
+After your first branding pass, preview the site and look at it as a new visitor would:
+
+- Does the homepage immediately say what this docs site is for?
+- Do the category names sound like your product?
+- Do the links point to real destinations?
+- Does the browser tab and social preview reflect your brand?
+
+## Recommended first branding pass
+
+<Checklist>
+  <ChecklistItem>Update `site.config.mjs`</ChecklistItem>
+  <ChecklistItem>Replace favicon and OG assets</ChecklistItem>
+  <ChecklistItem>Rename category labels</ChecklistItem>
+  <ChecklistItem>Rewrite the sample homepage-facing article titles</ChecklistItem>
+</Checklist>
+
+You do not need to perfect every visual detail on day one. The goal is to make Compass clearly belong to your project before broader content work begins.

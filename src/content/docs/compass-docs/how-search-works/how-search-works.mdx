@@ -23,7 +23,7 @@ It helps because:
 
 - search indexing happens at build time
 - the browser loads small search chunks on demand
-- results include better excerpts and relevance than a simple `includes()` filter
+- result previews can come directly from each article's frontmatter `description`
 - the same search system can power both the hero search and sidebar search
 
 ## What gets indexed
@@ -36,7 +36,7 @@ This keeps search focused on docs content rather than indexing:
 - repeated sidebar navigation text
 - homepage marketing copy
 
-Compass also attaches article metadata for the category label so the custom search UI can show richer results.
+Compass also attaches article metadata for the category label, while the custom search UI uses each article's frontmatter `description` as the preview snippet.
 
 ## Local search workflow
 
