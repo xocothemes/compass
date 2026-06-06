@@ -70,6 +70,20 @@ export function getCategoryHref(categorySlug: string) {
   return parentSlug ? `/${parentSlug}/${categorySlug}` : `/${categorySlug}`;
 }
 
+export type SidebarSection = {
+  name: string;
+  slug: string;
+  href: string;
+};
+
+export function getSidebarSections(parentSlug: string): SidebarSection[] {
+  return getCategoriesForParent(parentSlug).map((section) => ({
+    name: section.name,
+    slug: section.slug,
+    href: getCategoryHref(section.slug),
+  }));
+}
+
 export function getArticleHref(categorySlug: string, articleSlug: string) {
   return `${getCategoryHref(categorySlug)}/${articleSlug}`;
 }
@@ -99,7 +113,6 @@ type OrderedDocSource = {
 export type SearchSuggestion = {
   title: string;
   excerpt: string;
-  category: string;
   url: string;
 };
 
@@ -145,7 +158,6 @@ export function getSuggestedSearchArticles(
     .map((doc) => ({
       title: doc.data.title,
       excerpt: getDocSearchPreview(doc),
-      category: docsCategoryDataMap[doc.data.category as keyof typeof docsCategoryDataMap]?.name ?? doc.data.category,
       url: getArticleHref(doc.data.category, getCleanDocSlug(doc.id)),
     }));
 }

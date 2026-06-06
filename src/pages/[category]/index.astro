@@ -15,12 +15,11 @@ import {
   docsParentCategories,
   docsParentMap,
   getArticleHref,
-  getCategoriesForParent,
-  getCategoryHref,
   getCleanDocSlug,
   getOrderedDocsForCategory,
   getParentForCategory,
   getSearchPreviewLookup,
+  getSidebarSections,
   getSuggestedSearchArticles,
 } from '../../data/docs';
 import Layout from '../../layouts/Layout.astro';
@@ -38,13 +37,6 @@ export function getStaticPaths() {
 
 const { category } = Astro.params;
 const allDocs = await getCollection('docs');
-const buildSidebarSections = (parentSlug: string) =>
-  getCategoriesForParent(parentSlug).map((section) => ({
-    name: section.name,
-    slug: section.slug,
-    href: getCategoryHref(section.slug),
-  }));
-
 const parentData = category ? docsParentMap[category as keyof typeof docsParentMap] : undefined;
 const isParentView = Boolean(parentData);
 
@@ -53,7 +45,7 @@ const subcategory = !isParentView && category
   : undefined;
 const parentSlug = subcategory ? getParentForCategory(subcategory.slug) : parentData?.slug;
 const parent = parentSlug ? docsParentMap[parentSlug] : parentData;
-const sections = parent ? buildSidebarSections(parent.slug) : [];
+const sections = parent ? getSidebarSections(parent.slug) : [];
 const categoryDocs = category ? getOrderedDocsForCategory(allDocs, category) : [];
 const suggestedArticles = isParentView && parent
   ? getSuggestedSearchArticles(allDocs, {
@@ -81,7 +73,7 @@ const searchPreviews = getSearchPreviewLookup(allDocs);
       <div class="min-w-0 flex-1">
         {isParentView && parentData ? (
           <section class="site-panel rounded-[15px] border border-[var(--color-border)] bg-[var(--color-surface)] p-6 sm:p-8 lg:p-10">
-            <p class="text-xs font-semibold uppercase tracking-[0.28em] text-[var(--color-text-soft)]">Category</p>
+            <p class="docs-ui-label">Category</p>
             <h1 class="mt-4 text-4xl font-semibold tracking-tight text-[var(--color-text-strong)]">{parentData.name}</h1>
             <p class="mt-3 max-w-2xl text-base leading-7 text-[var(--color-text)]">{parentData.description}</p>
 
@@ -96,10 +88,7 @@ const searchPreviews = getSearchPreviewLookup(allDocs);
                   </a>
                   <div class="mt-4">
                     <div class="space-y-0">
-                      {allDocs
-                        .filter((doc) => doc.data.category === section.slug)
-                        .sort((a, b) => (a.data.order ?? 100) - (b.data.order ?? 100))
-                        .map((article) => (
+                      {getOrderedDocsForCategory(allDocs, section.slug).map((article) => (
                           <a
                             href={getArticleHref(section.slug, getCleanDocSlug(article.id))}
                             class="docs-article-list-link block px-4 py-3 text-sm text-[var(--color-link-subtle)] transition hover:text-[var(--color-accent)]"
@@ -127,7 +116,6 @@ const searchPreviews = getSearchPreviewLookup(allDocs);
             ) : (
               <div class="docs-divider mt-10 border-t border-[var(--color-border)] pt-6">
                 <PaginatedArticleList
-                  idPrefix={`category-${subcategory?.slug ?? category}`}
                   pageSize={8}
                   items={categoryDocs.map((doc) => ({
                     title: doc.data.title,

@@ -518,6 +518,16 @@ html.dark .astro-code[data-language='text'] span {
   color: var(--color-accent);
 }
 
+.docs-ui-label,
+.docs-article-pagination-label,
+.docs-article-meta-copy,
+.docs-toc-title {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 400;
+  color: var(--color-ui-label);
+}
+
 .docs-breadcrumbs {
   color: var(--color-text-muted);
 }
@@ -559,10 +569,6 @@ html.dark .astro-code[data-language='text'] span {
 
 .docs-toc-title {
   margin: 0;
-  font-family: var(--font-mono);
-  font-size: 0.78rem;
-  font-weight: 400;
-  color: var(--color-ui-label);
 }
 
 .docs-toc-list {
@@ -673,10 +679,6 @@ html.dark .astro-code[data-language='text'] span {
   display: inline-flex;
   align-items: center;
   gap: 0.35rem;
-  font-family: var(--font-mono);
-  font-size: 0.72rem;
-  font-weight: 400;
-  color: var(--color-ui-label);
 }
 
 .docs-article-pagination-link-next {
@@ -700,13 +702,6 @@ html.dark .astro-code[data-language='text'] span {
   width: 0.95rem;
   height: 0.95rem;
   flex: none;
-}
-
-.docs-article-meta-copy {
-  font-family: var(--font-mono);
-  font-size: 0.72rem;
-  font-weight: 400;
-  color: var(--color-ui-label);
 }
 
 .docs-article-meta-link {

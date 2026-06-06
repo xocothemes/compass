@@ -6,11 +6,10 @@ import {
   docsCategoryDataMap,
   docsParentMap,
   getArticleHref,
-  getCategoriesForParent,
-  getCategoryHref,
   getCleanDocSlug,
   getOrderedDocsForCategory,
   getSearchPreviewLookup,
+  getSidebarSections,
   getSuggestedSearchArticles,
 } from '../../../data/docs';
 import Layout from '../../../layouts/Layout.astro';
@@ -28,11 +27,7 @@ const { parent: parentSlug, category } = Astro.params;
 const parent = parentSlug ? docsParentMap[parentSlug as keyof typeof docsParentMap] : undefined;
 const subcategory = category ? docsCategoryDataMap[category as keyof typeof docsCategoryDataMap] : undefined;
 const allDocs = await getCollection('docs');
-const sections = parent ? getCategoriesForParent(parent.slug).map((section) => ({
-  name: section.name,
-  slug: section.slug,
-  href: getCategoryHref(section.slug),
-})) : [];
+const sections = parent ? getSidebarSections(parent.slug) : [];
 const categoryDocs = category ? getOrderedDocsForCategory(allDocs, category) : [];
 const suggestedArticles = getSuggestedSearchArticles(allDocs, {
   limit: 3,
@@ -74,7 +69,6 @@ const searchPreviews = getSearchPreviewLookup(allDocs);
         ) : (
           <div class="docs-divider mt-10 border-t border-[var(--color-border)] pt-6">
             <PaginatedArticleList
-              idPrefix={`nested-category-${subcategory?.slug ?? category}`}
               pageSize={8}
               items={categoryDocs.map((doc) => ({
                 title: doc.data.title,

@@ -4,6 +4,14 @@ All notable changes to this project will be documented in this file.
 
 The format is based on Keep a Changelog, and this project follows semantic versioning when tagged or released.
 
+## [Unreleased]
+
+### Changed
+- Removed an unused fallback favicon asset and aligned the starter docs with the actual branding files in use.
+- Simplified shared search and pagination types by dropping unreferenced fields and props.
+- Reused a shared sidebar section helper across docs routes and made the header brand label follow `site.config.mjs`.
+- Unified small UI labels like category headings, sidebar labels, article meta, and the 404 marker under the same mono sentence-case treatment.
+
 ## [0.1.3] - 2026-06-05
 
 ### Added

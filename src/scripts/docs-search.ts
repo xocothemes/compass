@@ -27,7 +27,6 @@ type SearchEntry = {
   titleHtml?: string;
   excerpt: string;
   excerptHtml?: string;
-  category: string;
   url: string;
 };
 
@@ -319,7 +318,6 @@ const searchPagefind = async (
         titleHtml: highlightText(title, query),
         excerpt: preview,
         excerptHtml,
-        category: data.meta.category ?? 'Docs',
         url: data.url,
       };
     }),

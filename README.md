@@ -183,7 +183,6 @@ If you add your own Astro component, register it there to make it available insi
 ```text
 .
 |-- public/
-|   |-- favicon.svg
 |   `-- icons/
 |-- src/
 |   |-- components/

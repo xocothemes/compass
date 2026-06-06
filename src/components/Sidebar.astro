@@ -1,9 +1,5 @@
 ---
-interface SidebarSection {
-  name: string;
-  slug: string;
-  href: string;
-}
+import type { SidebarSection } from '../data/docs';
 
 interface Props {
   sections: SidebarSection[];
@@ -11,7 +7,6 @@ interface Props {
   suggestions?: {
     title: string;
     excerpt: string;
-    category: string;
     url: string;
   }[];
   searchPreviews?: Record<string, string>;
@@ -60,7 +55,7 @@ const searchId = `sidebar-search-${Math.random().toString(36).slice(2, 10)}`;
   </div>
 
   <div class="mt-8 hidden lg:block">
-    <p class="font-mono text-xs font-normal text-[var(--color-ui-label)]">Categories</p>
+    <p class="docs-ui-label">Categories</p>
     <ul class="mt-5 space-y-1">
       {sections.map((section) => {
         const isActiveSection = activeCategory === section.slug;

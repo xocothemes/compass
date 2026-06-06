@@ -6,14 +6,12 @@ interface Item {
 
 interface Props {
   items: Item[];
-  idPrefix: string;
   pageSize?: number;
   itemClassName?: string;
 }
 
 const {
   items,
-  idPrefix,
   pageSize = 6,
   itemClassName = 'docs-article-list-link block py-4 text-xl font-medium tracking-tight text-[var(--color-link-subtle)] transition hover:text-[var(--color-accent)]',
 } = Astro.props;
@@ -23,7 +21,6 @@ const {
   class="paginated-article-list"
   data-pagination-root
   data-pagination-page-size={pageSize}
-  data-pagination-id={idPrefix}
 >
   <div class="space-y-0">
     {items.map((item, index) => (

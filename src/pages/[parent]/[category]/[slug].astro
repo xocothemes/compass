@@ -6,12 +6,12 @@ import { mdxComponents } from '../../../components/docs/mdx-components';
 import {
   docsCategoryDataMap,
   docsParentMap,
-  getCategoriesForParent,
   getArticleHref,
   getCategoryHref,
   getCleanDocSlug,
   getOrderedDocsForCategory,
   getSearchPreviewLookup,
+  getSidebarSections,
   getSuggestedSearchArticles,
 } from '../../../data/docs';
 import Layout from '../../../layouts/Layout.astro';
@@ -39,11 +39,7 @@ const orderedCategoryDocs = getOrderedDocsForCategory(allDocs, doc.data.category
 const currentDocIndex = orderedCategoryDocs.findIndex((entry) => entry.id === doc.id);
 const previousDoc = currentDocIndex > 0 ? orderedCategoryDocs[currentDocIndex - 1] : undefined;
 const nextDoc = currentDocIndex >= 0 ? orderedCategoryDocs[currentDocIndex + 1] : undefined;
-const sidebarSections = getCategoriesForParent(parent.slug).map((section) => ({
-  name: section.name,
-  slug: section.slug,
-  href: getCategoryHref(section.slug),
-}));
+const sidebarSections = getSidebarSections(parent.slug);
 const suggestedArticles = getSuggestedSearchArticles(allDocs, {
   limit: 3,
   categories: [doc.data.category],
