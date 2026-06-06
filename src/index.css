@@ -32,6 +32,7 @@
   --color-text: #334155;
   --color-text-muted: #64748b;
   --color-text-soft: #94a3b8;
+  --color-ui-label: #475569;
   --color-text-inverse: #ffffff;
   --color-brand: #2563eb;
   --color-brand-hover: #1d4ed8;
@@ -115,6 +116,7 @@ html.dark {
   --color-text: #e2e8f0;
   --color-text-muted: #94a3b8;
   --color-text-soft: #8fa1c2;
+  --color-ui-label: #a5b4cf;
   --color-text-inverse: #ffffff;
   --color-brand: #2563eb;
   --color-brand-hover: #1d4ed8;
@@ -502,23 +504,30 @@ html.dark .astro-code[data-language='text'] span {
 
 .docs-toc {
   position: relative;
-  max-width: 22rem;
-  padding: 0.15rem 0 0;
+  max-width: none;
+  margin-inline: -1.5rem;
+  padding: 1rem 2.6rem 1rem 2.75rem;
+  background:
+    linear-gradient(
+      90deg,
+      color-mix(in srgb, var(--color-accent) 6%, var(--color-surface)) 0%,
+      color-mix(in srgb, var(--color-accent) 3.5%, var(--color-surface)) 30%,
+      var(--color-surface) 100%
+    );
 }
 
 .docs-toc-title {
   margin: 0;
+  font-family: var(--font-mono);
   font-size: 0.78rem;
-  font-weight: 500;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--color-text-soft);
+  font-weight: 400;
+  color: var(--color-ui-label);
 }
 
 .docs-toc-list {
   position: relative;
   margin: 0;
-  padding: 0.75rem 0 0 0.95rem;
+  padding: 0.75rem 0 0 0.9rem;
   list-style: none;
 }
 
@@ -529,7 +538,7 @@ html.dark .astro-code[data-language='text'] span {
   bottom: 0;
   left: 0;
   width: 1px;
-  background: color-mix(in srgb, var(--color-border) 92%, transparent);
+  background: color-mix(in srgb, var(--color-border) 80%, transparent);
 }
 
 .docs-toc-list li + li {
@@ -553,9 +562,8 @@ html.dark .astro-code[data-language='text'] span {
   position: absolute;
   top: 0.2rem;
   bottom: 0.2rem;
-  left: -0.95rem;
+  left: -0.9rem;
   width: 2px;
-  border-radius: 999px;
   background: transparent;
 }
 
@@ -574,13 +582,23 @@ html.dark .astro-code[data-language='text'] span {
 }
 
 .docs-toc-link-subheading::before {
-  left: -0.95rem;
+  left: -0.9rem;
   width: 1px;
 }
 
-@media (min-width: 768px) {
+@media (min-width: 640px) {
   .docs-toc {
-    margin-left: 0.1rem;
+    margin-inline: -2rem;
+    padding-right: 3.1rem;
+    padding-left: 3.25rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .docs-toc {
+    margin-inline: -2.5rem;
+    padding-right: 3.6rem;
+    padding-left: 3.75rem;
   }
 }
 
@@ -614,21 +632,20 @@ html.dark .astro-code[data-language='text'] span {
   display: inline-flex;
   align-items: center;
   gap: 0.35rem;
+  font-family: var(--font-mono);
   font-size: 0.72rem;
-  font-weight: 700;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--color-text-soft);
+  font-weight: 400;
+  color: var(--color-ui-label);
 }
 
 .docs-article-pagination-link-next {
-  align-items: flex-start;
+  align-items: flex-end;
 }
 
 .docs-article-pagination-link-next .docs-article-pagination-label,
 .docs-article-pagination-link-next .docs-article-pagination-title {
   justify-content: flex-end;
-  text-align: left;
+  text-align: right;
 }
 
 .docs-article-pagination-title {
@@ -645,11 +662,10 @@ html.dark .astro-code[data-language='text'] span {
 }
 
 .docs-article-meta-copy {
+  font-family: var(--font-mono);
   font-size: 0.72rem;
-  font-weight: 700;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: var(--color-text-soft);
+  font-weight: 400;
+  color: var(--color-ui-label);
 }
 
 .docs-article-meta-link {
@@ -662,17 +678,6 @@ html.dark .astro-code[data-language='text'] span {
 
 .docs-article-meta-link:hover {
   color: var(--color-accent);
-}
-
-@media (min-width: 768px) {
-  .docs-article-pagination-link-next {
-    align-items: flex-end;
-  }
-
-  .docs-article-pagination-link-next .docs-article-pagination-label,
-  .docs-article-pagination-link-next .docs-article-pagination-title {
-    text-align: right;
-  }
 }
 
 .search-result-title,

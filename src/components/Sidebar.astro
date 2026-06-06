@@ -60,7 +60,7 @@ const searchId = `sidebar-search-${Math.random().toString(36).slice(2, 10)}`;
   </div>
 
   <div class="mt-8 hidden lg:block">
-    <p class="text-xs font-semibold uppercase tracking-[0.28em] text-[var(--color-text-soft)]">Categories</p>
+    <p class="font-mono text-xs font-normal text-[var(--color-ui-label)]">Categories</p>
     <ul class="mt-5 space-y-1">
       {sections.map((section) => {
         const isActiveSection = activeCategory === section.slug;

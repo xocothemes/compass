@@ -17,6 +17,8 @@ The format is based on Keep a Changelog, and this project follows semantic versi
 - Hidden docs are excluded from suggested article search prompts and the Pagefind indexed article set.
 - Moved article metadata like "Updated" and "Edit this page" below the article panel while keeping previous/next navigation inside the content card.
 - Search results now highlight matched terms in titles and excerpts, using Pagefind hit excerpts when available.
+- Refined the article table of contents with a flush tinted background panel that extends to the card edges.
+- Shifted sidebar and article meta labels to a lighter mono sentence-case styling with stronger light-mode contrast.
 - Updated starter docs, README, and contributing guidance to document the new frontmatter workflow.
 
 ## [0.1.2] - 2026-06-05
