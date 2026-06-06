@@ -7,6 +7,7 @@ This repository expects small maintenance docs updates alongside product or cont
 When making a meaningful change, review these files before finishing:
 
 - `CHANGELOG.md` for user-visible additions, changes, or fixes
+- `package.json` and `package-lock.json` to keep the package version in sync with the latest released section in `CHANGELOG.md`
 - `README.md` when setup, usage, included features, or reusable components changed
 - `CONTRIBUTING.md` when contributor workflow or expectations changed
 

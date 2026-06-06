@@ -285,6 +285,12 @@ textarea {
   color: var(--color-accent);
 }
 
+@media (max-width: 767px) {
+  .docs-heading-anchor {
+    display: none;
+  }
+}
+
 .prose a {
   color: var(--color-accent);
 }
