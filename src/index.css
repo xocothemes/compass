@@ -103,6 +103,10 @@
   --color-tab-text: #334155;
   --color-tab-hover: #0f172a;
   --color-tab-active: #2563eb;
+  --color-code-tab-bg: #f8fafc;
+  --color-code-tab-bg-hover: #eff6ff;
+  --color-code-tab-border: rgb(226 232 240 / 0.95);
+  --color-code-tab-panel-bg: #f8fafc;
   color-scheme: light;
 }
 
@@ -187,6 +191,10 @@ html.dark {
   --color-tab-text: #cbd5e1;
   --color-tab-hover: #f8fafc;
   --color-tab-active: #93c5fd;
+  --color-code-tab-bg: rgb(15 23 38 / 0.9);
+  --color-code-tab-bg-hover: rgb(30 41 59 / 0.96);
+  --color-code-tab-border: rgb(51 65 85 / 0.92);
+  --color-code-tab-panel-bg: rgb(15 23 38 / 0.92);
   color-scheme: dark;
 }
 
@@ -1116,6 +1124,56 @@ html.dark .astro-code[data-language='text'] span {
 
 .docs-tab-panel {
   color: inherit;
+}
+
+.docs-code-tabs .docs-tabs-list {
+  gap: 1.4rem;
+  margin-bottom: 0;
+  border-bottom: 1px solid var(--color-code-block-border);
+}
+
+.docs-code-tabs .docs-tab {
+  border: 0;
+  border-bottom: 2px solid transparent;
+  border-radius: 0;
+  background: transparent;
+  padding: 0 0 0.8rem;
+}
+
+.docs-code-tabs .docs-tab:hover {
+  background: transparent;
+}
+
+.docs-code-tabs .docs-tab.is-active {
+  border-bottom-color: var(--color-code-block-border);
+}
+
+.docs-code-tab-panel {
+  margin-top: 0;
+  padding: 0;
+}
+
+.docs-code-tab-panel > :first-child {
+  margin-top: 0;
+}
+
+.docs-code-tab-panel > :last-child {
+  margin-bottom: 0;
+}
+
+.docs-code-tab-panel .code-block-shell {
+  margin: 0;
+}
+
+.docs-code-tab-panel .code-block-header {
+  display: none;
+}
+
+.docs-code-tab-panel .astro-code {
+  margin-top: -1px;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+  padding-top: 1rem;
 }
 
 ::selection {

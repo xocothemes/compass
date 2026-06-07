@@ -6,6 +6,9 @@ The format is based on Keep a Changelog, and this project follows semantic versi
 
 ## [Unreleased]
 
+### Added
+- Added a reusable `CodeTabs` MDX component for package manager, framework, and command-variant code examples.
+
 ### Changed
 - Added an optional `/rss.xml` feed for recent docs updates using article `updatedAt` metadata.
 - Removed an unused fallback favicon asset and aligned the starter docs with the actual branding files in use.

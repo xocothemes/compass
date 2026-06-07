@@ -22,6 +22,7 @@ Compass is a clean Astro documentation theme for product docs, support centers, 
 - Searchable docs landing page and sidebar search powered by Pagefind
 - Optional RSS feed for recent docs updates at `/rss.xml`
 - Reusable docs components like callouts, tabs, steps, accordions, checklists, buttons, and quotes
+- Dedicated code tabs for command and framework variants inside MDX articles
 - Syntax-aware code blocks with language headers for code-focused snippets
 - Light and dark mode support
 - Shared site config for branding, links, and CTA text
@@ -175,6 +176,7 @@ Compass includes MDX-ready components for richer docs pages:
 - `Steps`
 - `Step`
 - `Tabs`
+- `CodeTabs`
 - `Checklist`
 
 They are registered in [src/components/docs/mdx-components.ts](./src/components/docs/mdx-components.ts) and used automatically in article routes.
