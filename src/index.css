@@ -894,6 +894,7 @@ html.dark .astro-code[data-language='text'] span {
 }
 
 .docs-callout {
+  border-radius: var(--radius-ui);
   color: var(--color-callout-text);
 }
 
@@ -1022,6 +1023,62 @@ html.dark .astro-code[data-language='text'] span {
   border-color: color-mix(in srgb, var(--color-callout-danger-icon) 26%, var(--color-border-strong));
   background: color-mix(in srgb, var(--color-callout-danger-icon) 8%, var(--color-surface));
   color: var(--color-callout-danger-title);
+}
+
+.docs-card-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.docs-link-card {
+  display: block;
+  width: min(100%, calc(50% - 0.5rem));
+  box-shadow: inset 0 0 0 1px var(--color-border);
+  text-decoration: none;
+}
+
+.docs-card-grid > .docs-link-card {
+  flex: 0 1 calc(50% - 0.5rem);
+  min-width: min(100%, 18rem);
+}
+
+.docs-link-card:hover,
+.docs-link-card:focus-visible {
+  transform: translateY(-2px);
+  box-shadow:
+    inset 0 0 0 1px var(--color-border-strong),
+    0 12px 28px -22px rgb(15 23 42 / 0.42);
+  border-color: var(--color-border-strong);
+}
+
+.docs-link-card-eyebrow {
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 400;
+  color: var(--color-ui-label);
+}
+
+.docs-link-card-title {
+  margin: 0;
+  color: var(--color-text-strong);
+}
+
+.docs-link-card-icon {
+  color: var(--color-ui-label);
+  transition: transform 150ms ease, color 150ms ease;
+}
+
+.docs-link-card:hover .docs-link-card-icon,
+.docs-link-card:focus-visible .docs-link-card-icon {
+  color: var(--color-accent);
+  transform: translate(1px, -1px);
+}
+
+.docs-link-card-description {
+  margin: 0;
+  color: var(--color-text);
 }
 
 .docs-quote {
@@ -1363,6 +1420,20 @@ html.dark .astro-code[data-language='text'] span {
   .docs-table-body-cell {
     font-size: 0.88rem;
     line-height: 1.45;
+  }
+
+  .docs-card-grid {
+    display: block;
+  }
+
+  .docs-link-card,
+  .docs-card-grid > .docs-link-card {
+    width: 100%;
+    min-width: 0;
+  }
+
+  .docs-card-grid > .docs-link-card + .docs-link-card {
+    margin-top: 1rem;
   }
 }
 

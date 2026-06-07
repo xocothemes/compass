@@ -1,6 +1,8 @@
 import Accordion from './Accordion.astro';
 import Badge from './Badge.astro';
 import ButtonLink from './ButtonLink.astro';
+import Card from './Card.astro';
+import CardGrid from './CardGrid.astro';
 import Callout from './Callout.astro';
 import Checklist from './Checklist.astro';
 import ChecklistItem from './ChecklistItem.astro';
@@ -16,6 +18,8 @@ export const mdxComponents = {
   Accordion,
   Badge,
   ButtonLink,
+  Card,
+  CardGrid,
   Callout,
   Checklist,
   ChecklistItem,

@@ -18,6 +18,16 @@ Add a `Callout` block directly inside any `.mdx` article:
 </Callout>
 ```
 
+You can also provide an optional title:
+
+```mdx
+<Callout tone="warning" title="Before you rename routes">
+  Add redirects for any URLs that already exist in production.
+</Callout>
+```
+
+The `title` prop is optional. Use it when the callout needs a stronger label, and leave it out when a short note is enough on its own.
+
 ## Implementation notes
 
 The component is registered in `src/components/docs/mdx-components.ts`, so it is already available inside docs articles. If you want to change the styling or tones, edit `src/components/docs/Callout.astro` and the matching callout styles in `src/index.css`.
@@ -35,7 +45,7 @@ The component is registered in `src/components/docs/mdx-components.ts`, so it is
   This adds a note in the content.
 </Callout>
 
-<Callout tone="success">
+<Callout tone="success" title="You are ready to publish">
   Use this for publishing confirmations, approved changes, or moments where the reader should feel confident moving on.
 </Callout>
 

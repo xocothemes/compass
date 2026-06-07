@@ -13,6 +13,8 @@ The format is based on Keep a Changelog, and this project follows semantic versi
 - Added a reusable `FileTree` MDX component for showing repo structure and article-owned file paths.
 - Added a reusable `Badge` MDX component for inline status labels like new, beta, required, and deprecated.
 - Added a reusable `Table` MDX component for comparisons, reference grids, and compact docs data.
+- Added reusable `Card` and `CardGrid` MDX components for related guides, next steps, and grouped destination links.
+- Added optional article `relatedLinks` frontmatter so docs pages can render end-of-article recommendation cards.
 
 ### Changed
 - Added an optional `/rss.xml` feed for recent docs updates using article `updatedAt` metadata.
@@ -25,6 +27,8 @@ The format is based on Keep a Changelog, and this project follows semantic versi
 - Replaced the code copy success checkmark with a tooltip-style copied state.
 - Rounded accordion corners and updated step numbers to use circular badges.
 - Simplified the `FileTree` presentation by removing its outer card background and border.
+- Replaced inline continuation links in starter articles with end-of-article recommendation cards.
+- Added optional callout titles with tone-matched heading colors.
 
 ## [0.1.3] - 2026-06-05
 

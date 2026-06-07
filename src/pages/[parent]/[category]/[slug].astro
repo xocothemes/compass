@@ -2,6 +2,7 @@
 import { Image } from 'astro:assets';
 import { getCollection, render } from 'astro:content';
 import Sidebar from '../../../components/Sidebar.astro';
+import Card from '../../../components/docs/Card.astro';
 import { mdxComponents } from '../../../components/docs/mdx-components';
 import {
   docsCategoryDataMap,
@@ -143,6 +144,22 @@ const articlePagefindAttributes = doc.data.hideFromSearch
         <div class="prose mt-10 max-w-none prose-headings:font-semibold prose-a:text-[var(--color-accent)] prose-a:no-underline hover:prose-a:text-[var(--color-accent-hover)] prose-code:rounded prose-code:bg-[var(--color-inline-code-bg)] prose-code:px-1 prose-code:py-0.5 prose-code:text-[var(--color-inline-code-fg)] prose-pre:bg-transparent prose-pre:p-0">
           <Content components={mdxComponents} />
         </div>
+
+        {doc.data.relatedLinks.length > 0 && (
+          <section class="docs-related-links mt-12 border-t border-[var(--color-border)] pt-8">
+            <p class="docs-ui-label">Continue with</p>
+            <div class="docs-card-grid mt-4 grid gap-4 md:grid-cols-2" data-pagefind-ignore>
+              {doc.data.relatedLinks.map((link) => (
+                <Card
+                  href={link.href}
+                  title={link.title}
+                  description={link.description}
+                  eyebrow={link.eyebrow}
+                />
+              ))}
+            </div>
+          </section>
+        )}
 
         {(previousDoc || nextDoc) && (
           <section class="docs-article-footer mt-12 border-t border-[var(--color-border)] pt-8">

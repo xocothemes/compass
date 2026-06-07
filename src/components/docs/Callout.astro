@@ -1,10 +1,12 @@
 ---
 interface Props {
   tone?: 'info' | 'success' | 'warning' | 'danger';
+  title?: string;
 }
 
 const {
   tone = 'info',
+  title,
 } = Astro.props;
 
 const tones = {
@@ -37,6 +39,7 @@ const toneStyles = tones[tone];
       </svg>
     </span>
     <div class="min-w-0">
+      {title && <p class="docs-callout-title mb-1 text-sm font-semibold">{title}</p>}
       <div class="text-sm leading-6">
         <slot />
       </div>

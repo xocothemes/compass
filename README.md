@@ -21,7 +21,7 @@ Compass is a clean Astro documentation theme for product docs, support centers, 
 - Previous and next article navigation within each docs section
 - Searchable docs landing page and sidebar search powered by Pagefind
 - Optional RSS feed for recent docs updates at `/rss.xml`
-- Reusable docs components like callouts, tabs, badges, tables, steps, accordions, checklists, buttons, and quotes
+- Reusable docs components like callouts, tabs, badges, tables, cards, steps, accordions, checklists, buttons, and quotes
 - Dedicated code tabs for command and framework variants inside MDX articles
 - File tree blocks for documenting repo structure and editing paths
 - Syntax-aware code blocks with language headers for code-focused snippets
@@ -124,6 +124,7 @@ Useful optional frontmatter fields:
 - `heroImage` for a top-of-page article image loaded through Astro's image pipeline
 - `hideFromSearch` to keep a page out of the Pagefind index
 - `redirectFrom` to generate redirect aliases for renamed or moved docs routes
+- `relatedLinks` to render end-of-article recommendation cards for next steps or related guides
 
 If an article includes screenshots or diagrams, keep them beside the article entry:
 
@@ -172,6 +173,8 @@ Compass includes MDX-ready components for richer docs pages:
 
 - `Callout`
 - `ButtonLink`
+- `Card`
+- `CardGrid`
 - `Badge`
 - `QuoteBlock`
 - `Accordion`
