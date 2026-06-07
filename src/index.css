@@ -1036,7 +1036,9 @@ html.dark .astro-code[data-language='text'] span {
 
 .docs-accordion {
   border: 1px solid var(--color-accordion-border);
+  border-radius: var(--radius-ui);
   background: transparent;
+  overflow: hidden;
 }
 
 .docs-accordion-summary {
@@ -1128,6 +1130,7 @@ html.dark .astro-code[data-language='text'] span {
 
 .docs-step-number {
   border: 1px solid var(--color-step-number-border);
+  border-radius: 999px;
   color: var(--color-step-number-text);
 }
 
@@ -1149,16 +1152,22 @@ html.dark .astro-code[data-language='text'] span {
 }
 
 .docs-tab {
+  border: 0;
+  border-bottom: 2px solid transparent;
+  border-radius: 0;
+  background: transparent;
   color: var(--color-tab-text);
   padding-left: 0.2rem;
   padding-right: 0.2rem;
 }
 
 .docs-tab:hover {
+  background: transparent;
   color: var(--color-tab-hover);
 }
 
 .docs-tab.is-active {
+  border-bottom-color: var(--color-code-block-border);
   color: var(--color-tab-active);
 }
 
@@ -1221,10 +1230,7 @@ html.dark .astro-code[data-language='text'] span {
 }
 
 .docs-file-tree {
-  border: 1px solid var(--color-code-block-border);
-  border-radius: var(--radius-ui);
-  background: var(--color-surface-muted);
-  padding: 0.85rem 0.9rem 0.85rem 0.95rem;
+  padding: 0.15rem 0;
 }
 
 .docs-file-tree-branch {

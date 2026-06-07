@@ -23,6 +23,8 @@ The format is based on Keep a Changelog, and this project follows semantic versi
 - Matched the standard `Tabs` active state underline to the existing `CodeTabs` treatment.
 - Removed article H2 link-copy controls and their related styling.
 - Replaced the code copy success checkmark with a tooltip-style copied state.
+- Rounded accordion corners and updated step numbers to use circular badges.
+- Simplified the `FileTree` presentation by removing its outer card background and border.
 
 ## [0.1.3] - 2026-06-05
 
