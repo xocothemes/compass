@@ -182,10 +182,9 @@ const bindSearchShortcuts = () => {
   });
 };
 
-const setResultsVisibility = (input: HTMLInputElement, results: HTMLDivElement, isVisible: boolean) => {
+const setResultsVisibility = (_input: HTMLInputElement, results: HTMLDivElement, isVisible: boolean) => {
   results.classList.toggle('hidden', !isVisible);
   results.setAttribute('aria-hidden', String(!isVisible));
-  input.setAttribute('aria-expanded', String(isVisible));
 };
 
 const announceStatus = (status: HTMLElement | null, message = '') => {
