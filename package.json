@@ -1,6 +1,6 @@
 {
   "name": "compass-docs-theme",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "description": "A clean documentation theme for Astro, built with Tailwind CSS.",
   "type": "module",
   "license": "MIT",
@@ -30,6 +30,8 @@
     "preview": "astro preview --host 0.0.0.0 --port 3000",
     "check": "astro check",
     "lint": "astro check",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
     "clean": "node -e \"import('node:fs').then((fs) => ['dist', '.astro'].forEach((dir) => fs.rmSync(dir, { recursive: true, force: true })))\""
   },
   "keywords": [
@@ -52,6 +54,8 @@
   "devDependencies": {
     "@astrojs/check": "^0.9.9",
     "pagefind": "^1.5.2",
+    "prettier": "^3.8.4",
+    "prettier-plugin-astro": "^0.14.1",
     "typescript": "^5.9.3"
   },
   "overrides": {

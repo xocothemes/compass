@@ -1,7 +1,7 @@
 ---
-title: "Button Links"
-description: "Use inline CTA buttons when an article should point readers to the next page or action."
-category: "components"
+title: 'Button Links'
+description: 'Use inline CTA buttons when an article should point readers to the next page or action.'
+category: 'components'
 order: 3
 updatedAt: 2026-06-03
 ---
@@ -13,9 +13,7 @@ Use button links when a regular text link is too quiet and the article needs a c
 Add a `ButtonLink` block inside an `.mdx` article:
 
 ```mdx
-<ButtonLink href="/getting-started/compass-docs/write-your-first-article">
-  Read the setup guide
-</ButtonLink>
+<ButtonLink href="/getting-started/compass-docs/write-your-first-article">Read the setup guide</ButtonLink>
 ```
 
 You can also use the secondary variant:
@@ -34,5 +32,7 @@ The component lives in `src/components/docs/ButtonLink.astro`. To change spacing
 
 <div class="flex flex-wrap gap-3">
   <ButtonLink href="/getting-started/compass-docs/write-your-first-article">Read the setup guide</ButtonLink>
-  <ButtonLink href="/getting-started/compass-docs/manage-docs" variant="secondary">Manage your docs</ButtonLink>
+  <ButtonLink href="/getting-started/compass-docs/manage-docs" variant="secondary">
+    Manage your docs
+  </ButtonLink>
 </div>

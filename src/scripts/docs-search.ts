@@ -220,8 +220,8 @@ const renderResults = (
   results.innerHTML = `
     <ul class="divide-y divide-[var(--color-border)]" aria-label="${escapeHtml(label)}">
       ${entries
-    .map(
-      (entry) => `
+        .map(
+          (entry) => `
         <li>
           <a href="${escapeHtml(entry.url)}" class="block px-4 py-3 transition-colors hover:bg-[var(--color-hover-surface)]">
             <div class="search-result-title text-sm font-medium text-[var(--color-accent)]">${entry.titleHtml ?? escapeHtml(entry.title)}</div>
@@ -229,8 +229,8 @@ const renderResults = (
           </a>
         </li>
       `,
-    )
-    .join('')}
+        )
+        .join('')}
     </ul>
   `;
   setResultsVisibility(input, results, true);
@@ -274,7 +274,10 @@ const renderSuggestions = (
   }
 
   renderResults(input, results, status, suggestions, 'Suggested articles');
-  announceStatus(status, `${suggestions.length} suggested ${suggestions.length === 1 ? 'article' : 'articles'} available.`);
+  announceStatus(
+    status,
+    `${suggestions.length} suggested ${suggestions.length === 1 ? 'article' : 'articles'} available.`,
+  );
 };
 
 const setSearchUnavailable = (
@@ -304,7 +307,7 @@ const searchPagefind = async (
       const normalizedUrl = normalizeSearchUrl(data.url);
       const preview = data.excerpt
         ? stripTags(data.excerpt)
-        : searchPreviews[normalizedUrl] ?? data.meta.preview ?? '';
+        : (searchPreviews[normalizedUrl] ?? data.meta.preview ?? '');
       const title = data.meta.title ?? 'Untitled';
       const excerptHtml = data.excerpt
         ? sanitizeHighlightedHtml(data.excerpt)
@@ -362,15 +365,12 @@ const attachSearch = (root: HTMLElement) => {
     renderResults(input, results, status, matches);
   };
 
-  input.addEventListener(
-    'focus',
-    () => {
-      void getPagefind();
-      if (!input.value.trim()) {
-        renderSuggestions(root, input, results, status);
-      }
-    },
-  );
+  input.addEventListener('focus', () => {
+    void getPagefind();
+    if (!input.value.trim()) {
+      renderSuggestions(root, input, results, status);
+    }
+  });
 
   input.addEventListener('click', () => {
     if (!input.value.trim()) {

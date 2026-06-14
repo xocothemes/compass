@@ -60,6 +60,7 @@ npm run dev
 npm run build
 npm run preview
 npm run check
+npm run format:check
 npm run clean
 ```
 
@@ -98,16 +99,16 @@ Inside that article file, use frontmatter like this:
 
 ```mdx
 ---
-title: "Set Up Compass"
-description: "Start customizing the theme and content structure."
-category: "start-here"
-tags: ["setup", "branding"]
-status: "published"
-author: "Docs Team"
-editUrl: "https://github.com/your-org/your-repo/edit/main/src/content/docs/start-here/set-up-compass/set-up-compass.mdx"
-heroImage: "./hero.png"
+title: 'Set Up Compass'
+description: 'Start customizing the theme and content structure.'
+category: 'start-here'
+tags: ['setup', 'branding']
+status: 'published'
+author: 'Docs Team'
+editUrl: 'https://github.com/your-org/your-repo/edit/main/src/content/docs/start-here/set-up-compass/set-up-compass.mdx'
+heroImage: './hero.png'
 redirectFrom:
-  - "/start-here/getting-started"
+  - '/start-here/getting-started'
 order: 1
 updatedAt: 2026-06-03
 ---
@@ -118,7 +119,7 @@ updatedAt: 2026-06-03
 Useful optional frontmatter fields:
 
 - `tags` for future filters, grouping, or editorial workflows
-- `status` for lifecycle states like `draft`, `published`, `deprecated`, or `archived`
+- `status` for lifecycle states like `draft`, `published`, `deprecated`, or `archived`; `draft` and `archived` articles are excluded from generated routes, navigation, search, redirects, and RSS
 - `author` for ownership metadata
 - `editUrl` to show an "Edit this page" link on article pages
 - `heroImage` for a top-of-page article image loaded through Astro's image pipeline

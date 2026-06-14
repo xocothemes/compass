@@ -1,4 +1,4 @@
-@import "tailwindcss";
+@import 'tailwindcss';
 @plugin "@tailwindcss/typography";
 
 @font-face {
@@ -18,8 +18,10 @@
 }
 
 :root {
-  --font-sans: "Geist Sans", ui-sans-serif, system-ui, sans-serif;
-  --font-mono: "Geist Mono", ui-monospace, "SFMono-Regular", "Roboto Mono", Menlo, Monaco, "Liberation Mono", "Courier New", monospace;
+  --font-sans: 'Geist Sans', ui-sans-serif, system-ui, sans-serif;
+  --font-mono:
+    'Geist Mono', ui-monospace, 'SFMono-Regular', 'Roboto Mono', Menlo, Monaco, 'Liberation Mono', 'Courier New',
+    monospace;
   --docs-header-height: 4rem;
 
   /* Shared component radius for cards, panels, controls, and docs UI. */
@@ -219,7 +221,9 @@ body {
   font-family: var(--font-sans);
   background: var(--color-canvas);
   color: var(--color-ink);
-  transition: background-color 180ms ease, color 180ms ease;
+  transition:
+    background-color 180ms ease,
+    color 180ms ease;
 }
 
 button,
@@ -387,7 +391,10 @@ html.dark .astro-code[data-language='text'] span {
   border-radius: var(--radius-ui);
   padding: 0;
   cursor: pointer;
-  transition: color 150ms ease, border-color 150ms ease, background-color 150ms ease;
+  transition:
+    color 150ms ease,
+    border-color 150ms ease,
+    background-color 150ms ease;
 }
 
 .code-block-copy svg {
@@ -515,7 +522,9 @@ html.dark .astro-code[data-language='text'] span {
 
 @media (prefers-reduced-motion: reduce) {
   .site-card {
-    transition: border-color 180ms ease, box-shadow 180ms ease;
+    transition:
+      border-color 180ms ease,
+      box-shadow 180ms ease;
   }
 
   .site-card:hover,
@@ -921,7 +930,10 @@ html.dark .astro-code[data-language='text'] span {
   color: white;
   cursor: pointer;
   box-shadow: 0 18px 36px -20px rgb(15 23 42 / 0.65);
-  transition: transform 150ms ease, background-color 150ms ease, border-color 150ms ease;
+  transition:
+    transform 150ms ease,
+    background-color 150ms ease,
+    border-color 150ms ease;
 }
 
 .docs-lightbox-close svg {
@@ -954,7 +966,10 @@ html.dark .astro-code[data-language='text'] span {
   font-size: 0.875rem;
   font-weight: 600;
   cursor: pointer;
-  transition: color 150ms ease, border-color 150ms ease, background-color 150ms ease;
+  transition:
+    color 150ms ease,
+    border-color 150ms ease,
+    background-color 150ms ease;
 }
 
 .pagination-button:hover:not(:disabled),
@@ -1143,7 +1158,9 @@ html.dark .astro-code[data-language='text'] span {
 
 .docs-link-card-icon {
   color: var(--color-ui-label);
-  transition: transform 150ms ease, color 150ms ease;
+  transition:
+    transform 150ms ease,
+    color 150ms ease;
 }
 
 .docs-link-card:hover .docs-link-card-icon,

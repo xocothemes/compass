@@ -6,9 +6,18 @@ The format is based on Keep a Changelog, and this project follows semantic versi
 
 ## [Unreleased]
 
+## [0.1.6] - 2026-06-14
+
+### Changed
+
+- Made `draft` and `archived` docs explicitly non-public across routes, navigation, search data, redirects, and RSS.
+- Moved article table-of-contents, code-copy, and image-lightbox behavior into a shared `article-enhancements` browser module.
+- Added Prettier formatting commands and fixed an encoding artifact in a route comment.
+
 ## [0.1.5] - 2026-06-08
 
 ### Changed
+
 - Moved article table of contents links into the left docs sidebar under the category list and removed the previous in-article tinted panel treatment.
 - Added a sticky inline mobile "On this page" dropdown under the main header with a live current-section label, and increased spacing between table of contents items.
 - Turned parent landing page article lists into numbered index-style links so sections like `/getting-started` scan more clearly.
@@ -18,6 +27,7 @@ The format is based on Keep a Changelog, and this project follows semantic versi
 ## [0.1.4] - 2026-06-07
 
 ### Added
+
 - Added a reusable `CodeTabs` MDX component for package manager, framework, and command-variant code examples.
 - Added a reusable `FileTree` MDX component for showing repo structure and article-owned file paths.
 - Added a reusable `Badge` MDX component for inline status labels like new, beta, required, and deprecated.
@@ -26,6 +36,7 @@ The format is based on Keep a Changelog, and this project follows semantic versi
 - Added optional article `relatedLinks` frontmatter so docs pages can render end-of-article recommendation cards.
 
 ### Changed
+
 - Added an optional `/rss.xml` feed for recent docs updates using article `updatedAt` metadata.
 - Removed an unused fallback favicon asset and aligned the starter docs with the actual branding files in use.
 - Simplified shared search and pagination types by dropping unreferenced fields and props.
@@ -42,11 +53,13 @@ The format is based on Keep a Changelog, and this project follows semantic versi
 ## [0.1.3] - 2026-06-05
 
 ### Added
+
 - On-page table of contents for article headings, styled as a lightweight docs navigation rail.
 - Expanded docs frontmatter support for tags, status, author, edit links, hero images, search opt-out, and redirect aliases.
 - Redirect alias generation for docs pages via `redirectFrom` frontmatter.
 
 ### Changed
+
 - Fixed the header mobile navigation toggle so the menu opens correctly on small screens and closes after selection.
 - Article pages now support optional hero images and "Edit this page" links from frontmatter.
 - Hidden docs are excluded from suggested article search prompts and the Pagefind indexed article set.
@@ -59,9 +72,11 @@ The format is based on Keep a Changelog, and this project follows semantic versi
 ## [0.1.2] - 2026-06-05
 
 ### Added
+
 - Image lightbox expansion with click-to-zoom behavior; click the expanded image or anywhere outside it to zoom out.
 
 ### Changed
+
 - Refined article navigation styling with lighter inline links and locally hosted arrow icons.
 - Shifted docs and category page layouts to a larger responsive breakpoint so mid-sized screens give the content more room.
 - Replaced Manrope with locally hosted Geist Sans and Geist Mono.
@@ -72,16 +87,19 @@ The format is based on Keep a Changelog, and this project follows semantic versi
 ## [0.1.1] - 2026-06-05
 
 ### Added
+
 - New `Start Here` starter articles for creating articles, publishing Compass, restructuring categories, and branding the docs site.
 - Reusable checklist components for interactive task lists inside MDX content.
 
 ### Changed
+
 - Simplified the search results dropdown to show article titles with frontmatter-driven description previews.
 - Updated starter docs to use interactive checklists for publishing and branding workflows.
 
 ## [0.1.0] - 2026-06-04
 
 ### Added
+
 - Initial Compass Astro docs theme release.
 - MDX-based documentation structure with category-driven navigation.
 - Pagefind-powered search for the docs homepage and sidebar.

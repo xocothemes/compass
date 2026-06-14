@@ -1,6 +1,6 @@
 ---
 import { getCollection } from 'astro:content';
-import { getArticleHref, getCleanDocSlug } from '../data/docs';
+import { getArticleHref, getCleanDocSlug, getPublicDocs } from '../data/docs';
 
 type RedirectEntry = {
   redirect: string;
@@ -17,9 +17,10 @@ const normalizePath = (value: string) => {
 
 export async function getStaticPaths() {
   const allDocs = await getCollection('docs');
+  const publicDocs = getPublicDocs(allDocs);
   const redirects = new Map<string, RedirectEntry>();
 
-  allDocs.forEach((doc) => {
+  publicDocs.forEach((doc) => {
     const destination = getArticleHref(doc.data.category, getCleanDocSlug(doc.id));
 
     doc.data.redirectFrom.forEach((rawRedirect) => {

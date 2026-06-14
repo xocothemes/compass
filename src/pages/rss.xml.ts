@@ -1,15 +1,15 @@
 import rss from '@astrojs/rss';
 import { getCollection } from 'astro:content';
 import site from '../../site.config.mjs';
-import { docsCategoryDataMap, getArticleHref, getCleanDocSlug } from '../data/docs';
+import { docsCategoryDataMap, getArticleHref, getCleanDocSlug, isPublicDoc } from '../data/docs';
 
 export async function GET(context: { site?: URL }) {
   const docs = await getCollection('docs');
 
   const items = docs
+    .filter(isPublicDoc)
     .filter((doc) => Boolean(doc.data.updatedAt))
     .filter((doc) => !doc.data.hideFromSearch)
-    .filter((doc) => doc.data.status !== 'draft' && doc.data.status !== 'archived')
     .sort((a, b) => b.data.updatedAt!.getTime() - a.data.updatedAt!.getTime())
     .map((doc) => {
       const categoryLabel =

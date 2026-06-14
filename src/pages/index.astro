@@ -3,37 +3,47 @@ import { getCollection } from 'astro:content';
 import CategoryCard from '../components/CategoryCard.astro';
 import CategorySection from '../components/CategorySection.astro';
 import SearchHero from '../components/SearchHero.astro';
-import { docsCategories, docsParentCategories, getCategoryHref, getSearchPreviewLookup, getSuggestedSearchArticles } from '../data/docs';
+import {
+  docsCategories,
+  docsParentCategories,
+  getCategoryHref,
+  getPublicDocs,
+  getSearchPreviewLookup,
+  getSuggestedSearchArticles,
+} from '../data/docs';
 import Layout from '../layouts/Layout.astro';
 import site from '../../site.config.mjs';
 
 const allDocs = await getCollection('docs');
-const suggestedArticles = getSuggestedSearchArticles(allDocs);
-const searchPreviews = getSearchPreviewLookup(allDocs);
+const publicDocs = getPublicDocs(allDocs);
+const suggestedArticles = getSuggestedSearchArticles(publicDocs);
+const searchPreviews = getSearchPreviewLookup(publicDocs);
 ---
 
 <Layout title={`${site.title} | Astro docs theme`} description={site.description}>
   <SearchHero suggestions={suggestedArticles} searchPreviews={searchPreviews} />
 
   <div class="py-8 md:py-10">
-    {docsParentCategories.map((parent) => (
-      <CategorySection slug={parent.slug} title={parent.name} description={parent.description}>
-        {docsCategories
-          .filter((category) => category.parent === parent.slug)
-          .map((category) => {
-            const count = allDocs.filter((doc) => doc.data.category === category.slug).length;
+    {
+      docsParentCategories.map((parent) => (
+        <CategorySection slug={parent.slug} title={parent.name} description={parent.description}>
+          {docsCategories
+            .filter((category) => category.parent === parent.slug)
+            .map((category) => {
+              const count = publicDocs.filter((doc) => doc.data.category === category.slug).length;
 
-            return (
-              <CategoryCard
-                title={category.name}
-                description={category.description}
-                count={count}
-                href={getCategoryHref(category.slug)}
-                icon={category.icon}
-              />
-            );
-          })}
-      </CategorySection>
-    ))}
+              return (
+                <CategoryCard
+                  title={category.name}
+                  description={category.description}
+                  count={count}
+                  href={getCategoryHref(category.slug)}
+                  icon={category.icon}
+                />
+              );
+            })}
+        </CategorySection>
+      ))
+    }
   </div>
 </Layout>

@@ -16,14 +16,17 @@ const docs = defineCollection({
       heroImage: image().optional(),
       hideFromSearch: z.boolean().optional().default(false),
       redirectFrom: z.array(z.string()).optional().default([]),
-      relatedLinks: z.array(
-        z.object({
-          title: z.string(),
-          href: z.string(),
-          description: z.string().optional(),
-          eyebrow: z.string().optional(),
-        }),
-      ).optional().default([]),
+      relatedLinks: z
+        .array(
+          z.object({
+            title: z.string(),
+            href: z.string(),
+            description: z.string().optional(),
+            eyebrow: z.string().optional(),
+          }),
+        )
+        .optional()
+        .default([]),
       order: z.number().optional().default(100),
       updatedAt: z.coerce.date().optional(),
     }),

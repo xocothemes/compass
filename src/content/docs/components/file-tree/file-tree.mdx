@@ -1,7 +1,7 @@
 ---
-title: "File Tree"
-description: "Use file trees to explain project structure, article-owned assets, and where contributors should edit specific docs files."
-category: "components"
+title: 'File Tree'
+description: 'Use file trees to explain project structure, article-owned assets, and where contributors should edit specific docs files.'
+category: 'components'
 order: 10
 updatedAt: 2026-06-07
 ---
@@ -15,13 +15,13 @@ Pass an `items` array and indent child entries with two spaces:
 ```mdx
 <FileTree
   items={[
-    "src/",
-    "  content/",
-    "    docs/",
-    "      start-here/",
-    "        set-up-compass/",
-    "          set-up-compass.mdx",
-    "README.md",
+    'src/',
+    '  content/',
+    '    docs/',
+    '      start-here/',
+    '        set-up-compass/',
+    '          set-up-compass.mdx',
+    'README.md',
   ]}
 />
 ```
@@ -40,19 +40,19 @@ The component lives in `src/components/docs/FileTree.astro` and renders a nested
 
 <FileTree
   items={[
-    "src/",
-    "  content/",
-    "    docs/",
-    "      start-here/",
-    "        set-up-compass/",
-    "          set-up-compass.mdx",
-    "      components/",
-    "        file-tree/",
-    "          file-tree.mdx",
-    "  components/",
-    "    docs/",
-    "      FileTree.astro",
-    "README.md",
-    "site.config.mjs",
+    'src/',
+    '  content/',
+    '    docs/',
+    '      start-here/',
+    '        set-up-compass/',
+    '          set-up-compass.mdx',
+    '      components/',
+    '        file-tree/',
+    '          file-tree.mdx',
+    '  components/',
+    '    docs/',
+    '      FileTree.astro',
+    'README.md',
+    'site.config.mjs',
   ]}
 />

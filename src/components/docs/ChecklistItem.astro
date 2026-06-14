@@ -3,9 +3,7 @@ interface Props {
   checked?: boolean;
 }
 
-const {
-  checked = false,
-} = Astro.props;
+const { checked = false } = Astro.props;
 
 const inputId = `checklist-item-${Math.random().toString(36).slice(2, 10)}`;
 ---

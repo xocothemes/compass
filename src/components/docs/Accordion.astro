@@ -4,10 +4,7 @@ interface Props {
   open?: boolean;
 }
 
-const {
-  title,
-  open = false,
-} = Astro.props;
+const { title, open = false } = Astro.props;
 ---
 
 <details class="docs-accordion not-prose my-4" open={open}>

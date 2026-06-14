@@ -21,7 +21,11 @@ const searchId = `search-hero-${Math.random().toString(36).slice(2, 10)}`;
 
 <section class="search-hero bg-[var(--color-surface)] py-14 md:py-16">
   <div class="mx-auto w-full max-w-[1280px] px-4 text-center md:px-8">
-    <h1 class="search-hero-title mb-6 text-4xl font-extrabold tracking-tight text-[var(--color-text-strong)] md:text-5xl">{title}</h1>
+    <h1
+      class="search-hero-title mb-6 text-4xl font-extrabold tracking-tight text-[var(--color-text-strong)] md:text-5xl"
+    >
+      {title}
+    </h1>
 
     <div
       class="relative mx-auto w-full max-w-[600px]"
@@ -33,11 +37,18 @@ const searchId = `search-hero-${Math.random().toString(36).slice(2, 10)}`;
       data-search-previews={JSON.stringify(searchPreviews)}
     >
       <label class="sr-only" for={`${searchId}-input`}>Search the docs</label>
-      <p id={`${searchId}-hint`} class="sr-only">Type to search the documentation. Press slash or Control/Command plus K to focus this search field.</p>
+      <p id={`${searchId}-hint`} class="sr-only">
+        Type to search the documentation. Press slash or Control/Command plus K to focus this search field.
+      </p>
       <p id={`${searchId}-status`} class="sr-only" data-search-status aria-live="polite"></p>
-      <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-4 text-[var(--color-search-placeholder)]">
+      <div
+        class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-4 text-[var(--color-search-placeholder)]"
+      >
         <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-          <path stroke-linecap="round" stroke-linejoin="round" d="m21 21-4.35-4.35M10.5 18a7.5 7.5 0 1 1 0-15 7.5 7.5 0 0 1 0 15Z" />
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="m21 21-4.35-4.35M10.5 18a7.5 7.5 0 1 1 0-15 7.5 7.5 0 0 1 0 15Z"></path>
         </svg>
       </div>
       <input
@@ -63,7 +74,8 @@ const searchId = `search-hero-${Math.random().toString(36).slice(2, 10)}`;
         role="region"
         aria-label="Search results"
         aria-hidden="true"
-      ></div>
+      >
+      </div>
     </div>
   </div>
 </section>

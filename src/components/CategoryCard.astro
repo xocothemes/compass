@@ -10,10 +10,7 @@ interface Props {
 const { title, description, count, href, icon } = Astro.props;
 
 const iconPaths = {
-  flag: [
-    'M6.75 20V5.75',
-    'M6.75 6.5c2-1.5 4.1-1.5 6.1 0s4.1 1.5 6.15 0v8c-2.05 1.5-4.15 1.5-6.15 0s-4.1-1.5-6.1 0',
-  ],
+  flag: ['M6.75 20V5.75', 'M6.75 6.5c2-1.5 4.1-1.5 6.1 0s4.1 1.5 6.15 0v8c-2.05 1.5-4.15 1.5-6.15 0s-4.1-1.5-6.1 0'],
   file: [
     'M8.75 4.75h5.5l4 4v10.5A1.75 1.75 0 0 1 16.5 21h-7A1.75 1.75 0 0 1 7.75 19.25v-12.75A1.75 1.75 0 0 1 9.5 4.75Z',
     'M14 4.75v4h4',
@@ -48,11 +45,11 @@ const iconPaths = {
   href={href}
   class="site-card group flex h-full flex-col rounded-[15px] border border-[var(--color-border)] bg-[var(--color-surface)] px-6 py-7 transition duration-200 hover:border-[var(--color-border-strong)]"
 >
-  <div class="category-card-icon flex h-11 w-11 items-center justify-center rounded-[15px] bg-[var(--color-soft)] text-[var(--color-accent)]">
+  <div
+    class="category-card-icon flex h-11 w-11 items-center justify-center rounded-[15px] bg-[var(--color-soft)] text-[var(--color-accent)]"
+  >
     <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
-      {iconPaths[icon].map((path) => (
-        <path d={path} stroke-linecap="round" stroke-linejoin="round" />
-      ))}
+      {iconPaths[icon].map((path) => <path d={path} stroke-linecap="round" stroke-linejoin="round" />)}
     </svg>
   </div>
 

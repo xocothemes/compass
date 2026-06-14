@@ -92,6 +92,12 @@ export function getCleanDocSlug(docId: string) {
   return docId.split('/').at(-1) ?? docId;
 }
 
+type PublicDocSource = {
+  data: {
+    status?: string;
+  };
+};
+
 type SearchSuggestionSource = {
   id: string;
   data: {
@@ -100,6 +106,7 @@ type SearchSuggestionSource = {
     category: string;
     order?: number;
     hideFromSearch?: boolean;
+    status?: string;
   };
 };
 
@@ -107,6 +114,7 @@ type OrderedDocSource = {
   data: {
     category: string;
     order?: number;
+    status?: string;
   };
 };
 
@@ -117,6 +125,14 @@ export type SearchSuggestion = {
 };
 
 const SEARCH_PREVIEW_MAX_CHARS = 160;
+
+export function isPublicDoc<T extends PublicDocSource>(doc: T) {
+  return doc.data.status !== 'draft' && doc.data.status !== 'archived';
+}
+
+export function getPublicDocs<T extends PublicDocSource>(docs: T[]) {
+  return docs.filter(isPublicDoc);
+}
 
 const clampText = (value: string, maxChars = SEARCH_PREVIEW_MAX_CHARS) => {
   if (value.length <= maxChars) return value;
@@ -133,20 +149,21 @@ export function getDocSearchPreview(doc: SearchSuggestionSource, maxChars = SEAR
 
 export function getSearchPreviewLookup(docs: SearchSuggestionSource[]) {
   return Object.fromEntries(
-    docs.map((doc) => [getArticleHref(doc.data.category, getCleanDocSlug(doc.id)), getDocSearchPreview(doc)]),
+    getPublicDocs(docs).map((doc) => [
+      getArticleHref(doc.data.category, getCleanDocSlug(doc.id)),
+      getDocSearchPreview(doc),
+    ]),
   ) as Record<string, string>;
 }
 
 export function getSuggestedSearchArticles(
   docs: SearchSuggestionSource[],
-  {
-    limit = 4,
-    categories = ['start-here'],
-  }: { limit?: number; categories?: string[] } = {},
+  { limit = 4, categories = ['start-here'] }: { limit?: number; categories?: string[] } = {},
 ): SearchSuggestion[] {
   const allowedCategories = new Set(categories);
 
   return docs
+    .filter(isPublicDoc)
     .filter((doc) => !doc.data.hideFromSearch)
     .filter((doc) => allowedCategories.has(doc.data.category))
     .sort((a, b) => {
@@ -164,6 +181,7 @@ export function getSuggestedSearchArticles(
 
 export function getOrderedDocsForCategory<T extends OrderedDocSource>(docs: T[], category: string) {
   return docs
+    .filter(isPublicDoc)
     .filter((doc) => doc.data.category === category)
     .sort((a, b) => (a.data.order ?? 100) - (b.data.order ?? 100));
 }

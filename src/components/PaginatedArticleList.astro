@@ -17,22 +17,15 @@ const {
 } = Astro.props;
 ---
 
-<div
-  class="paginated-article-list"
-  data-pagination-root
-  data-pagination-page-size={pageSize}
->
+<div class="paginated-article-list" data-pagination-root data-pagination-page-size={pageSize}>
   <div class="space-y-0">
-    {items.map((item, index) => (
-      <a
-        href={item.href}
-        class={itemClassName}
-        data-page-item
-        data-item-index={index}
-      >
-        {item.title}
-      </a>
-    ))}
+    {
+      items.map((item, index) => (
+        <a href={item.href} class={itemClassName} data-page-item data-item-index={index}>
+          {item.title}
+        </a>
+      ))
+    }
   </div>
 
   <div class="pagination-controls mt-8 hidden items-center gap-2" data-pagination-controls></div>

@@ -21,7 +21,9 @@ const { sections, activeCategory, tocHeadings = [], suggestions = [], searchPrev
 const searchId = `sidebar-search-${Math.random().toString(36).slice(2, 10)}`;
 ---
 
-<aside class="docs-sidebar w-full shrink-0 lg:sticky lg:top-[calc(var(--docs-header-height)+1rem)] lg:max-h-[calc(100vh-var(--docs-header-height)-1.5rem)] lg:w-72 lg:overflow-y-auto lg:pr-1">
+<aside
+  class="docs-sidebar w-full shrink-0 lg:sticky lg:top-[calc(var(--docs-header-height)+1rem)] lg:max-h-[calc(100vh-var(--docs-header-height)-1.5rem)] lg:w-72 lg:overflow-y-auto lg:pr-1"
+>
   <div
     class="relative"
     role="search"
@@ -32,7 +34,9 @@ const searchId = `sidebar-search-${Math.random().toString(36).slice(2, 10)}`;
     data-search-previews={JSON.stringify(searchPreviews)}
   >
     <label class="sr-only" for={`${searchId}-input`}>Search this docs section</label>
-    <p id={`${searchId}-hint`} class="sr-only">Type to search articles in this section. Press slash or Control/Command plus K to focus the nearest search field.</p>
+    <p id={`${searchId}-hint`} class="sr-only">
+      Type to search articles in this section. Press slash or Control/Command plus K to focus the nearest search field.
+    </p>
     <p id={`${searchId}-status`} class="sr-only" data-search-status aria-live="polite"></p>
     <input
       id={`${searchId}-input`}
@@ -42,9 +46,14 @@ const searchId = `sidebar-search-${Math.random().toString(36).slice(2, 10)}`;
       class="sidebar-search-input w-full rounded-[15px] border border-[var(--color-border-strong)] bg-[var(--color-surface)] py-3 pl-4 pr-10 text-sm text-[var(--color-search-text)] outline-none placeholder:text-[var(--color-search-placeholder)] focus:border-blue-400 focus:ring-2 focus:ring-blue-400/20"
       aria-describedby={`${searchId}-hint ${searchId}-status`}
     />
-    <div class="sidebar-search-icon pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3 text-[var(--color-search-placeholder)]">
+    <div
+      class="sidebar-search-icon pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3 text-[var(--color-search-placeholder)]"
+    >
       <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-        <path stroke-linecap="round" stroke-linejoin="round" d="m21 21-4.35-4.35M10.5 18a7.5 7.5 0 1 1 0-15 7.5 7.5 0 0 1 0 15Z" />
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          d="m21 21-4.35-4.35M10.5 18a7.5 7.5 0 1 1 0-15 7.5 7.5 0 0 1 0 15Z"></path>
       </svg>
     </div>
     <div
@@ -54,54 +63,56 @@ const searchId = `sidebar-search-${Math.random().toString(36).slice(2, 10)}`;
       role="region"
       aria-label="Search results"
       aria-hidden="true"
-    ></div>
+    >
+    </div>
   </div>
 
   <div class="mt-8 hidden lg:block">
     <p class="docs-ui-label">Categories</p>
     <ul class="docs-sidebar-section-list mt-5">
-      {sections.map((section) => {
-        const isActiveSection = activeCategory === section.slug;
+      {
+        sections.map((section) => {
+          const isActiveSection = activeCategory === section.slug;
 
-        return (
-          <li>
-            <a
-              href={section.href}
-              aria-current={isActiveSection ? 'page' : undefined}
-              class={`sidebar-link docs-sidebar-section-link block rounded-[15px] px-3 text-sm font-medium transition ${
-                isActiveSection
-                  ? 'is-active text-[var(--color-accent)]'
-                  : 'text-[var(--color-text)] hover:text-[var(--color-accent)]'
-              }`}
-            >
-              {section.name}
-            </a>
-          </li>
-        );
-      })}
-    </ul>
-
-    {tocHeadings.length > 0 && (
-      <nav class="docs-sidebar-toc mt-7" aria-label="Table of contents">
-        <p class="docs-toc-title">On this page</p>
-        <ol class="docs-toc-list docs-sidebar-toc-list">
-          {tocHeadings.map((heading) => (
+          return (
             <li>
               <a
-                href={`#${heading.slug}`}
-                data-toc-link={heading.slug}
-                class:list={[
-                  'docs-toc-link',
-                  heading.depth === 3 && 'docs-toc-link-subheading',
-                ]}
+                href={section.href}
+                aria-current={isActiveSection ? 'page' : undefined}
+                class={`sidebar-link docs-sidebar-section-link block rounded-[15px] px-3 text-sm font-medium transition ${
+                  isActiveSection
+                    ? 'is-active text-[var(--color-accent)]'
+                    : 'text-[var(--color-text)] hover:text-[var(--color-accent)]'
+                }`}
               >
-                {heading.text}
+                {section.name}
               </a>
             </li>
-          ))}
-        </ol>
-      </nav>
-    )}
+          );
+        })
+      }
+    </ul>
+
+    {
+      tocHeadings.length > 0 && (
+        <nav class="docs-sidebar-toc mt-7" aria-label="Table of contents">
+          <p class="docs-toc-title">On this page</p>
+          <ol class="docs-toc-list docs-sidebar-toc-list">
+            {tocHeadings.map((heading) => (
+              <li>
+                <a
+                  href={`#${heading.slug}`}
+                  data-toc-link={heading.slug}
+                  class:list={['docs-toc-link', heading.depth === 3 && 'docs-toc-link-subheading']}
+                >
+                  {heading.text}
+                </a>
+              </li>
+            ))}
+          </ol>
+        </nav>
+      )
+    }
   </div>
 </aside>
 

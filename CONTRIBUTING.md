@@ -27,6 +27,7 @@ npm run dev
 npm run build
 npm run preview
 npm run check
+npm run format:check
 npm run clean
 ```
 
@@ -41,6 +42,7 @@ npm run clean
 ## Before Opening a PR
 
 - Run `npm run check`.
+- Run `npm run format:check`.
 - Run `npm run build` if your change affects search, routes, metadata, or generated output.
 - Verify keyboard behavior and basic accessibility for any interactive UI changes.
 - Update `README.md` and `CHANGELOG.md` when the change affects setup, usage, or end-user behavior.
@@ -52,12 +54,12 @@ Each article should include frontmatter similar to:
 
 ```mdx
 ---
-title: "Article Title"
-description: "Short summary of the article."
-category: "start-here"
-tags: ["setup"]
-status: "published"
-author: "Docs Team"
+title: 'Article Title'
+description: 'Short summary of the article.'
+category: 'start-here'
+tags: ['setup']
+status: 'published'
+author: 'Docs Team'
 order: 1
 updatedAt: 2026-06-03
 ---
@@ -65,6 +67,7 @@ updatedAt: 2026-06-03
 
 Optional frontmatter fields you can use when helpful:
 
+- `status` for lifecycle state; use `draft` or `archived` when a page should not publish
 - `editUrl` for contributor-facing edit links on article pages
 - `heroImage` for top-of-page article imagery
 - `hideFromSearch` for pages that should stay out of Pagefind results

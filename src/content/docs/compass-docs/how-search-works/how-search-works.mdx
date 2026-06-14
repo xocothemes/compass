@@ -1,11 +1,11 @@
 ---
-title: "How Search Works"
-description: "Understand how Compass uses Pagefind to generate scalable static search for your docs."
-category: "compass-docs"
-tags: ["search", "pagefind"]
-status: "published"
-author: "Compass Team"
-editUrl: "https://github.com/andreialba/compass/edit/main/src/content/docs/compass-docs/how-search-works/how-search-works.mdx"
+title: 'How Search Works'
+description: 'Understand how Compass uses Pagefind to generate scalable static search for your docs.'
+category: 'compass-docs'
+tags: ['search', 'pagefind']
+status: 'published'
+author: 'Compass Team'
+editUrl: 'https://github.com/andreialba/compass/edit/main/src/content/docs/compass-docs/how-search-works/how-search-works.mdx'
 order: 6
 updatedAt: 2026-06-04
 ---
@@ -33,6 +33,8 @@ It helps because:
 ## What gets indexed
 
 Compass marks canonical article pages with `data-pagefind-body`, which tells Pagefind which HTML should become searchable.
+
+Articles with `status: 'draft'` or `status: 'archived'` are treated as non-public. Compass does not generate their article routes, include them in navigation or redirect aliases, or pass them to Pagefind. `published` and `deprecated` articles remain public unless you opt them out of search.
 
 This keeps search focused on docs content rather than indexing:
 

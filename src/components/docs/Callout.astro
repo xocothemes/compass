@@ -4,10 +4,7 @@ interface Props {
   title?: string;
 }
 
-const {
-  tone = 'info',
-  title,
-} = Astro.props;
+const { tone = 'info', title } = Astro.props;
 
 const tones = {
   info: {

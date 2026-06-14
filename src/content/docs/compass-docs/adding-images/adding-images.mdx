@@ -1,7 +1,7 @@
 ---
-title: "Adding Images"
-description: "Keep article images next to their MDX files so Astro can optimize them and make them responsive."
-category: "compass-docs"
+title: 'Adding Images'
+description: 'Keep article images next to their MDX files so Astro can optimize them and make them responsive.'
+category: 'compass-docs'
 order: 8
 updatedAt: 2026-06-04
 ---
@@ -45,12 +45,7 @@ If you want explicit sizing, priority loading, or a different layout mode, impor
 import { Image } from 'astro:assets';
 import diagram from './system-diagram.png';
 
-<Image
-  src={diagram}
-  alt="System diagram showing request flow through Compass"
-  width={1200}
-  layout="constrained"
-/>
+<Image src={diagram} alt="System diagram showing request flow through Compass" width={1200} layout="constrained" />
 ```
 
 ## When to use `public/`
