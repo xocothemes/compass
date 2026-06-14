@@ -24,9 +24,7 @@ type PagefindApi = {
 
 type SearchEntry = {
   title: string;
-  titleHtml?: string;
   excerpt: string;
-  excerptHtml?: string;
   url: string;
 };
 
@@ -40,17 +38,11 @@ type SearchElements = {
 const MAX_RESULTS = 8;
 const SEARCH_DEBOUNCE_MS = 150;
 const PAGEFIND_BUNDLE_URL = '/pagefind/pagefind.js';
+const SEARCH_PREVIEWS_SCRIPT_ID = 'docs-search-previews';
 
 let pagefindPromise: Promise<PagefindApi | null> | undefined;
+let searchPreviewsCache: Record<string, string> | undefined;
 let searchShortcutsBound = false;
-
-const escapeHtml = (value: string) =>
-  value
-    .replaceAll('&', '&amp;')
-    .replaceAll('<', '&lt;')
-    .replaceAll('>', '&gt;')
-    .replaceAll('"', '&quot;')
-    .replaceAll("'", '&#39;');
 
 const stripTags = (value: string) => value.replace(/<[^>]*>/g, '').trim();
 
@@ -68,26 +60,36 @@ const getSearchTerms = (query: string) =>
     ),
   );
 
-const highlightText = (value: string, query: string) => {
+const appendHighlightedText = (element: HTMLElement, value: string, query = '') => {
   const terms = getSearchTerms(query);
   if (!value || terms.length === 0) {
-    return escapeHtml(value);
+    element.append(document.createTextNode(value));
+    return;
   }
 
   const matcher = new RegExp(`(${terms.map(escapeRegExp).join('|')})`, 'gi');
-  const highlighted = value.replace(matcher, '\u0000$1\u0001');
+  let lastIndex = 0;
 
-  return escapeHtml(highlighted)
-    .replaceAll('\u0000', '<mark class="search-highlight">')
-    .replaceAll('\u0001', '</mark>');
+  for (const match of value.matchAll(matcher)) {
+    const matchIndex = match.index ?? 0;
+    const matchedText = match[0];
+
+    if (matchIndex > lastIndex) {
+      element.append(document.createTextNode(value.slice(lastIndex, matchIndex)));
+    }
+
+    const mark = document.createElement('mark');
+    mark.className = 'search-highlight';
+    mark.textContent = matchedText;
+    element.append(mark);
+
+    lastIndex = matchIndex + matchedText.length;
+  }
+
+  if (lastIndex < value.length) {
+    element.append(document.createTextNode(value.slice(lastIndex)));
+  }
 };
-
-const sanitizeHighlightedHtml = (value: string) =>
-  escapeHtml(value)
-    .replaceAll('&lt;mark&gt;', '<mark class="search-highlight">')
-    .replaceAll('&lt;/mark&gt;', '</mark>')
-    .replaceAll('&lt;mark class=&quot;pagefind-highlight&quot;&gt;', '<mark class="search-highlight">')
-    .replaceAll('&lt;mark class=&quot;search-highlight&quot;&gt;', '<mark class="search-highlight">');
 
 const normalizeSearchUrl = (value: string) => {
   try {
@@ -187,6 +189,12 @@ const setResultsVisibility = (_input: HTMLInputElement, results: HTMLDivElement,
   results.setAttribute('aria-hidden', String(!isVisible));
 };
 
+const areResultsVisible = (results: HTMLDivElement) =>
+  !results.classList.contains('hidden') && results.getAttribute('aria-hidden') !== 'true';
+
+const getResultLinks = (results: HTMLDivElement) =>
+  Array.from(results.querySelectorAll<HTMLAnchorElement>('[data-search-result-link]'));
+
 const announceStatus = (status: HTMLElement | null, message = '') => {
   if (status) {
     status.textContent = message;
@@ -194,7 +202,7 @@ const announceStatus = (status: HTMLElement | null, message = '') => {
 };
 
 const hideResults = (input: HTMLInputElement, results: HTMLDivElement, status?: HTMLElement | null) => {
-  results.innerHTML = '';
+  results.replaceChildren();
   setResultsVisibility(input, results, false);
   announceStatus(status ?? null, '');
 };
@@ -205,7 +213,11 @@ const renderEmptyState = (
   status: HTMLElement | null,
   message: string,
 ) => {
-  results.innerHTML = `<p class="px-4 py-4 text-sm text-[var(--color-text-muted)]">${escapeHtml(message)}</p>`;
+  const emptyState = document.createElement('p');
+  emptyState.className = 'px-4 py-4 text-sm text-[var(--color-text-muted)]';
+  emptyState.textContent = message;
+
+  results.replaceChildren(emptyState);
   setResultsVisibility(input, results, true);
   announceStatus(status, message);
 };
@@ -216,23 +228,37 @@ const renderResults = (
   status: HTMLElement | null,
   entries: SearchEntry[],
   label = 'Search results',
+  query = '',
 ) => {
-  results.innerHTML = `
-    <ul class="divide-y divide-[var(--color-border)]" aria-label="${escapeHtml(label)}">
-      ${entries
-        .map(
-          (entry) => `
-        <li>
-          <a href="${escapeHtml(entry.url)}" class="block px-4 py-3 transition-colors hover:bg-[var(--color-hover-surface)]">
-            <div class="search-result-title text-sm font-medium text-[var(--color-accent)]">${entry.titleHtml ?? escapeHtml(entry.title)}</div>
-            ${entry.excerpt ? `<div class="mt-1 text-xs leading-5 text-[var(--color-text-muted)]">${entry.excerptHtml ?? escapeHtml(entry.excerpt)}</div>` : ''}
-          </a>
-        </li>
-      `,
-        )
-        .join('')}
-    </ul>
-  `;
+  const list = document.createElement('ul');
+  list.className = 'divide-y divide-[var(--color-border)]';
+  list.setAttribute('aria-label', label);
+
+  entries.forEach((entry, index) => {
+    const item = document.createElement('li');
+    const link = document.createElement('a');
+    link.href = entry.url;
+    link.className = 'search-result-link block px-4 py-3 transition-colors hover:bg-[var(--color-hover-surface)]';
+    link.dataset.searchResultLink = 'true';
+    link.id = `${input.id}-result-${index}`;
+
+    const title = document.createElement('div');
+    title.className = 'search-result-title text-sm font-medium text-[var(--color-accent)]';
+    appendHighlightedText(title, entry.title, query);
+    link.append(title);
+
+    if (entry.excerpt) {
+      const excerpt = document.createElement('div');
+      excerpt.className = 'mt-1 text-xs leading-5 text-[var(--color-text-muted)]';
+      appendHighlightedText(excerpt, entry.excerpt, query);
+      link.append(excerpt);
+    }
+
+    item.append(link);
+    list.append(item);
+  });
+
+  results.replaceChildren(list);
   setResultsVisibility(input, results, true);
   announceStatus(status, `${entries.length} ${entries.length === 1 ? 'result' : 'results'} available.`);
 };
@@ -249,16 +275,23 @@ const getSuggestions = (root: HTMLElement): SearchEntry[] => {
   }
 };
 
-const getSearchPreviews = (root: HTMLElement) => {
-  const rawPreviews = root.dataset.searchPreviews;
-  if (!rawPreviews) return {} as Record<string, string>;
+const getSearchPreviews = () => {
+  if (searchPreviewsCache) return searchPreviewsCache;
+
+  const previews = document.getElementById(SEARCH_PREVIEWS_SCRIPT_ID);
+  if (!(previews instanceof HTMLScriptElement) || !previews.textContent) {
+    searchPreviewsCache = {};
+    return searchPreviewsCache;
+  }
 
   try {
-    const parsed = JSON.parse(rawPreviews) as Record<string, string>;
-    return parsed && typeof parsed === 'object' ? parsed : {};
+    const parsed = JSON.parse(previews.textContent) as Record<string, string>;
+    searchPreviewsCache = parsed && typeof parsed === 'object' && !Array.isArray(parsed) ? parsed : {};
   } catch {
-    return {};
+    searchPreviewsCache = {};
   }
+
+  return searchPreviewsCache;
 };
 
 const renderSuggestions = (
@@ -309,17 +342,10 @@ const searchPagefind = async (
         ? stripTags(data.excerpt)
         : (searchPreviews[normalizedUrl] ?? data.meta.preview ?? '');
       const title = data.meta.title ?? 'Untitled';
-      const excerptHtml = data.excerpt
-        ? sanitizeHighlightedHtml(data.excerpt)
-        : preview
-          ? highlightText(preview, query)
-          : '';
 
       return {
         title,
-        titleHtml: highlightText(title, query),
         excerpt: preview,
-        excerptHtml,
         url: data.url,
       };
     }),
@@ -333,8 +359,48 @@ const attachSearch = (root: HTMLElement) => {
   const { input, results, submitButton, status } = elements;
   const emptyMessage = root.dataset.searchEmpty ?? 'No matching articles found.';
   const errorMessage = root.dataset.searchError ?? 'Search is temporarily unavailable.';
-  const searchPreviews = getSearchPreviews(root);
+  const searchPreviews = getSearchPreviews();
   let latestQuery = '';
+  let activeResultIndex = -1;
+
+  const setActiveResult = (index: number) => {
+    const links = getResultLinks(results);
+    if (links.length === 0) {
+      activeResultIndex = -1;
+      return;
+    }
+
+    activeResultIndex = (index + links.length) % links.length;
+
+    links.forEach((link, linkIndex) => {
+      const isActive = linkIndex === activeResultIndex;
+      link.classList.toggle('is-active', isActive);
+
+      if (isActive) {
+        link.scrollIntoView({ block: 'nearest' });
+      }
+    });
+  };
+
+  const clearActiveResult = () => {
+    activeResultIndex = -1;
+    getResultLinks(results).forEach((link) => {
+      link.classList.remove('is-active');
+    });
+  };
+
+  const navigateToActiveResult = () => {
+    const links = getResultLinks(results);
+    const link = links[activeResultIndex] ?? links[0];
+    if (!link) return false;
+
+    window.location.href = link.href;
+    return true;
+  };
+
+  const resetRenderedResults = () => {
+    clearActiveResult();
+  };
 
   const runSearch = async () => {
     const query = input.value.trim();
@@ -342,6 +408,7 @@ const attachSearch = (root: HTMLElement) => {
 
     if (!query) {
       renderSuggestions(root, input, results, status);
+      resetRenderedResults();
       return;
     }
 
@@ -354,38 +421,63 @@ const attachSearch = (root: HTMLElement) => {
 
     if (matches === null) {
       setSearchUnavailable(input, results, status, errorMessage);
+      resetRenderedResults();
       return;
     }
 
     if (matches.length === 0) {
       renderEmptyState(input, results, status, emptyMessage);
+      resetRenderedResults();
       return;
     }
 
-    renderResults(input, results, status, matches);
+    renderResults(input, results, status, matches, 'Search results', query);
+    resetRenderedResults();
   };
 
   input.addEventListener('focus', () => {
     void getPagefind();
     if (!input.value.trim()) {
       renderSuggestions(root, input, results, status);
+      resetRenderedResults();
     }
   });
 
   input.addEventListener('click', () => {
     if (!input.value.trim()) {
       renderSuggestions(root, input, results, status);
+      resetRenderedResults();
     }
   });
 
   input.addEventListener('input', () => {
+    clearActiveResult();
     void runSearch();
   });
 
   input.addEventListener('keydown', (event) => {
     if (event.key === 'Escape') {
       hideResults(input, results, status);
+      clearActiveResult();
       input.blur();
+      return;
+    }
+
+    if (event.key === 'ArrowDown' || event.key === 'ArrowUp') {
+      const links = getResultLinks(results);
+      if (!areResultsVisible(results) || links.length === 0) return;
+
+      event.preventDefault();
+      const direction = event.key === 'ArrowDown' ? 1 : -1;
+      const nextIndex =
+        activeResultIndex === -1 ? (direction > 0 ? 0 : links.length - 1) : activeResultIndex + direction;
+      setActiveResult(nextIndex);
+      return;
+    }
+
+    if (event.key === 'Enter' && areResultsVisible(results) && getResultLinks(results).length > 0) {
+      event.preventDefault();
+      navigateToActiveResult();
     }
   });
 
@@ -399,6 +491,7 @@ const attachSearch = (root: HTMLElement) => {
     if (!(target instanceof Node)) return;
     if (!root.contains(target)) {
       hideResults(input, results);
+      clearActiveResult();
     }
   });
 
@@ -406,6 +499,7 @@ const attachSearch = (root: HTMLElement) => {
     const nextTarget = event.relatedTarget;
     if (nextTarget instanceof Node && root.contains(nextTarget)) return;
     hideResults(input, results);
+    clearActiveResult();
   });
 };
 

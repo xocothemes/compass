@@ -1,6 +1,7 @@
 ---
 import { getCollection } from 'astro:content';
 import PaginatedArticleList from '../../../components/PaginatedArticleList.astro';
+import SearchPreviews from '../../../components/SearchPreviews.astro';
 import Sidebar from '../../../components/Sidebar.astro';
 import {
   docsCategoryDataMap,
@@ -39,17 +40,10 @@ const searchPreviews = getSearchPreviewLookup(publicDocs);
 ---
 
 <Layout title={`${subcategory?.name ?? category} | ${parent?.name ?? 'Compass'}`}>
+  <SearchPreviews previews={searchPreviews} />
+
   <div class="mx-auto flex max-w-[1280px] flex-col gap-10 px-4 py-10 lg:flex-row lg:px-8">
-    {
-      parent && (
-        <Sidebar
-          sections={sections}
-          activeCategory={subcategory?.slug}
-          suggestions={suggestedArticles}
-          searchPreviews={searchPreviews}
-        />
-      )
-    }
+    {parent && <Sidebar sections={sections} activeCategory={subcategory?.slug} suggestions={suggestedArticles} />}
 
     <div class="min-w-0 flex-1">
       <section

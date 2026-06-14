@@ -1,6 +1,7 @@
 ---
 import { Image } from 'astro:assets';
 import { getCollection, render } from 'astro:content';
+import SearchPreviews from '../../../components/SearchPreviews.astro';
 import Sidebar from '../../../components/Sidebar.astro';
 import Card from '../../../components/docs/Card.astro';
 import { mdxComponents } from '../../../components/docs/mdx-components';
@@ -62,6 +63,8 @@ const articlePagefindAttributes = doc.data.hideFromSearch
 ---
 
 <Layout title={`${doc.data.title} | ${categoryData?.name ?? doc.data.category}`} description={doc.data.description}>
+  <SearchPreviews previews={searchPreviews} />
+
   {
     tocHeadings.length > 0 && (
       <div
@@ -118,7 +121,6 @@ const articlePagefindAttributes = doc.data.hideFromSearch
       activeCategory={doc.data.category}
       tocHeadings={tocHeadings}
       suggestions={suggestedArticles}
-      searchPreviews={searchPreviews}
     />
 
     <div class="min-w-0 max-w-3xl flex-1">

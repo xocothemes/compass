@@ -7,15 +7,9 @@ interface Props {
     excerpt: string;
     url: string;
   }[];
-  searchPreviews?: Record<string, string>;
 }
 
-const {
-  title = 'How can we help?',
-  placeholder = 'Search the docs...',
-  suggestions = [],
-  searchPreviews = {},
-} = Astro.props;
+const { title = 'How can we help?', placeholder = 'Search the docs...', suggestions = [] } = Astro.props;
 const searchId = `search-hero-${Math.random().toString(36).slice(2, 10)}`;
 ---
 
@@ -34,7 +28,6 @@ const searchId = `search-hero-${Math.random().toString(36).slice(2, 10)}`;
       data-search-empty="No matching articles yet."
       data-search-error="Search is available after running npm run build and npm run preview."
       data-search-suggestions={JSON.stringify(suggestions)}
-      data-search-previews={JSON.stringify(searchPreviews)}
     >
       <label class="sr-only" for={`${searchId}-input`}>Search the docs</label>
       <p id={`${searchId}-hint`} class="sr-only">

@@ -16,6 +16,7 @@ Compass uses [Pagefind](https://pagefind.app/) for static full-text search. The 
 
 - `src/components/SearchHero.astro` for the homepage search UI
 - `src/components/Sidebar.astro` for the sidebar search UI
+- `src/components/SearchPreviews.astro` for the shared frontmatter preview payload
 - `src/scripts/docs-search.ts` for the shared Pagefind client logic
 - `package.json` for the build step that runs `pagefind --site dist`
 
@@ -27,7 +28,7 @@ It helps because:
 
 - search indexing happens at build time
 - the browser loads small search chunks on demand
-- result previews can come directly from each article's frontmatter `description`
+- result previews can come from one shared page-level lookup built from each article's frontmatter `description`
 - the same search system can power both the hero search and sidebar search
 
 ## What gets indexed
@@ -43,6 +44,8 @@ This keeps search focused on docs content rather than indexing:
 - homepage marketing copy
 
 Compass also attaches article metadata for the category label. For active queries, the custom search UI prefers Pagefind's matched excerpt so readers can see highlighted hit context, then falls back to each article's frontmatter `description` when no excerpt is available.
+
+The search dropdown is keyboard-friendly: use `/` or `Control/Command + K` to focus search, `ArrowDown` and `ArrowUp` to choose a result, `Enter` to open it, and `Escape` to close the dropdown.
 
 If an article should not appear in search, set:
 
@@ -67,4 +70,5 @@ During `npm run dev`, the site UI still works, but the generated Pagefind bundle
 
 - change `src/scripts/docs-search.ts` when you want to change result rendering or highlight behavior
 - change the search components when you want different layouts or messages
+- change `src/components/SearchPreviews.astro` if you need to alter how fallback previews are delivered to the browser
 - change the article templates when you want to adjust what Pagefind indexes

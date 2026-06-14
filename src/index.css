@@ -825,6 +825,10 @@ html.dark .astro-code[data-language='text'] span {
   padding: 0 0.12rem;
 }
 
+.search-result-link.is-active {
+  background: var(--color-hover-surface);
+}
+
 .docs-divider {
   border-color: var(--color-border);
 }

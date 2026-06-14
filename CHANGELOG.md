@@ -6,6 +6,10 @@ The format is based on Keep a Changelog, and this project follows semantic versi
 
 ## [Unreleased]
 
+### Changed
+
+- Improved docs search rendering and keyboard result navigation while moving fallback previews into one page-level payload.
+
 ## [0.1.6] - 2026-06-14
 
 ### Changed

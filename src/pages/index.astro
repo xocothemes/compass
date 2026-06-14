@@ -3,6 +3,7 @@ import { getCollection } from 'astro:content';
 import CategoryCard from '../components/CategoryCard.astro';
 import CategorySection from '../components/CategorySection.astro';
 import SearchHero from '../components/SearchHero.astro';
+import SearchPreviews from '../components/SearchPreviews.astro';
 import {
   docsCategories,
   docsParentCategories,
@@ -21,7 +22,8 @@ const searchPreviews = getSearchPreviewLookup(publicDocs);
 ---
 
 <Layout title={`${site.title} | Astro docs theme`} description={site.description}>
-  <SearchHero suggestions={suggestedArticles} searchPreviews={searchPreviews} />
+  <SearchPreviews previews={searchPreviews} />
+  <SearchHero suggestions={suggestedArticles} />
 
   <div class="py-8 md:py-10">
     {
