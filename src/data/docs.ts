@@ -45,6 +45,11 @@ export const docsCategories = [
 export type DocsParentSlug = (typeof docsParentCategories)[number]['slug'];
 export type DocsCategorySlug = (typeof docsCategories)[number]['slug'];
 
+export const docsCategorySlugs = docsCategories.map((category) => category.slug) as [
+  DocsCategorySlug,
+  ...DocsCategorySlug[],
+];
+
 export const docsParentMap = Object.fromEntries(
   docsParentCategories.map((category) => [category.slug, category]),
 ) as Record<DocsParentSlug, (typeof docsParentCategories)[number]>;

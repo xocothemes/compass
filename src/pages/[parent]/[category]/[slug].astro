@@ -62,7 +62,12 @@ const articlePagefindAttributes = doc.data.hideFromSearch
     };
 ---
 
-<Layout title={`${doc.data.title} | ${categoryData?.name ?? doc.data.category}`} description={doc.data.description}>
+<Layout
+  title={`${doc.data.title} | ${categoryData?.name ?? doc.data.category}`}
+  description={doc.data.description}
+  ogType="article"
+  updatedAt={doc.data.updatedAt}
+>
   <SearchPreviews previews={searchPreviews} />
 
   {

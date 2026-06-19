@@ -1,6 +1,7 @@
 import { defineCollection } from 'astro:content';
 import { glob } from 'astro/loaders';
 import { z } from 'zod';
+import { docsCategorySlugs } from './data/docs';
 
 const docs = defineCollection({
   loader: glob({ pattern: '**/*.{md,mdx}', base: './src/content/docs' }),
@@ -8,7 +9,7 @@ const docs = defineCollection({
     z.object({
       title: z.string(),
       description: z.string().optional(),
-      category: z.string(),
+      category: z.enum(docsCategorySlugs),
       tags: z.array(z.string()).optional().default([]),
       status: z.enum(['draft', 'published', 'deprecated', 'archived']).optional(),
       author: z.string().optional(),

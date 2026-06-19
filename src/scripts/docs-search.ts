@@ -184,9 +184,10 @@ const bindSearchShortcuts = () => {
   });
 };
 
-const setResultsVisibility = (_input: HTMLInputElement, results: HTMLDivElement, isVisible: boolean) => {
+const setResultsVisibility = (input: HTMLInputElement, results: HTMLDivElement, isVisible: boolean) => {
   results.classList.toggle('hidden', !isVisible);
   results.setAttribute('aria-hidden', String(!isVisible));
+  input.setAttribute('aria-expanded', String(isVisible));
 };
 
 const areResultsVisible = (results: HTMLDivElement) =>
@@ -241,6 +242,9 @@ const renderResults = (
     link.className = 'search-result-link block px-4 py-3 transition-colors hover:bg-[var(--color-hover-surface)]';
     link.dataset.searchResultLink = 'true';
     link.id = `${input.id}-result-${index}`;
+    link.role = 'option';
+    link.tabIndex = -1;
+    link.setAttribute('aria-selected', 'false');
 
     const title = document.createElement('div');
     title.className = 'search-result-title text-sm font-medium text-[var(--color-accent)]';
@@ -375,8 +379,10 @@ const attachSearch = (root: HTMLElement) => {
     links.forEach((link, linkIndex) => {
       const isActive = linkIndex === activeResultIndex;
       link.classList.toggle('is-active', isActive);
+      link.setAttribute('aria-selected', String(isActive));
 
       if (isActive) {
+        input.setAttribute('aria-activedescendant', link.id);
         link.scrollIntoView({ block: 'nearest' });
       }
     });
@@ -384,8 +390,10 @@ const attachSearch = (root: HTMLElement) => {
 
   const clearActiveResult = () => {
     activeResultIndex = -1;
+    input.removeAttribute('aria-activedescendant');
     getResultLinks(results).forEach((link) => {
       link.classList.remove('is-active');
+      link.setAttribute('aria-selected', 'false');
     });
   };
 

@@ -4,6 +4,8 @@ Thanks for contributing to Compass.
 
 ## Local Setup
 
+If you are using Compass for your own docs, create a repository from the template first. Then clone that new repository and run:
+
 ```bash
 npm install
 npm run dev
@@ -36,6 +38,7 @@ npm run clean
 - Keep docs content in `src/content/docs`.
 - Store article-specific images next to the article `.mdx` file whenever possible.
 - Update `src/data/docs.ts` when adding or reorganizing categories.
+- Use nested docs links such as `/getting-started/start-here`; one-segment sub-category URLs such as `/start-here` are not generated.
 - Prefer small, focused pull requests.
 - Preserve the existing Astro, Tailwind, and MDX patterns unless there is a strong reason to change them.
 
@@ -47,6 +50,7 @@ npm run clean
 - Verify keyboard behavior and basic accessibility for any interactive UI changes.
 - Update `README.md` and `CHANGELOG.md` when the change affects setup, usage, or end-user behavior.
 - If contributor workflow changed, update `CONTRIBUTING.md` too.
+- For template releases, keep `package.json`, `package-lock.json`, `CHANGELOG.md`, and `.github/releases/` in sync with the GitHub release tag.
 
 ## Content Notes
 

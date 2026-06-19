@@ -2,6 +2,7 @@
 import type { SidebarSection } from '../data/docs';
 
 interface Props {
+  id?: string;
   sections: SidebarSection[];
   activeCategory?: string;
   tocHeadings?: {
@@ -16,8 +17,11 @@ interface Props {
   }[];
 }
 
-const { sections, activeCategory, tocHeadings = [], suggestions = [] } = Astro.props;
-const searchId = `sidebar-search-${Math.random().toString(36).slice(2, 10)}`;
+const { id = 'sidebar-search', sections, activeCategory, tocHeadings = [], suggestions = [] } = Astro.props;
+const inputId = `${id}-input`;
+const resultsId = `${id}-results`;
+const hintId = `${id}-hint`;
+const statusId = `${id}-status`;
 ---
 
 <aside
@@ -31,18 +35,23 @@ const searchId = `sidebar-search-${Math.random().toString(36).slice(2, 10)}`;
     data-search-error="Search is available after running npm run build and npm run preview."
     data-search-suggestions={JSON.stringify(suggestions)}
   >
-    <label class="sr-only" for={`${searchId}-input`}>Search this docs section</label>
-    <p id={`${searchId}-hint`} class="sr-only">
+    <label class="sr-only" for={inputId}>Search this docs section</label>
+    <p id={hintId} class="sr-only">
       Type to search articles in this section. Press slash or Control/Command plus K to focus the nearest search field.
     </p>
-    <p id={`${searchId}-status`} class="sr-only" data-search-status aria-live="polite"></p>
+    <p id={statusId} class="sr-only" data-search-status aria-live="polite"></p>
     <input
-      id={`${searchId}-input`}
+      id={inputId}
       type="search"
+      role="combobox"
       placeholder="Search..."
       data-search-input
       class="sidebar-search-input w-full rounded-[15px] border border-[var(--color-border-strong)] bg-[var(--color-surface)] py-3 pl-4 pr-10 text-sm text-[var(--color-search-text)] outline-none placeholder:text-[var(--color-search-placeholder)] focus:border-blue-400 focus:ring-2 focus:ring-blue-400/20"
-      aria-describedby={`${searchId}-hint ${searchId}-status`}
+      aria-autocomplete="list"
+      aria-controls={resultsId}
+      aria-describedby={`${hintId} ${statusId}`}
+      aria-expanded="false"
+      aria-haspopup="listbox"
     />
     <div
       class="sidebar-search-icon pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3 text-[var(--color-search-placeholder)]"
@@ -55,10 +64,10 @@ const searchId = `sidebar-search-${Math.random().toString(36).slice(2, 10)}`;
       </svg>
     </div>
     <div
-      id={`${searchId}-results`}
+      id={resultsId}
       data-search-results
       class="sidebar-search-results absolute left-0 right-0 top-full z-50 mt-2 hidden max-h-80 overflow-y-auto rounded-[15px] border border-[var(--color-border)] bg-[var(--color-surface)] text-left"
-      role="region"
+      role="listbox"
       aria-label="Search results"
       aria-hidden="true"
     >

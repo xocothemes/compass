@@ -11,11 +11,20 @@ relatedLinks:
     eyebrow: 'Next step'
 ---
 
-Compass is a docs starter, so the first setup step is really about making the repository yours: get it running, update the site identity, and replace the sample information architecture.
+Compass is a docs template, so the first setup step is really about making the repository yours: create a new repo from the template, get it running, update the site identity, and replace the sample information architecture.
+
+## Create your docs repository
+
+Start from the GitHub template instead of installing Compass as an npm dependency:
+
+1. Open the Compass repository on GitHub
+2. Click **Use this template**
+3. Create a new repository for your product docs, support center, or internal knowledge base
+4. Clone your new repository locally
 
 ## Install and run locally
 
-From the project root:
+From your new project root:
 
 ```bash
 npm install
@@ -29,6 +38,7 @@ That starts Astro's local server so you can preview the homepage, category pages
 These are the first files most teams touch:
 
 - `site.config.mjs` for title, URLs, and repository links
+- `package.json` for the local project name and metadata
 - `src/data/docs.ts` for parent categories and sub-categories
 - `src/content/docs` for article content
 - `README.md` for package and contributor guidance

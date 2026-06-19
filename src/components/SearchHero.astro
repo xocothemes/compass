@@ -1,5 +1,6 @@
 ---
 interface Props {
+  id?: string;
   title?: string;
   placeholder?: string;
   suggestions?: {
@@ -9,8 +10,16 @@ interface Props {
   }[];
 }
 
-const { title = 'How can we help?', placeholder = 'Search the docs...', suggestions = [] } = Astro.props;
-const searchId = `search-hero-${Math.random().toString(36).slice(2, 10)}`;
+const {
+  id = 'search-hero',
+  title = 'How can we help?',
+  placeholder = 'Search the docs...',
+  suggestions = [],
+} = Astro.props;
+const inputId = `${id}-input`;
+const resultsId = `${id}-results`;
+const hintId = `${id}-hint`;
+const statusId = `${id}-status`;
 ---
 
 <section class="search-hero bg-[var(--color-surface)] py-14 md:py-16">
@@ -29,11 +38,11 @@ const searchId = `search-hero-${Math.random().toString(36).slice(2, 10)}`;
       data-search-error="Search is available after running npm run build and npm run preview."
       data-search-suggestions={JSON.stringify(suggestions)}
     >
-      <label class="sr-only" for={`${searchId}-input`}>Search the docs</label>
-      <p id={`${searchId}-hint`} class="sr-only">
+      <label class="sr-only" for={inputId}>Search the docs</label>
+      <p id={hintId} class="sr-only">
         Type to search the documentation. Press slash or Control/Command plus K to focus this search field.
       </p>
-      <p id={`${searchId}-status`} class="sr-only" data-search-status aria-live="polite"></p>
+      <p id={statusId} class="sr-only" data-search-status aria-live="polite"></p>
       <div
         class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-4 text-[var(--color-search-placeholder)]"
       >
@@ -45,13 +54,18 @@ const searchId = `search-hero-${Math.random().toString(36).slice(2, 10)}`;
         </svg>
       </div>
       <input
-        id={`${searchId}-input`}
+        id={inputId}
         type="search"
+        role="combobox"
         data-search-input
         class="search-input block w-full rounded-[15px] border border-[var(--color-border-strong)] bg-[var(--color-surface)] py-4 pl-12 pr-28 text-base text-[var(--color-search-text)] outline-none transition-all placeholder:text-[var(--color-search-placeholder)] focus:border-blue-400 focus:ring-2 focus:ring-blue-400/20 md:text-lg"
         placeholder={placeholder}
         autocomplete="off"
-        aria-describedby={`${searchId}-hint ${searchId}-status`}
+        aria-autocomplete="list"
+        aria-controls={resultsId}
+        aria-describedby={`${hintId} ${statusId}`}
+        aria-expanded="false"
+        aria-haspopup="listbox"
       />
       <button
         type="button"
@@ -61,10 +75,10 @@ const searchId = `search-hero-${Math.random().toString(36).slice(2, 10)}`;
         Search
       </button>
       <div
-        id={`${searchId}-results`}
+        id={resultsId}
         data-search-results
         class="search-results absolute left-0 right-0 top-full z-50 mt-2 hidden max-h-96 overflow-y-auto rounded-[15px] border border-[var(--color-border)] bg-[var(--color-surface)] text-left"
-        role="region"
+        role="listbox"
         aria-label="Search results"
         aria-hidden="true"
       >

@@ -1,10 +1,10 @@
 {
   "name": "compass-docs-theme",
-  "version": "0.1.6",
-  "description": "A clean documentation theme for Astro, built with Tailwind CSS.",
+  "version": "1.0.0",
+  "description": "A clean Astro documentation template for product docs and support centers.",
   "type": "module",
   "license": "MIT",
-  "private": false,
+  "private": true,
   "author": "Andrei Alba",
   "homepage": "https://compass-lilac-tau.vercel.app/",
   "engines": {
@@ -19,6 +19,9 @@
     "public",
     "LICENSE",
     "README.md",
+    "CHANGELOG.md",
+    "CONTRIBUTING.md",
+    "screenshot.webp",
     "astro.config.mjs",
     "site.config.mjs",
     "tsconfig.json"
@@ -40,6 +43,8 @@
     "documentation",
     "docs-theme",
     "mdx",
+    "starter",
+    "template",
     "theme"
   ],
   "dependencies": {

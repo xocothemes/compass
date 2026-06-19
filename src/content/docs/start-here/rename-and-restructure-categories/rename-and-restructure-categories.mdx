@@ -16,7 +16,7 @@ That file defines:
 
 - parent groupings such as `Getting Started`
 - sub-categories such as `Start Here`
-- slugs used for routes
+- slugs used in nested routes
 - descriptions shown in cards and section pages
 - icons used on the homepage
 
@@ -58,7 +58,7 @@ to the new slug-based folder name.
 
 ## Move content between parent groups
 
-Each category also has a `parent` field. Updating that value changes which top-level homepage section and parent route the category belongs to.
+Each category also has a `parent` field. Updating that value changes which homepage section and canonical parent route the category belongs to.
 
 That means you can:
 
@@ -75,6 +75,8 @@ When restructuring categories, confirm all three of these still agree:
 3. The `category` value in each article's frontmatter
 
 If one of them falls out of sync, the article may stop appearing where you expect.
+
+Compass only generates nested category URLs such as `/getting-started/start-here`. It does not generate one-segment sub-category pages such as `/start-here`, so update internal links to use the full parent/category path after a restructure.
 
 ## Safe restructuring workflow
 

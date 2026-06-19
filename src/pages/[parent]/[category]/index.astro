@@ -39,7 +39,10 @@ const suggestedArticles = getSuggestedSearchArticles(publicDocs, {
 const searchPreviews = getSearchPreviewLookup(publicDocs);
 ---
 
-<Layout title={`${subcategory?.name ?? category} | ${parent?.name ?? 'Compass'}`}>
+<Layout
+  title={`${subcategory?.name ?? category} | ${parent?.name ?? 'Compass'}`}
+  description={subcategory?.description}
+>
   <SearchPreviews previews={searchPreviews} />
 
   <div class="mx-auto flex max-w-[1280px] flex-col gap-10 px-4 py-10 lg:flex-row lg:px-8">

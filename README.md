@@ -6,7 +6,7 @@
 [![MDX](https://img.shields.io/badge/MDX-Content_Collections-000000?style=for-the-badge&logo=mdx&logoColor=white)](https://docs.astro.build/en/guides/integrations-guide/mdx/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-84cc16?style=for-the-badge)](./LICENSE)
 
-Compass is a clean Astro documentation theme for product docs, support centers, and internal knowledge bases. It combines MDX content collections, category-driven navigation, Pagefind-powered search, reusable content components, and a polished light/dark UI without pulling in a heavyweight docs framework.
+Compass is a clean Astro documentation template for product docs, support centers, and internal knowledge bases. Use it as a starting repository, then replace the sample content, structure, and branding with your own. It combines MDX content collections, category-driven navigation, Pagefind-powered search, reusable content components, and a polished light/dark UI without pulling in a heavyweight docs framework.
 
 **Preview:** [https://compass-lilac-tau.vercel.app/](https://compass-lilac-tau.vercel.app/)
 
@@ -16,7 +16,7 @@ Compass is a clean Astro documentation theme for product docs, support centers, 
 
 - Built with Astro 6 and Tailwind CSS 4
 - MDX content collections for article authoring
-- Parent categories, sub-category pages, and article routes
+- Parent landing pages plus nested sub-category and article routes
 - Expanded article frontmatter for tags, status, edit links, hero images, redirects, and search visibility
 - Previous and next article navigation within each docs section
 - Searchable docs landing page and sidebar search powered by Pagefind
@@ -27,8 +27,6 @@ Compass is a clean Astro documentation theme for product docs, support centers, 
 - Syntax-aware code blocks with language headers for code-focused snippets
 - Light and dark mode support
 - Shared site config for branding, links, and CTA text
-- Sitemap support for production builds
-- MIT licensed
 
 ## Tech Stack
 
@@ -41,7 +39,16 @@ Compass is a clean Astro documentation theme for product docs, support centers, 
 - `pagefind`
 - `typescript`
 
-## Quick Start
+## Use This Template
+
+Compass is designed to be copied as a repository template.
+
+1. Open the GitHub repository.
+2. Click **Use this template**.
+3. Create a new repository for your docs site.
+4. Clone your new repository locally.
+
+Then install dependencies and start Astro:
 
 ```bash
 npm install
@@ -69,11 +76,11 @@ npm run clean
 - [Contributing guide](./CONTRIBUTING.md)
 - [Changelog](./CHANGELOG.md)
 
-## Theme Setup
+## Template Setup
 
 The main theme settings live in [site.config.mjs](./site.config.mjs).
 
-Update these before publishing:
+Update these before publishing your docs site:
 
 - `siteUrl`
 - `name`
@@ -108,7 +115,7 @@ author: 'Docs Team'
 editUrl: 'https://github.com/your-org/your-repo/edit/main/src/content/docs/start-here/set-up-compass/set-up-compass.mdx'
 heroImage: './hero.png'
 redirectFrom:
-  - '/start-here/getting-started'
+  - '/old-setup-guide'
 order: 1
 updatedAt: 2026-06-03
 ---
@@ -157,9 +164,17 @@ Use `public/` only for assets that need a stable direct URL and should not be pr
 Categories are defined in [src/data/docs.ts](./src/data/docs.ts). That file powers:
 
 - homepage cards
-- top-level category organization
+- parent category organization
 - sidebar navigation
-- category and article route generation
+- nested category and article route generation
+
+Compass uses one canonical URL shape for docs sections:
+
+- parent pages: `/:parent`, such as `/getting-started`
+- sub-category pages: `/:parent/:category`, such as `/getting-started/start-here`
+- article pages: `/:parent/:category/:slug`, such as `/getting-started/start-here/set-up-compass`
+
+One-segment sub-category URLs such as `/start-here`, `/compass-docs`, or `/components` are not generated and do not redirect by default.
 
 The content tree mirrors those category slugs:
 
@@ -167,6 +182,8 @@ The content tree mirrors those category slugs:
 - `src/content/docs/compass-docs`
 - `src/content/docs/components`
 - `src/content/docs/channels-and-apps`
+
+Article frontmatter `category` values must match one of those category slugs. If a category typo slips in, `npm run check` reports a content validation error.
 
 ## Reusable Components
 
@@ -219,7 +236,13 @@ If you add your own Astro component, register it there to make it available insi
 - `astro.config.mjs` uses the value from `site.config.mjs` for the canonical site URL.
 - `astro.config.mjs` enables responsive local images by default with Astro's image pipeline.
 - `npm run build` generates the static site, RSS feed, sitemap, and Pagefind search bundle.
-- If you plan to publish this package, update the package metadata in `package.json`.
+- `package.json` is marked private because Compass is meant to be used as a template repository, not published as an npm package.
+
+## Template Releases
+
+Compass uses GitHub Releases for template versions. The current stable release is `v1.0.0`.
+
+For a new release, update `package.json`, `package-lock.json`, `CHANGELOG.md`, and the matching notes in `.github/releases/`, then create a GitHub tag such as `v1.0.0`.
 
 ## License
 

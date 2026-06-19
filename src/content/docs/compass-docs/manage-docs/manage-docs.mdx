@@ -67,6 +67,10 @@ Inside `src/content/docs`, each top-level folder should match a sub-category slu
 
 The parent sections such as `getting-started` and `integrations` live in `src/data/docs.ts` and drive navigation, but they are not used as content folder names.
 
+Those parent slugs are part of the public URL. Category pages use nested paths such as `/getting-started/compass-docs`; Compass does not generate one-segment category pages such as `/compass-docs`.
+
+The `category` field in article frontmatter is validated against the category slugs in `src/data/docs.ts`. If you rename a category slug, update the matching article frontmatter before running `npm run check`.
+
 ## Suggested maintenance rhythm
 
 - update categories when the docs structure changes

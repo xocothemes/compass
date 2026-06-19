@@ -45,7 +45,7 @@ This keeps search focused on docs content rather than indexing:
 
 Compass also attaches article metadata for the category label. For active queries, the custom search UI prefers Pagefind's matched excerpt so readers can see highlighted hit context, then falls back to each article's frontmatter `description` when no excerpt is available.
 
-The search dropdown is keyboard-friendly: use `/` or `Control/Command + K` to focus search, `ArrowDown` and `ArrowUp` to choose a result, `Enter` to open it, and `Escape` to close the dropdown.
+The search dropdown is keyboard-friendly: use `/` or `Control/Command + K` to focus search, `ArrowDown` and `ArrowUp` to choose a result, `Enter` to open it, and `Escape` to close the dropdown. Compass gives each search input a stable ID and connects it to its result list with ARIA state so assistive technology can track when results are available and which keyboard-highlighted result is active.
 
 If an article should not appear in search, set:
 
