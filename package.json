@@ -64,6 +64,9 @@
     "typescript": "^5.9.3"
   },
   "overrides": {
+    "astro": {
+      "esbuild": "^0.28.1"
+    },
     "yaml-language-server": {
       "yaml": "2.9.0"
     }
