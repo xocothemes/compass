@@ -8,6 +8,14 @@ The format is based on Keep a Changelog, and this project follows semantic versi
 
 - No unreleased changes yet.
 
+## [2.0.0] - 2026-07-15
+
+### Changed
+
+- Upgraded the Astro project stack to Astro 7.
+- Raised the documented Node.js engine requirement to `^20.19.0 || >=22.12.0`.
+- Kept Pagefind loading disabled during `npm run dev` so local development does not log missing generated search bundle errors before `npm run build` creates the index.
+
 ## [1.0.0] - 2026-06-19
 
 ### Added

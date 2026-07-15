@@ -101,11 +101,15 @@ const normalizeSearchUrl = (value: string) => {
 };
 
 const getPagefind = () => {
+  if (import.meta.env.DEV) {
+    return Promise.resolve(null);
+  }
+
   if (!pagefindPromise) {
     pagefindPromise = import(/* @vite-ignore */ PAGEFIND_BUNDLE_URL)
       .then((module) => module as PagefindApi)
-      .catch((error) => {
-        console.error('Unable to load the Pagefind bundle.', error);
+      .catch((error: unknown) => {
+        console.error('Unable to load Pagefind.', error);
         return null;
       });
   }

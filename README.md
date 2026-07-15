@@ -1,6 +1,6 @@
 # Compass
 
-[![Astro 6](https://img.shields.io/badge/Astro-6-FF5D01?style=for-the-badge&logo=astro&logoColor=white)](https://astro.build/)
+[![Astro 7](https://img.shields.io/badge/Astro-7-FF5D01?style=for-the-badge&logo=astro&logoColor=white)](https://astro.build/)
 [![Tailwind CSS 4](https://img.shields.io/badge/Tailwind_CSS-4-06B6D4?style=for-the-badge&logo=tailwindcss&logoColor=white)](https://tailwindcss.com/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-Configured-3178C6?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
 [![MDX](https://img.shields.io/badge/MDX-Content_Collections-000000?style=for-the-badge&logo=mdx&logoColor=white)](https://docs.astro.build/en/guides/integrations-guide/mdx/)
@@ -14,7 +14,7 @@ Compass is a clean Astro documentation template for product docs, support center
 
 ## Highlights
 
-- Built with Astro 6 and Tailwind CSS 4
+- Built with Astro 7 and Tailwind CSS 4
 - MDX content collections for article authoring
 - Parent landing pages plus nested sub-category and article routes
 - Expanded article frontmatter for tags, status, edit links, hero images, redirects, and search visibility
