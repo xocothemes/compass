@@ -21,6 +21,7 @@ Compass keeps navigation explicit. Instead of inferring everything from folders,
 - `src/pages/[parent]/[category]/[slug].astro` renders article pages
 - `src/components/layout/DocsSidebar.astro` renders the per-section sidebar with every article in that section
 - `src/components/layout/TableOfContents.astro` renders the "On this page" rail on wide screens
+- `src/components/chrome/SiteHeader.astro` renders a link per parent section, and a menu listing every category on smaller screens
 
 ## How article links are generated
 
@@ -46,6 +47,7 @@ That means:
 - top-level grouping comes from `docsParentCategories`
 - section labels and slugs come from `docsCategories`
 - article ordering inside a section comes from each article's `order` frontmatter
+- the current article and its category are highlighted as you move between pages
 
 ## Route structure
 

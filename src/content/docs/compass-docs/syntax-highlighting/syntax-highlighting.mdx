@@ -3,7 +3,7 @@ title: 'Syntax Highlighting'
 description: "Add clean, readable code examples to your Compass docs with Astro's built-in syntax highlighting."
 category: 'compass-docs'
 order: 4
-updatedAt: 2026-06-03
+updatedAt: 2026-10-08
 ---
 
 Syntax highlighting is part of the writing experience in Compass, so it fits better as a docs feature than as a reusable component.
@@ -33,20 +33,13 @@ export function formatTitle(title: string) {
 
 ## Where it is configured
 
-Compass uses Astro's built-in Markdown highlighting through `shikiConfig` in `astro.config.mjs`.
+Compass uses Astro's built-in Markdown highlighting through `shikiConfig` in `astro.config.mjs`, with the `github-light` theme in light mode and `github-dark-default` in dark mode.
 
 If you want to change the theme or code presentation later, update:
 
 - `astro.config.mjs` for Shiki theme configuration
 - `src/styles/global.css` for the code block frame, language label, and copy button styling
-
-## More Preview
-
-```ts
-export function formatTitle(title: string) {
-  return title.trim().replace(/\s+/g, ' ');
-}
-```
+- `src/scripts/article-enhancements.ts` to rename a language label or add one for a new language
 
 ## Common languages
 

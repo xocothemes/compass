@@ -35,6 +35,10 @@ The most common files to update are:
 
 Use `public/` for these assets because they need stable URLs and should not be processed as article-owned content.
 
+## Match your brand color
+
+The accent color drives links, buttons, icons, highlights, and the homepage glow. Change `--accent` and its companions `--accent-strong`, `--accent-soft`, and `--accent-ink` at the top of `src/styles/global.css`, once in `:root` for light mode and once in `html.dark` for dark mode.
+
 ## Make the category language yours
 
 Branding is not only visual. It also includes the way your docs are named and organized.
@@ -44,7 +48,7 @@ Review:
 - parent category names in `src/config/docs.ts`
 - category descriptions on the homepage
 - sample article titles in `src/content/docs`
-- CTA wording in the navigation
+- the header button wording
 
 Even small copy changes can make the site feel much more intentional.
 
@@ -61,7 +65,8 @@ After your first branding pass, preview the site and look at it as a new visitor
 
 <Checklist>
   <ChecklistItem>Update `src/config/site.ts`</ChecklistItem>
-  <ChecklistItem>Replace favicon and OG assets</ChecklistItem>
+  <ChecklistItem>Replace the logo mark, favicons, and OG image</ChecklistItem>
+  <ChecklistItem>Set your accent color</ChecklistItem>
   <ChecklistItem>Rename category labels</ChecklistItem>
   <ChecklistItem>Rewrite the sample homepage-facing article titles</ChecklistItem>
 </Checklist>

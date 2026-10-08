@@ -7,7 +7,7 @@ status: 'published'
 author: 'Compass Team'
 editUrl: 'https://github.com/xocothemes/compass/edit/main/src/content/docs/compass-docs/manage-docs/manage-docs.mdx'
 order: 2
-updatedAt: 2026-06-03
+updatedAt: 2026-10-08
 ---
 
 Compass keeps content management intentionally simple: categories live in one data file, and every article lives in its own content folder.
@@ -27,15 +27,17 @@ Inside each article, the `order` field controls its position within a category. 
 
 ## Use frontmatter for maintenance metadata
 
-Compass now supports a wider set of article metadata in `src/content.config.ts`:
+Compass supports a wide set of article metadata, validated by `src/content.config.ts`:
 
 - `tags` for grouping and future filtering
 - `status` for content lifecycle tracking; `draft` and `archived` pages stay out of generated routes, navigation, search, redirects, and RSS
 - `author` for clear ownership
-- `editUrl` for direct contribution links
+- `updatedAt` for the last updated date, the recently updated list, and RSS
+- `editUrl` to override the generated "Edit this page" link
 - `heroImage` for article header visuals
 - `hideFromSearch` when a page should stay out of search results
 - `redirectFrom` when an old route should forward to a new one
+- `relatedLinks` for next-step cards at the end of the article
 
 This keeps maintenance decisions inside the article itself instead of scattering notes across separate spreadsheets or docs.
 

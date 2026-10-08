@@ -7,7 +7,7 @@ status: 'published'
 author: 'Compass Team'
 editUrl: 'https://github.com/xocothemes/compass/edit/main/src/content/docs/compass-docs/write-your-first-article/write-your-first-article.mdx'
 order: 1
-updatedAt: 2026-06-03
+updatedAt: 2026-10-08
 relatedLinks:
   - title: 'Register MDX Components'
     href: '/getting-started/compass-docs/register-mdx-components'
@@ -43,15 +43,18 @@ updatedAt: 2026-06-03
 ---
 ```
 
-The required fields are still `title` and `category`, but the optional fields above unlock a lot of useful workflow metadata:
+The required fields are `title` and `category`. The optional fields add useful workflow metadata:
 
-- `tags` let you group related docs or prepare future search filters
-- `status` controls the article lifecycle. Use `published` or `deprecated` for visible pages, and `draft` or `archived` for pages that should not publish.
-- `author` shows who owns the article metadata
-- `editUrl` powers an "Edit this page" link at the bottom of the article
+- `description` becomes the lede under the title, the meta description, and the fallback search excerpt
+- `order` sets the article's position within its category
+- `updatedAt` shows a last updated date and adds the article to the homepage's recently updated list and the RSS feed
+- `tags` and `author` are indexed as search metadata; they are not shown on the page
+- `status` controls the article lifecycle. Use `published` or `deprecated` for visible pages, and `draft` or `archived` for pages that should not publish. Deprecated pages show a Deprecated badge.
+- `editUrl` overrides the "Edit this page" link, which Compass otherwise generates from `editBaseUrl` in `src/config/site.ts`
 - `heroImage` renders a header image from the article folder through Astro's image pipeline
 - `redirectFrom` keeps old doc links working after a rename or move
-- `hideFromSearch: true` keeps a page out of the generated search index
+- `relatedLinks` adds cards under a "Continue with" heading at the end of the article
+- `hideFromSearch: true` keeps a page out of search, popular articles, the recently updated list, RSS, and `llms.txt`
 
 ## Add the body content
 
@@ -84,9 +87,12 @@ Compass uses this structure for all articles so routes stay predictable and imag
 
 Once saved, the article will appear in:
 
-- the category page for its `category`
+- the category page for its `category`, and the article count on the homepage card
 - the sidebar for that section
 - the direct article route generated from the article filename
+- search, after the next `npm run build`
+- the previous and next links of its neighbors in the category
+- `llms.txt`, and the RSS feed and recently updated list when it has an `updatedAt`
 
 Articles marked `draft` or `archived` are intentionally left out of those public surfaces.
 

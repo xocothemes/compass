@@ -3,7 +3,7 @@ title: 'Code Tabs'
 description: 'Use code tabs for command variants, framework examples, and other code snippets that share the same step.'
 category: 'components'
 order: 9
-updatedAt: 2026-06-07
+updatedAt: 2026-10-08
 ---
 
 Code tabs work best when readers should stay on one page but switch between equivalent code examples, such as package managers, frameworks, or deployment targets.
@@ -14,9 +14,27 @@ Add a `CodeTabs` block and provide one named slot per code panel:
 
 ````mdx
 <CodeTabs labels={['npm', 'pnpm', 'yarn']}>
-  <div slot="panel-1">```bash npm install ```</div>
-  <div slot="panel-2">```bash pnpm install ```</div>
-  <div slot="panel-3">```bash yarn install ```</div>
+  <div slot="panel-1">
+
+```bash
+npm install
+```
+
+  </div>
+  <div slot="panel-2">
+
+```bash
+pnpm install
+```
+
+  </div>
+  <div slot="panel-3">
+
+```bash
+yarn install
+```
+
+  </div>
 </CodeTabs>
 ````
 

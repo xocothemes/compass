@@ -3,7 +3,7 @@ title: 'Rename and Restructure Categories'
 description: 'Adjust category labels, slugs, and grouping in Compass without losing track of how routes are generated.'
 category: 'start-here'
 order: 6
-updatedAt: 2026-06-05
+updatedAt: 2026-10-08
 ---
 
 One of the first real customization steps in Compass is replacing the sample category structure with the one your team actually needs.
@@ -18,7 +18,7 @@ That file defines:
 - sub-categories such as `Start Here`
 - slugs used in nested routes
 - descriptions shown in cards and section pages
-- icons used on the homepage
+- icons used on the homepage cards, the sidebar, and the mobile menu
 
 ## Rename a category label
 
@@ -55,6 +55,8 @@ src/content/docs/start-here
 ```
 
 to the new slug-based folder name.
+
+If the old URLs were already public, add them to `redirectFrom` in each moved article so existing links keep working.
 
 ## Move content between parent groups
 

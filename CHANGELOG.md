@@ -2,6 +2,12 @@
 
 All notable changes to Compass are documented here.
 
+## Unreleased
+
+- Updated the starter docs to match the current theme: frontmatter, edit links, search, navigation, branding, project structure, and the image lightbox.
+- Fixed the Code Tabs usage example.
+- Removed a duplicate example from the Syntax Highlighting article.
+
 ## 3.0.0 - 2026-10-08
 
 - Redesigned the theme with a new indigo accent, refined light and dark palettes, softer surfaces, and consistent motion.
