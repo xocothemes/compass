@@ -1,13 +1,13 @@
 # Compass - Astro Documentation Theme
 
-[![Compass theme preview](./preview.webp)](https://compass-lilac-tau.vercel.app/)
+[![Compass theme preview](./preview.webp)](https://compass.xocoweb.workers.dev/)
 
 [![Astro 7](https://img.shields.io/badge/Astro-7-FF5D01?style=for-the-badge&logo=astro&logoColor=white)](https://astro.build/)
 [![Tailwind CSS 4](https://img.shields.io/badge/Tailwind_CSS-4-06B6D4?style=for-the-badge&logo=tailwindcss&logoColor=white)](https://tailwindcss.com/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-Configured-3178C6?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-84cc16?style=for-the-badge)](./LICENSE)
 
-**Live preview:** https://compass-lilac-tau.vercel.app/
+**Live preview:** https://compass.xocoweb.workers.dev/
 
 Compass is a free Astro theme for product documentation, help centers, and internal knowledge bases. It pairs a calm, editorial reading experience with the tools readers expect from a modern docs site: a search palette on every page, a full section sidebar, and an "On this page" rail. Content is MDX validated by Astro content collections, the structure lives in a few config files, and the output is fully static.
 

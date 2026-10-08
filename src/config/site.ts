@@ -3,7 +3,7 @@ export const siteConfig = {
   title: 'Compass - An Astro documentation theme',
   description:
     'Compass is a free Astro documentation theme for product docs, help centers, and knowledge bases, with fast static search and MDX components.',
-  siteUrl: 'https://compass-lilac-tau.vercel.app',
+  siteUrl: 'https://compass.xocoweb.workers.dev',
   language: 'en',
   locale: 'en_US',
   dateLocale: 'en-US',
