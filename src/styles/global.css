@@ -473,9 +473,16 @@ html.dark {
 
   .hero {
     position: relative;
+    z-index: 1;
     isolation: isolate;
-    overflow: hidden;
+    /* Clips the glow but lets the search dropdown hang below the hero. */
+    clip-path: inset(0 0 -100vh);
     border-bottom: 1px solid var(--line);
+  }
+
+  /* .rise makes the chips a stacking context that would paint over the dropdown. */
+  .hero-search {
+    z-index: 2;
   }
 
   .hero::before {
@@ -622,6 +629,22 @@ html.dark {
     padding: 0.375rem;
     text-align: left;
     box-shadow: var(--shadow-lg);
+  }
+
+  .hero-search:has(> .search-results:not(.hidden)) .search-field {
+    border-color: var(--line-strong) var(--line-strong) var(--line);
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+    box-shadow: var(--shadow-md);
+    clip-path: inset(-1rem -1rem 0);
+  }
+
+  .hero-search:has(> .search-results:not(.hidden)) .search-results {
+    top: 100%;
+    border-color: var(--line-strong);
+    border-top: 0;
+    border-radius: 0 0 1rem 1rem;
+    clip-path: inset(0 -6rem -6rem);
   }
 
   .search-results-label {
