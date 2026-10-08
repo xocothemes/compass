@@ -475,7 +475,8 @@ html.dark {
     position: relative;
     z-index: 1;
     isolation: isolate;
-    /* Clips the glow but lets the search dropdown hang below the hero. */
+    /* Clip the glow on the sides and top only, so the search dropdown can hang below. */
+    overflow-x: clip;
     clip-path: inset(0 0 -100vh);
     border-bottom: 1px solid var(--line);
   }
