@@ -5,17 +5,17 @@ category: 'compass-docs'
 tags: ['search', 'pagefind']
 status: 'published'
 author: 'Compass Team'
-editUrl: 'https://github.com/andreialba/compass/edit/main/src/content/docs/compass-docs/how-search-works/how-search-works.mdx'
+editUrl: 'https://github.com/xocothemes/compass/edit/main/src/content/docs/compass-docs/how-search-works/how-search-works.mdx'
 order: 6
-updatedAt: 2026-06-04
+updatedAt: 2026-10-08
 ---
 
 Compass uses [Pagefind](https://pagefind.app/) for static full-text search. The search index is generated from the built HTML after Astro finishes its build, so Compass does not inline a giant search payload into every page.
 
 ## The main files
 
-- `src/components/SearchHero.astro` for the homepage search UI
-- `src/components/Sidebar.astro` for the sidebar search UI
+- `src/components/home/HomeHero.astro` for the homepage search field
+- `src/components/chrome/SearchDialog.astro` for the search palette available on every page
 - `src/components/SearchPreviews.astro` for the shared frontmatter preview payload
 - `src/scripts/docs-search.ts` for the shared Pagefind client logic
 - `package.json` for the build step that runs `pagefind --site dist`
@@ -29,7 +29,7 @@ It helps because:
 - search indexing happens at build time
 - the browser loads small search chunks on demand
 - result previews can come from one shared page-level lookup built from each article's frontmatter `description`
-- the same search system can power both the hero search and sidebar search
+- the same search system powers both the homepage search and the search palette
 
 ## What gets indexed
 
@@ -45,7 +45,7 @@ This keeps search focused on docs content rather than indexing:
 
 Compass also attaches article metadata for the category label. For active queries, the custom search UI prefers Pagefind's matched excerpt so readers can see highlighted hit context, then falls back to each article's frontmatter `description` when no excerpt is available.
 
-The search dropdown is keyboard-friendly: use `/` or `Control/Command + K` to focus search, `ArrowDown` and `ArrowUp` to choose a result, `Enter` to open it, and `Escape` to close the dropdown. Compass gives each search input a stable ID and connects it to its result list with ARIA state so assistive technology can track when results are available and which keyboard-highlighted result is active.
+Search is keyboard-friendly: press `/` or `Control/Command + K` anywhere to open the search palette, use `ArrowDown` and `ArrowUp` to choose a result, `Enter` to open it, and `Escape` to close the palette. Before you type, the palette lists popular articles from the categories in `src/config/home.ts`. Compass gives each search input a stable ID and connects it to its result list with ARIA state so assistive technology can track when results are available and which keyboard-highlighted result is active.
 
 If an article should not appear in search, set:
 

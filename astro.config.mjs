@@ -1,11 +1,12 @@
+// @ts-check
 import { defineConfig } from 'astro/config';
 import mdx from '@astrojs/mdx';
 import sitemap from '@astrojs/sitemap';
 import tailwindcss from '@tailwindcss/vite';
-import site from './site.config.mjs';
+import { siteConfig } from './src/config/site.ts';
 
 export default defineConfig({
-  site: site.siteUrl,
+  site: siteConfig.siteUrl,
   integrations: [mdx(), sitemap()],
   image: {
     layout: 'constrained',
@@ -15,15 +16,11 @@ export default defineConfig({
     shikiConfig: {
       themes: {
         light: 'github-light',
-        dark: 'github-dark',
+        dark: 'github-dark-default',
       },
     },
   },
   vite: {
     plugins: [tailwindcss()],
-  },
-  server: {
-    host: '0.0.0.0',
-    port: 3000,
   },
 });

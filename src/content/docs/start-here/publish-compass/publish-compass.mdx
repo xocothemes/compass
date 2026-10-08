@@ -3,23 +3,24 @@ title: 'Publish Compass'
 description: 'Prepare Compass for production, verify the build output, and publish with confidence.'
 category: 'start-here'
 order: 5
-updatedAt: 2026-06-05
+updatedAt: 2026-10-08
 ---
 
 Publishing Compass is mostly about replacing the sample project details in the repository you created from the template, verifying the production build, and checking that the generated site behaves the way you expect.
 
 ## Update the public-facing settings
 
-Before publishing, review `site.config.mjs` and make sure these values are yours:
+Before publishing, review `src/config/site.ts` and make sure these values are yours:
 
 - `siteUrl`
 - `name`
 - `title`
 - `description`
-- `githubUrl`
-- `navCtaLabel`
-- `navCtaHref`
+- `repository`
+- `editBaseUrl`
+- `action`
 - `footerText`
+- `socials`
 
 These settings affect metadata, navigation labels, links, canonical URLs, and the site URL used by the generated RSS feed and sitemap.
 
@@ -49,7 +50,7 @@ Use that preview to confirm:
 Before going live, make sure:
 
 - sample articles you do not want are removed or rewritten
-- category names in `src/data/docs.ts` match your real information architecture
+- category names in `src/config/docs.ts` match your real information architecture
 - article ordering feels intentional
 - links between articles still make sense after any renames
 
@@ -66,7 +67,7 @@ Compass ships with default icons and social assets. Replace the ones you want to
 <Checklist>
   <ChecklistItem>Build succeeds with `npm run build`</ChecklistItem>
   <ChecklistItem>Search works in `npm run preview`</ChecklistItem>
-  <ChecklistItem>`site.config.mjs` uses real URLs</ChecklistItem>
+  <ChecklistItem>`src/config/site.ts` uses real URLs</ChecklistItem>
   <ChecklistItem>Sample docs have been replaced</ChecklistItem>
   <ChecklistItem>Branding assets are updated</ChecklistItem>
   <ChecklistItem>Your repository was created from the template and renamed for your docs site</ChecklistItem>

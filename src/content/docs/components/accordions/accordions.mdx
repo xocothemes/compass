@@ -13,12 +13,12 @@ Accordions are useful when a page includes optional context that should not inte
 Add an `Accordion` block inside your `.mdx` article:
 
 ```mdx
-<Accordion title="Where do docs categories live?">Categories live in `src/data/docs.ts`.</Accordion>
+<Accordion title="Where do docs categories live?">Categories live in `src/config/docs.ts`.</Accordion>
 ```
 
 ## Implementation notes
 
-The component lives in `src/components/docs/Accordion.astro`. Update that file and the `.docs-accordion*` styles in `src/index.css` if you want a different disclosure pattern.
+The component lives in `src/components/docs/Accordion.astro`. Update that file and the `.docs-accordion*` styles in `src/styles/global.css` if you want a different disclosure pattern.
 
 ## Preview
 
@@ -34,4 +34,4 @@ The component lives in `src/components/docs/Accordion.astro`. Update that file a
   The component is already registered for MDX, so you can drop it into any docs article without extra setup.
 </Accordion>
 
-<Accordion title="Where do docs categories live?">Categories live in `src/data/docs.ts`.</Accordion>
+<Accordion title="Where do docs categories live?">Categories live in `src/config/docs.ts`.</Accordion>

@@ -16,7 +16,7 @@ The theme is organized into a few main areas:
 - `src/components` contains shared UI pieces
 - `src/layouts` wraps page structure
 - `src/content/docs` stores article content
-- `src/data/docs.ts` defines the docs information architecture
+- `src/config/docs.ts` defines the docs information architecture
 
 ## How content is grouped
 
@@ -34,7 +34,7 @@ This structure powers:
 
 ## Where navigation comes from
 
-The docs navigation is not inferred only from folders. It is primarily defined in `src/data/docs.ts`, which gives you explicit control over:
+The docs navigation is not inferred only from folders. It is primarily defined in `src/config/docs.ts`, which gives you explicit control over:
 
 - labels
 - slugs
@@ -56,7 +56,7 @@ updatedAt: 2026-06-03
 ---
 ```
 
-The `category` value links an article to one of the sub-categories declared in `src/data/docs.ts`.
+The `category` value links an article to one of the sub-categories declared in `src/config/docs.ts`.
 
 ## How the pages connect
 

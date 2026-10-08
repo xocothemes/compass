@@ -1,249 +1,101 @@
-# Compass
+# Compass - Astro Documentation Theme
+
+[![Compass theme preview](./preview.webp)](https://compass-lilac-tau.vercel.app/)
 
 [![Astro 7](https://img.shields.io/badge/Astro-7-FF5D01?style=for-the-badge&logo=astro&logoColor=white)](https://astro.build/)
 [![Tailwind CSS 4](https://img.shields.io/badge/Tailwind_CSS-4-06B6D4?style=for-the-badge&logo=tailwindcss&logoColor=white)](https://tailwindcss.com/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-Configured-3178C6?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
-[![MDX](https://img.shields.io/badge/MDX-Content_Collections-000000?style=for-the-badge&logo=mdx&logoColor=white)](https://docs.astro.build/en/guides/integrations-guide/mdx/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-84cc16?style=for-the-badge)](./LICENSE)
 
-Compass is a clean Astro documentation template for product docs, support centers, and internal knowledge bases. Use it as a starting repository, then replace the sample content, structure, and branding with your own. It combines MDX content collections, category-driven navigation, Pagefind-powered search, reusable content components, and a polished light/dark UI without pulling in a heavyweight docs framework.
+**Live preview:** https://compass-lilac-tau.vercel.app/
 
-**Preview:** [https://compass-lilac-tau.vercel.app/](https://compass-lilac-tau.vercel.app/)
+Compass is a free Astro theme for product documentation, help centers, and internal knowledge bases. It pairs a calm, editorial reading experience with the tools readers expect from a modern docs site: a search palette on every page, a full section sidebar, and an "On this page" rail. Content is MDX validated by Astro content collections, the structure lives in a few config files, and the output is fully static.
 
-[![Compass preview screenshot](./screenshot.webp)](https://compass-lilac-tau.vercel.app/)
+## Features
 
-## Highlights
-
-- Built with Astro 7 and Tailwind CSS 4
-- MDX content collections for article authoring
-- Parent landing pages plus nested sub-category and article routes
-- Expanded article frontmatter for tags, status, edit links, hero images, redirects, and search visibility
-- Previous and next article navigation within each docs section
-- Searchable docs landing page and sidebar search powered by Pagefind
-- Optional RSS feed for recent docs updates at `/rss.xml`
-- Reusable docs components like callouts, tabs, badges, tables, cards, steps, accordions, checklists, buttons, and quotes
-- Dedicated code tabs for command and framework variants inside MDX articles
-- File tree blocks for documenting repo structure and editing paths
-- Syntax-aware code blocks with language headers for code-focused snippets
-- Light and dark mode support
-- Shared site config for branding, links, and CTA text
+- A `Ctrl/⌘ + K` search palette on every page, powered by Pagefind, with highlighted excerpts and popular articles before the first keystroke
+- A homepage with a search hero, popular article chips, category cards, a recently updated list, and a closing support band
+- Parent sections, categories, and articles defined in one config file, with matching landing pages for each level
+- A docs sidebar that lists every article in the section, grouped by category
+- An "On this page" rail that tracks the current heading, with a compact version on smaller screens
+- Article headers with reading time, last updated date, a "Copy page" button, and heading anchor links
+- Previous and next article cards, related links, and "Edit this page" links generated for every article
+- MDX components available in every article without imports: callouts, badges, buttons, cards, card grids, steps, tabs, code tabs, file trees, tables, accordions, checklists, and quotes
+- Dual-theme syntax highlighting with language labels and a copy button on every code block
+- An image lightbox for article screenshots and diagrams
+- Light and dark modes that follow the system until a reader picks one, applied before first paint
+- Article lifecycle states, so drafts and archived pages stay out of routes, navigation, search, and feeds
+- Redirects from old URLs declared in frontmatter
+- RSS, sitemap, `robots.txt`, `llms.txt`, canonical URLs, Open Graph, Twitter/X cards, and JSON-LD
+- Self-hosted Plus Jakarta Sans and JetBrains Mono, a local Lucide icon set, and design tokens in one stylesheet
+- Static output with no framework islands
+- Skip link, landmarks, labelled controls, visible focus states, keyboard-friendly search and tabs, and reduced-motion support
 
 ## Tech Stack
 
-- `astro`
-- `@astrojs/mdx`
-- `@astrojs/rss`
-- `@astrojs/sitemap`
-- `tailwindcss`
-- `@tailwindcss/typography`
-- `pagefind`
-- `typescript`
+- Astro 7 with MDX
+- Tailwind CSS 4 via the Vite plugin
+- TypeScript, Astro content collections
+- Pagefind for static search
+- `@astrojs/sitemap`, `@astrojs/rss`, Sharp
+- Self-hosted Plus Jakarta Sans and JetBrains Mono, Lucide and Bootstrap Icons, each with its license notice
 
-## Use This Template
+## Requirements
 
-Compass is designed to be copied as a repository template.
+- Node.js `22.12.0` or newer
+- npm
 
-1. Open the GitHub repository.
-2. Click **Use this template**.
-3. Create a new repository for your docs site.
-4. Clone your new repository locally.
-
-Then install dependencies and start Astro:
+## Getting Started
 
 ```bash
 npm install
 npm run dev
 ```
 
-Open `http://localhost:3000`.
-
-Search is generated during `npm run build`, so use `npm run preview` when you want to test the full search experience locally.
-Compass also generates an RSS feed for docs updates at `/rss.xml`.
-
-Useful scripts:
+Build for production:
 
 ```bash
-npm run dev
 npm run build
+```
+
+Preview the production build locally:
+
+```bash
 npm run preview
-npm run check
-npm run format:check
-npm run clean
 ```
 
-## Project Docs
+Search is generated during the build, so use `npm run build` and `npm run preview` to try it.
 
-- [Contributing guide](./CONTRIBUTING.md)
-- [Changelog](./CHANGELOG.md)
+Before shipping a change, run type checking, the production build, and the formatter check together:
 
-## Template Setup
-
-The main theme settings live in [site.config.mjs](./site.config.mjs).
-
-Update these before publishing your docs site:
-
-- `siteUrl`
-- `name`
-- `title`
-- `description`
-- `githubUrl`
-- `navCtaLabel`
-- `navCtaHref`
-- `footerText`
-
-## Writing Docs
-
-Documentation content lives in `src/content/docs`.
-
-Each article lives in its own folder with a slug-matched `.mdx` file:
-
-```text
-src/content/docs/compass-docs/get-started-with-docs/
-`-- get-started-with-docs.mdx
+```bash
+npm run release:check
 ```
 
-Inside that article file, use frontmatter like this:
+## Customization
 
-```mdx
----
-title: 'Set Up Compass'
-description: 'Start customizing the theme and content structure.'
-category: 'start-here'
-tags: ['setup', 'branding']
-status: 'published'
-author: 'Docs Team'
-editUrl: 'https://github.com/your-org/your-repo/edit/main/src/content/docs/start-here/set-up-compass/set-up-compass.mdx'
-heroImage: './hero.png'
-redirectFrom:
-  - '/old-setup-guide'
-order: 1
-updatedAt: 2026-06-03
----
+See [CUSTOMIZATION.md](./CUSTOMIZATION.md) for site settings, the docs structure, the homepage, search, articles and their frontmatter, MDX components, icons, the theme's design tokens, fonts, and dark mode.
 
-## Add your content here
-```
+Set `siteConfig.siteUrl` in [src/config/site.ts](./src/config/site.ts) before building — canonical URLs, social images, the sitemap, the feed, `llms.txt`, and the structured data are all derived from it. The build is static, so any host that serves a directory works: `wrangler.jsonc` is included for Cloudflare Workers, and Netlify, Vercel, GitHub Pages, and object storage behind a CDN need no configuration beyond `npm run build`.
 
-Useful optional frontmatter fields:
+## Content
 
-- `tags` for future filters, grouping, or editorial workflows
-- `status` for lifecycle states like `draft`, `published`, `deprecated`, or `archived`; `draft` and `archived` articles are excluded from generated routes, navigation, search, redirects, and RSS
-- `author` for ownership metadata
-- `editUrl` to show an "Edit this page" link on article pages
-- `heroImage` for a top-of-page article image loaded through Astro's image pipeline
-- `hideFromSearch` to keep a page out of the Pagefind index
-- `redirectFrom` to generate redirect aliases for renamed or moved docs routes
-- `relatedLinks` to render end-of-article recommendation cards for next steps or related guides
+Articles live in [src/content/docs](./src/content/docs), one folder per article, validated by the schema in [src/content.config.ts](./src/content.config.ts). The folder name is the article's URL slug, and the `category` in its frontmatter must match a category in [src/config/docs.ts](./src/config/docs.ts).
 
-If an article includes screenshots or diagrams, keep them beside the article entry:
+The bundled articles document Compass itself, so they double as a guide while you set it up. Replace them with your own content before launch.
 
-```text
-src/content/docs/compass-docs/adding-images/
-|-- adding-images.mdx
-`-- docs-image-placeholder.png
-```
+## Support
 
-Compass uses this folder-per-article pattern everywhere so contributors never have to choose between flat files and nested entries. It also keeps article-owned images in `src/`, where Astro can optimize them and generate responsive output.
-
-Inside MDX, use either a relative Markdown image:
-
-```mdx
-![Diagram](./docs-image-placeholder.png)
-```
-
-or Astro's image component when you need more control:
-
-```mdx
-import { Image } from 'astro:assets';
-import diagram from './docs-image-placeholder.png';
-
-<Image src={diagram} alt="Diagram" width={1200} layout="constrained" />
-```
-
-Use `public/` only for assets that need a stable direct URL and should not be processed by Astro, such as favicons or Open Graph images.
-
-Categories are defined in [src/data/docs.ts](./src/data/docs.ts). That file powers:
-
-- homepage cards
-- parent category organization
-- sidebar navigation
-- nested category and article route generation
-
-Compass uses one canonical URL shape for docs sections:
-
-- parent pages: `/:parent`, such as `/getting-started`
-- sub-category pages: `/:parent/:category`, such as `/getting-started/start-here`
-- article pages: `/:parent/:category/:slug`, such as `/getting-started/start-here/set-up-compass`
-
-One-segment sub-category URLs such as `/start-here`, `/compass-docs`, or `/components` are not generated and do not redirect by default.
-
-The content tree mirrors those category slugs:
-
-- `src/content/docs/start-here`
-- `src/content/docs/compass-docs`
-- `src/content/docs/components`
-- `src/content/docs/channels-and-apps`
-
-Article frontmatter `category` values must match one of those category slugs. If a category typo slips in, `npm run check` reports a content validation error.
-
-## Reusable Components
-
-Compass includes MDX-ready components for richer docs pages:
-
-- `Callout`
-- `ButtonLink`
-- `Card`
-- `CardGrid`
-- `Badge`
-- `QuoteBlock`
-- `Accordion`
-- `Steps`
-- `Step`
-- `Tabs`
-- `CodeTabs`
-- `FileTree`
-- `Table`
-- `Checklist`
-
-They are registered in [src/components/docs/mdx-components.ts](./src/components/docs/mdx-components.ts) and used automatically in article routes.
-
-If you add your own Astro component, register it there to make it available inside `.mdx` articles.
-
-## Project Structure
-
-```text
-.
-|-- public/
-|   `-- icons/
-|-- src/
-|   |-- components/
-|   |   `-- docs/
-|   |-- content/
-|   |   `-- docs/
-|   |-- data/
-|   |   `-- docs.ts
-|   |-- layouts/
-|   |-- pages/
-|   `-- index.css
-|-- astro.config.mjs
-|-- package.json
-|-- site.config.mjs
-`-- tsconfig.json
-```
-
-## Publishing Notes
-
-- `site.config.mjs` still contains placeholder URLs by default.
-- `astro.config.mjs` uses the value from `site.config.mjs` for the canonical site URL.
-- `astro.config.mjs` enables responsive local images by default with Astro's image pipeline.
-- `npm run build` generates the static site, RSS feed, sitemap, and Pagefind search bundle.
-- `package.json` is marked private because Compass is meant to be used as a template repository, not published as an npm package.
-
-## Template Releases
-
-Compass uses GitHub Releases for template versions. The current stable release is `v1.0.0`.
-
-For a new release, update `package.json`, `package-lock.json`, `CHANGELOG.md`, and the matching notes in `.github/releases/`, then create a GitHub tag such as `v1.0.0`.
+Compass is free and provided as-is. Bug reports and questions are welcome as [GitHub issues](https://github.com/xocothemes/compass/issues); custom design and feature work is not included. See [CONTRIBUTING.md](./CONTRIBUTING.md) to propose a change, and [CHANGELOG.md](./CHANGELOG.md) for release history.
 
 ## License
 
-[MIT](./LICENSE)
+MIT — free for personal and commercial projects. See [LICENSE](./LICENSE), which also lists the licenses of the bundled fonts and icons.
+
+## Credits
+
+- [Plus Jakarta Sans](https://github.com/tokotype/PlusJakartaSans) by Tokotype, under the SIL Open Font License
+- [JetBrains Mono](https://github.com/JetBrains/JetBrainsMono) by JetBrains, under the SIL Open Font License
+- [Lucide](https://lucide.dev/), under the ISC License
+- [Bootstrap Icons](https://icons.getbootstrap.com/), under the MIT License
+- [Pagefind](https://pagefind.app/), under the MIT License

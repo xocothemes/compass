@@ -26,12 +26,12 @@ type SearchEntry = {
   title: string;
   excerpt: string;
   url: string;
+  category?: string;
 };
 
 type SearchElements = {
   input: HTMLInputElement;
   results: HTMLDivElement;
-  submitButton: HTMLButtonElement | null;
   status: HTMLElement | null;
 };
 
@@ -120,7 +120,6 @@ const getPagefind = () => {
 const getSearchElements = (root: HTMLElement): SearchElements | null => {
   const input = root.querySelector('[data-search-input]');
   const results = root.querySelector('[data-search-results]');
-  const submitButton = root.querySelector('[data-search-submit]');
   const status = root.querySelector('[data-search-status]');
 
   if (!(input instanceof HTMLInputElement) || !(results instanceof HTMLDivElement)) {
@@ -130,7 +129,6 @@ const getSearchElements = (root: HTMLElement): SearchElements | null => {
   return {
     input,
     results,
-    submitButton: submitButton instanceof HTMLButtonElement ? submitButton : null,
     status: status instanceof HTMLElement ? status : null,
   };
 };
@@ -146,27 +144,18 @@ const isEditableTarget = (target: EventTarget | null) => {
   );
 };
 
-const getPreferredSearchInput = () => {
-  const roots = Array.from(document.querySelectorAll<HTMLElement>('[data-docs-search]'));
+const getSearchDialog = () => document.querySelector<HTMLDialogElement>('[data-search-dialog]');
 
-  for (const root of roots) {
-    if (root.offsetParent === null) continue;
+const openSearchDialog = () => {
+  const dialog = getSearchDialog();
+  if (!dialog || dialog.open) return;
 
-    const elements = getSearchElements(root);
-    if (!elements || elements.input.disabled) continue;
-
-    return elements.input;
+  const input = dialog.querySelector<HTMLInputElement>('[data-search-input]');
+  dialog.showModal();
+  if (input) {
+    input.value = '';
+    input.focus();
   }
-
-  return null;
-};
-
-const focusSearchInput = () => {
-  const input = getPreferredSearchInput();
-  if (!input) return;
-
-  input.focus();
-  input.select();
 };
 
 const bindSearchShortcuts = () => {
@@ -175,16 +164,26 @@ const bindSearchShortcuts = () => {
 
   document.addEventListener('keydown', (event) => {
     if (event.defaultPrevented) return;
-    if (isEditableTarget(event.target)) return;
 
     const isSlashShortcut = event.key === '/' && !event.metaKey && !event.ctrlKey && !event.altKey;
     const isCommandPaletteShortcut =
       event.key.toLowerCase() === 'k' && (event.metaKey || event.ctrlKey) && !event.altKey;
 
     if (!isSlashShortcut && !isCommandPaletteShortcut) return;
+    if (isSlashShortcut && isEditableTarget(event.target)) return;
 
     event.preventDefault();
-    focusSearchInput();
+    openSearchDialog();
+  });
+
+  document.querySelectorAll('[data-search-open]').forEach((trigger) => {
+    trigger.addEventListener('click', () => openSearchDialog());
+  });
+
+  const dialog = getSearchDialog();
+  dialog?.querySelector('[data-search-close]')?.addEventListener('click', () => dialog.close());
+  dialog?.addEventListener('click', (event) => {
+    if (event.target === dialog) dialog.close();
   });
 };
 
@@ -219,13 +218,26 @@ const renderEmptyState = (
   message: string,
 ) => {
   const emptyState = document.createElement('p');
-  emptyState.className = 'px-4 py-4 text-sm text-[var(--color-text-muted)]';
+  emptyState.className = 'search-empty';
   emptyState.textContent = message;
 
   results.replaceChildren(emptyState);
   setResultsVisibility(input, results, true);
   announceStatus(status, message);
 };
+
+const resultIcon = `
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+    <path d="M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z" />
+    <path d="M14 2v5a1 1 0 0 0 1 1h5" /><path d="M10 9H8" /><path d="M16 13H8" /><path d="M16 17H8" />
+  </svg>
+`;
+
+const enterIcon = `
+  <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+    <path d="M20 4v7a4 4 0 0 1-4 4H4" /><path d="m9 10-5 5 5 5" />
+  </svg>
+`;
 
 const renderResults = (
   input: HTMLInputElement,
@@ -235,38 +247,61 @@ const renderResults = (
   label = 'Search results',
   query = '',
 ) => {
+  const heading = document.createElement('p');
+  heading.className = 'search-results-label eyebrow';
+  heading.textContent = label;
+
   const list = document.createElement('ul');
-  list.className = 'divide-y divide-[var(--color-border)]';
+  list.className = 'search-results-list';
   list.setAttribute('aria-label', label);
 
   entries.forEach((entry, index) => {
     const item = document.createElement('li');
     const link = document.createElement('a');
     link.href = entry.url;
-    link.className = 'search-result-link block px-4 py-3 transition-colors hover:bg-[var(--color-hover-surface)]';
+    link.className = 'search-result-link';
     link.dataset.searchResultLink = 'true';
     link.id = `${input.id}-result-${index}`;
     link.role = 'option';
     link.tabIndex = -1;
     link.setAttribute('aria-selected', 'false');
 
-    const title = document.createElement('div');
-    title.className = 'search-result-title text-sm font-medium text-[var(--color-accent)]';
-    appendHighlightedText(title, entry.title, query);
-    link.append(title);
+    const icon = document.createElement('span');
+    icon.className = 'search-result-icon';
+    icon.innerHTML = resultIcon;
 
-    if (entry.excerpt) {
-      const excerpt = document.createElement('div');
-      excerpt.className = 'mt-1 text-xs leading-5 text-[var(--color-text-muted)]';
-      appendHighlightedText(excerpt, entry.excerpt, query);
-      link.append(excerpt);
+    const body = document.createElement('span');
+    body.className = 'search-result-body';
+
+    if (entry.category) {
+      const meta = document.createElement('span');
+      meta.className = 'search-result-meta';
+      meta.textContent = entry.category;
+      body.append(meta);
     }
 
+    const title = document.createElement('span');
+    title.className = 'search-result-title';
+    appendHighlightedText(title, entry.title, query);
+    body.append(title);
+
+    if (entry.excerpt) {
+      const excerpt = document.createElement('span');
+      excerpt.className = 'search-result-excerpt';
+      appendHighlightedText(excerpt, entry.excerpt, query);
+      body.append(excerpt);
+    }
+
+    const enter = document.createElement('span');
+    enter.className = 'search-result-enter';
+    enter.innerHTML = enterIcon;
+
+    link.append(icon, body, enter);
     item.append(link);
     list.append(item);
   });
 
-  results.replaceChildren(list);
+  results.replaceChildren(heading, list);
   setResultsVisibility(input, results, true);
   announceStatus(status, `${entries.length} ${entries.length === 1 ? 'result' : 'results'} available.`);
 };
@@ -314,22 +349,11 @@ const renderSuggestions = (
     return;
   }
 
-  renderResults(input, results, status, suggestions, 'Suggested articles');
+  renderResults(input, results, status, suggestions, 'Popular articles');
   announceStatus(
     status,
     `${suggestions.length} suggested ${suggestions.length === 1 ? 'article' : 'articles'} available.`,
   );
-};
-
-const setSearchUnavailable = (
-  input: HTMLInputElement,
-  results: HTMLDivElement,
-  status: HTMLElement | null,
-  message: string,
-) => {
-  input.disabled = true;
-  input.setAttribute('aria-disabled', 'true');
-  renderEmptyState(input, results, status, message);
 };
 
 const searchPagefind = async (
@@ -355,6 +379,7 @@ const searchPagefind = async (
         title,
         excerpt: preview,
         url: data.url,
+        category: data.meta.category,
       };
     }),
   );
@@ -364,10 +389,11 @@ const attachSearch = (root: HTMLElement) => {
   const elements = getSearchElements(root);
   if (!elements) return;
 
-  const { input, results, submitButton, status } = elements;
+  const { input, results, status } = elements;
   const emptyMessage = root.dataset.searchEmpty ?? 'No matching articles found.';
   const errorMessage = root.dataset.searchError ?? 'Search is temporarily unavailable.';
   const searchPreviews = getSearchPreviews();
+  const isDialog = root.dataset.searchMode === 'dialog';
   let latestQuery = '';
   let activeResultIndex = -1;
 
@@ -410,17 +436,13 @@ const attachSearch = (root: HTMLElement) => {
     return true;
   };
 
-  const resetRenderedResults = () => {
-    clearActiveResult();
-  };
-
   const runSearch = async () => {
     const query = input.value.trim();
     latestQuery = query;
 
     if (!query) {
       renderSuggestions(root, input, results, status);
-      resetRenderedResults();
+      clearActiveResult();
       return;
     }
 
@@ -432,33 +454,34 @@ const attachSearch = (root: HTMLElement) => {
     }
 
     if (matches === null) {
-      setSearchUnavailable(input, results, status, errorMessage);
-      resetRenderedResults();
+      renderEmptyState(input, results, status, errorMessage);
+      clearActiveResult();
       return;
     }
 
     if (matches.length === 0) {
       renderEmptyState(input, results, status, emptyMessage);
-      resetRenderedResults();
+      clearActiveResult();
       return;
     }
 
     renderResults(input, results, status, matches, 'Search results', query);
-    resetRenderedResults();
+    clearActiveResult();
+    if (isDialog) setActiveResult(0);
   };
 
   input.addEventListener('focus', () => {
     void getPagefind();
     if (!input.value.trim()) {
       renderSuggestions(root, input, results, status);
-      resetRenderedResults();
+      clearActiveResult();
     }
   });
 
   input.addEventListener('click', () => {
     if (!input.value.trim()) {
       renderSuggestions(root, input, results, status);
-      resetRenderedResults();
+      clearActiveResult();
     }
   });
 
@@ -469,6 +492,7 @@ const attachSearch = (root: HTMLElement) => {
 
   input.addEventListener('keydown', (event) => {
     if (event.key === 'Escape') {
+      if (isDialog) return;
       hideResults(input, results, status);
       clearActiveResult();
       input.blur();
@@ -493,12 +517,8 @@ const attachSearch = (root: HTMLElement) => {
     }
   });
 
-  submitButton?.addEventListener('click', () => {
-    input.focus();
-    void runSearch();
-  });
-
   document.addEventListener('click', (event) => {
+    if (isDialog) return;
     const target = event.target;
     if (!(target instanceof Node)) return;
     if (!root.contains(target)) {
@@ -508,6 +528,7 @@ const attachSearch = (root: HTMLElement) => {
   });
 
   root.addEventListener('focusout', (event) => {
+    if (isDialog) return;
     const nextTarget = event.relatedTarget;
     if (nextTarget instanceof Node && root.contains(nextTarget)) return;
     hideResults(input, results);

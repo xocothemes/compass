@@ -10,7 +10,7 @@ One of the first real customization steps in Compass is replacing the sample cat
 
 ## Where category structure lives
 
-The source of truth for docs organization is `src/data/docs.ts`.
+The source of truth for docs organization is `src/config/docs.ts`.
 
 That file defines:
 
@@ -70,7 +70,7 @@ That means you can:
 
 When restructuring categories, confirm all three of these still agree:
 
-1. The category slug in `src/data/docs.ts`
+1. The category slug in `src/config/docs.ts`
 2. The folder name inside `src/content/docs`
 3. The `category` value in each article's frontmatter
 
@@ -82,7 +82,7 @@ Compass only generates nested category URLs such as `/getting-started/start-here
 
 Use a small sequence of edits:
 
-1. Update the category definition in `src/data/docs.ts`
+1. Update the category definition in `src/config/docs.ts`
 2. Rename the matching folder in `src/content/docs`
 3. Update the `category` frontmatter in affected articles
 4. Run `npm run check`

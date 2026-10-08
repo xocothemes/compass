@@ -5,25 +5,26 @@ category: 'compass-docs'
 tags: ['navigation', 'routing']
 status: 'published'
 author: 'Compass Team'
-editUrl: 'https://github.com/andreialba/compass/edit/main/src/content/docs/compass-docs/how-navigation-works/how-navigation-works.mdx'
+editUrl: 'https://github.com/xocothemes/compass/edit/main/src/content/docs/compass-docs/how-navigation-works/how-navigation-works.mdx'
 order: 5
-updatedAt: 2026-06-04
+updatedAt: 2026-10-08
 ---
 
 Compass keeps navigation explicit. Instead of inferring everything from folders, it combines your docs data file with article frontmatter and route templates.
 
 ## The key files
 
-- `src/data/docs.ts` defines parent sections, sub-categories, labels, descriptions, and slugs
+- `src/config/docs.ts` defines parent sections, sub-categories, labels, descriptions, and slugs
 - `src/content/docs` stores the articles and their frontmatter
 - `src/pages/[category]/index.astro` renders parent landing pages such as `/getting-started`
 - `src/pages/[parent]/[category]/index.astro` renders sub-category pages
 - `src/pages/[parent]/[category]/[slug].astro` renders article pages
-- `src/components/Sidebar.astro` renders the per-section sidebar
+- `src/components/layout/DocsSidebar.astro` renders the per-section sidebar with every article in that section
+- `src/components/layout/TableOfContents.astro` renders the "On this page" rail on wide screens
 
 ## How article links are generated
 
-Each article uses a `category` value in frontmatter. Compass matches that value to a category slug from `src/data/docs.ts`, then builds the URL from the category slug plus the article filename.
+Each article uses a `category` value in frontmatter. Compass matches that value to a category slug from `src/config/docs.ts`, then builds the URL from the category slug plus the article filename.
 
 For example:
 
@@ -60,7 +61,7 @@ Sub-category pages use the same nested shape. A category like `compass-docs` is 
 
 ## When to update what
 
-- change `src/data/docs.ts` when you want to rename or regroup sections
+- change `src/config/docs.ts` when you want to rename or regroup sections
 - change article frontmatter when you want to move or reorder a document
 - add `redirectFrom` in article frontmatter when you want old paths to forward to the new canonical route
 - change route templates only when the URL structure itself should change

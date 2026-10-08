@@ -132,6 +132,12 @@ const initCodeBlocks = () => {
     const language = (block.dataset.language ?? '').trim().toLowerCase();
     const languageLabel = codeLanguageLabels[language] ?? (language ? language.toUpperCase() : '');
 
+    const shell = document.createElement('div');
+    shell.className = 'code-block-shell';
+    block.parentNode?.insertBefore(shell, block);
+    shell.append(block);
+
+    // The header sits on the shell, not the scrolling <pre>, so it stays put when long lines scroll.
     if (language && languageLabel && visibleCodeLanguages.has(language)) {
       const header = document.createElement('div');
       header.className = 'code-block-header';
@@ -139,18 +145,12 @@ const initCodeBlocks = () => {
       const languageTab = document.createElement('span');
       languageTab.className = 'code-block-language-tab';
       languageTab.textContent = languageLabel;
-      languageTab.dataset.languageLong = languageLabel.length > 8 ? 'true' : 'false';
 
       header.append(languageTab);
-      block.append(header);
+      shell.append(header);
     } else {
       block.classList.add('astro-code-without-header');
     }
-
-    const shell = document.createElement('div');
-    shell.className = 'code-block-shell';
-    block.parentNode?.insertBefore(shell, block);
-    shell.append(block);
 
     const copyButton = document.createElement('button');
     copyButton.type = 'button';
@@ -361,10 +361,50 @@ const initImageLightbox = () => {
   });
 };
 
+const initHeadingAnchors = () => {
+  document.querySelectorAll('.docs-article .prose :is(h2, h3)[id]').forEach((heading) => {
+    if (heading.closest('.not-prose') || heading.querySelector('.heading-anchor')) return;
+
+    const anchor = document.createElement('a');
+    anchor.className = 'heading-anchor';
+    anchor.href = `#${heading.id}`;
+    anchor.textContent = '#';
+    anchor.setAttribute('aria-label', `Link to ${heading.textContent?.trim() ?? 'this section'}`);
+    heading.append(anchor);
+  });
+};
+
+const initCopyPage = () => {
+  const button = document.querySelector<HTMLButtonElement>('[data-copy-page]');
+  const source = document.getElementById('page-markdown');
+  if (!button || !(source instanceof HTMLScriptElement)) return;
+
+  const label = button.querySelector('[data-copy-page-label]');
+  let resetTimeout: number | undefined;
+
+  button.addEventListener('click', async () => {
+    try {
+      await copyText(JSON.parse(source.textContent ?? '""') as string);
+      button.toggleAttribute('data-copied', true);
+      if (label) label.textContent = 'Copied';
+    } catch {
+      if (label) label.textContent = 'Copy failed';
+    }
+
+    window.clearTimeout(resetTimeout);
+    resetTimeout = window.setTimeout(() => {
+      button.removeAttribute('data-copied');
+      if (label) label.textContent = 'Copy page';
+    }, 1800);
+  });
+};
+
 const initArticleEnhancements = () => {
   initArticleToc();
   initCodeBlocks();
   initImageLightbox();
+  initHeadingAnchors();
+  initCopyPage();
 };
 
 if (document.readyState === 'loading') {

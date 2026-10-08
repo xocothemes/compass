@@ -1,6 +1,7 @@
 ---
 import { getCollection } from 'astro:content';
-import { getArticleHref, getCleanDocSlug, getPublicDocs } from '../data/docs';
+import { siteConfig } from '../config/site';
+import { getDocHref, getPublicDocs } from '../lib/docs';
 
 type RedirectEntry = {
   redirect: string;
@@ -21,7 +22,7 @@ export async function getStaticPaths() {
   const redirects = new Map<string, RedirectEntry>();
 
   publicDocs.forEach((doc) => {
-    const destination = getArticleHref(doc.data.category, getCleanDocSlug(doc.id));
+    const destination = getDocHref(doc);
 
     doc.data.redirectFrom.forEach((rawRedirect) => {
       const redirect = normalizePath(rawRedirect);
@@ -48,9 +49,10 @@ const { destination } = Astro.props;
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang={siteConfig.language}>
   <head>
     <meta charset="utf-8" />
+    <meta name="robots" content="noindex" />
     <meta http-equiv="refresh" content={`0;url=${destination}`} />
     <link rel="canonical" href={destination} />
     <title>Redirecting...</title>
@@ -59,6 +61,8 @@ const { destination } = Astro.props;
     </script>
   </head>
   <body>
-    <p>Redirecting to <a href={destination}>{destination}</a>.</p>
+    <p>
+      Redirecting to <a href={destination}>{destination}</a>.
+    </p>
   </body>
 </html>

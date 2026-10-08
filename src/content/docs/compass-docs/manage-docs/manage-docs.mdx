@@ -5,7 +5,7 @@ category: 'compass-docs'
 tags: ['maintenance', 'frontmatter']
 status: 'published'
 author: 'Compass Team'
-editUrl: 'https://github.com/andreialba/compass/edit/main/src/content/docs/compass-docs/manage-docs/manage-docs.mdx'
+editUrl: 'https://github.com/xocothemes/compass/edit/main/src/content/docs/compass-docs/manage-docs/manage-docs.mdx'
 order: 2
 updatedAt: 2026-06-03
 ---
@@ -14,7 +14,7 @@ Compass keeps content management intentionally simple: categories live in one da
 
 ## Update the information architecture
 
-Edit `src/data/docs.ts` when you need to:
+Edit `src/config/docs.ts` when you need to:
 
 - rename a parent section
 - add or remove a sub-category
@@ -58,18 +58,18 @@ If you do rename a slug later, add the previous URL to `redirectFrom` so old lin
 
 ## Match folders to category slugs
 
-Inside `src/content/docs`, each top-level folder should match a sub-category slug from `src/data/docs.ts`:
+Inside `src/content/docs`, each top-level folder should match a sub-category slug from `src/config/docs.ts`:
 
 - `start-here`
 - `compass-docs`
 - `components`
 - `channels-and-apps`
 
-The parent sections such as `getting-started` and `integrations` live in `src/data/docs.ts` and drive navigation, but they are not used as content folder names.
+The parent sections such as `getting-started` and `integrations` live in `src/config/docs.ts` and drive navigation, but they are not used as content folder names.
 
 Those parent slugs are part of the public URL. Category pages use nested paths such as `/getting-started/compass-docs`; Compass does not generate one-segment category pages such as `/compass-docs`.
 
-The `category` field in article frontmatter is validated against the category slugs in `src/data/docs.ts`. If you rename a category slug, update the matching article frontmatter before running `npm run check`.
+The `category` field in article frontmatter is validated against the category slugs in `src/config/docs.ts`. If you rename a category slug, update the matching article frontmatter before running `npm run check`.
 
 ## Suggested maintenance rhythm
 

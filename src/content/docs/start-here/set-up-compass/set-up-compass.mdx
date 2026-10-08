@@ -3,7 +3,7 @@ title: 'Set Up Compass'
 description: 'Install Compass, run it locally, and make the first project-level updates.'
 category: 'start-here'
 order: 1
-updatedAt: 2026-06-03
+updatedAt: 2026-10-08
 relatedLinks:
   - title: 'How Compass Is Organized'
     href: '/getting-started/start-here/how-compass-is-organized'
@@ -37,9 +37,9 @@ That starts Astro's local server so you can preview the homepage, category pages
 
 These are the first files most teams touch:
 
-- `site.config.mjs` for title, URLs, and repository links
+- `src/config/site.ts` for title, URLs, and repository links
 - `package.json` for the local project name and metadata
-- `src/data/docs.ts` for parent categories and sub-categories
+- `src/config/docs.ts` for parent categories and sub-categories
 - `src/content/docs` for article content
 - `README.md` for package and contributor guidance
 
@@ -52,19 +52,21 @@ npm run dev
 npm run check
 npm run build
 npm run preview
+npm run release:check
 ```
 
 - `dev` runs the local Astro server
 - `check` validates Astro, TypeScript, and content usage
 - `build` generates the production site
 - `preview` serves the production build locally
+- `release:check` runs the type check, the production build, and the formatter check together
 
 ## Recommended first edits
 
 Once the project is running, make these changes before publishing:
 
-1. Replace the placeholder `siteUrl` in `site.config.mjs`
-2. Rename the sample categories in `src/data/docs.ts`
+1. Replace the placeholder `siteUrl` in `src/config/site.ts`
+2. Rename the sample categories in `src/config/docs.ts`
 3. Rewrite the sample content in `src/content/docs`
 4. Confirm the navigation labels in the header match your docs structure
 

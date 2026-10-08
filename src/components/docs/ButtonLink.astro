@@ -9,10 +9,7 @@ const { href, variant = 'primary' } = Astro.props;
 
 <a
   href={href}
-  class:list={[
-    'docs-button not-prose inline-flex items-center gap-2 px-4 py-2 text-sm font-semibold transition',
-    variant === 'primary' ? 'docs-button-primary' : 'docs-button-secondary',
-  ]}
+  class:list={['docs-button button not-prose', variant === 'primary' ? 'button-primary' : 'button-secondary']}
 >
   <slot />
 </a>

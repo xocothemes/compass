@@ -3,14 +3,14 @@ title: 'Add Your Brand'
 description: "Replace Compass defaults with your project's title, links, visuals, and overall identity."
 category: 'start-here'
 order: 7
-updatedAt: 2026-06-05
+updatedAt: 2026-10-08
 ---
 
 Compass is designed to be rebranded quickly, so one of the best early improvements is swapping out the starter identity for your own.
 
 ## Update the site configuration
 
-The main branding settings live in `site.config.mjs`.
+The main branding settings live in `src/config/site.ts`.
 
 Start by replacing:
 
@@ -18,14 +18,14 @@ Start by replacing:
 - the page title
 - the site description
 - GitHub or repository links
-- the navigation CTA label and destination
-- the footer text
+- the header button label and destination (`action`)
+- the footer text and social links
 
 These changes affect the homepage, page metadata, and shared layout areas.
 
 ## Replace icons and social assets
 
-The default favicons and Open Graph image live in `public/`.
+The logo mark in the header and footer is `src/components/ui/Logomark.astro`. The default favicons and Open Graph image live in `public/`.
 
 The most common files to update are:
 
@@ -41,7 +41,7 @@ Branding is not only visual. It also includes the way your docs are named and or
 
 Review:
 
-- parent category names in `src/data/docs.ts`
+- parent category names in `src/config/docs.ts`
 - category descriptions on the homepage
 - sample article titles in `src/content/docs`
 - CTA wording in the navigation
@@ -60,7 +60,7 @@ After your first branding pass, preview the site and look at it as a new visitor
 ## Recommended first branding pass
 
 <Checklist>
-  <ChecklistItem>Update `site.config.mjs`</ChecklistItem>
+  <ChecklistItem>Update `src/config/site.ts`</ChecklistItem>
   <ChecklistItem>Replace favicon and OG assets</ChecklistItem>
   <ChecklistItem>Rename category labels</ChecklistItem>
   <ChecklistItem>Rewrite the sample homepage-facing article titles</ChecklistItem>

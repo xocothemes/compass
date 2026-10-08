@@ -1,33 +1,22 @@
 import rss from '@astrojs/rss';
+import type { APIRoute } from 'astro';
 import { getCollection } from 'astro:content';
-import site from '../../site.config.mjs';
-import { docsCategoryDataMap, getArticleHref, getCleanDocSlug, isPublicDoc } from '../data/docs';
+import { siteConfig } from '../config/site';
+import { getCategoryName, getDocHref, getRecentDocs } from '../lib/docs';
 
-export async function GET(context: { site?: URL }) {
-  const docs = await getCollection('docs');
-
-  const items = docs
-    .filter(isPublicDoc)
-    .filter((doc) => Boolean(doc.data.updatedAt))
-    .filter((doc) => !doc.data.hideFromSearch)
-    .sort((a, b) => b.data.updatedAt!.getTime() - a.data.updatedAt!.getTime())
-    .map((doc) => {
-      const categoryLabel =
-        docsCategoryDataMap[doc.data.category as keyof typeof docsCategoryDataMap]?.name ?? doc.data.category;
-
-      return {
-        title: doc.data.title,
-        description: doc.data.description ?? `${categoryLabel} update from ${site.name}.`,
-        pubDate: doc.data.updatedAt!,
-        link: getArticleHref(doc.data.category, getCleanDocSlug(doc.id)),
-      };
-    });
+export const GET: APIRoute = async (context) => {
+  const docs = getRecentDocs(await getCollection('docs'), Infinity);
 
   return rss({
-    title: `${site.name} Updates`,
-    description: `Recent documentation updates from ${site.name}.`,
-    site: context.site ?? site.siteUrl,
-    items,
-    customData: `<language>en-us</language>`,
+    title: `${siteConfig.name} Updates`,
+    description: `Recent documentation updates from ${siteConfig.name}.`,
+    site: context.site ?? siteConfig.siteUrl,
+    items: docs.map((doc) => ({
+      title: doc.data.title,
+      description: doc.data.description ?? `${getCategoryName(doc.data.category)} update from ${siteConfig.name}.`,
+      pubDate: doc.data.updatedAt,
+      link: getDocHref(doc),
+    })),
+    customData: `<language>${siteConfig.language}</language>`,
   });
-}
+};

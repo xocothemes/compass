@@ -1,6 +1,6 @@
 MIT License
 
-Copyright (c) 2026
+Copyright (c) 2026 Andrei Alba
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -19,3 +19,16 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
+
+---
+
+Third-party assets bundled with this theme keep their own licenses:
+
+- Plus Jakarta Sans (public/fonts/plus-jakarta-sans) — SIL Open Font License 1.1.
+  See public/fonts/plus-jakarta-sans/OFL.txt.
+- JetBrains Mono (public/fonts/jetbrains-mono) — SIL Open Font License 1.1.
+  See public/fonts/jetbrains-mono/OFL.txt.
+- Lucide icons (src/icons/lucide) — ISC License.
+  See src/icons/lucide/LICENSE.
+- Bootstrap Icons (src/icons/bootstrap) — MIT License.
+  See src/icons/bootstrap/LICENSE.md.

@@ -3,7 +3,7 @@ title: 'Customize Your Docs Site'
 description: 'Adjust branding, layout choices, and content presentation across your docs.'
 category: 'compass-docs'
 order: 3
-updatedAt: 2026-06-03
+updatedAt: 2026-10-08
 ---
 
 Compass is meant to be re-skinned. The fastest way to make it feel like your product is to update the shared site config first, then refine the content model and styles.
@@ -15,23 +15,26 @@ Compass is meant to be re-skinned. The fastest way to make it feel like your pro
 
 ## Update the shared config
 
-Start in `site.config.mjs`:
+Start in `src/config/site.ts`:
 
 - `name`
 - `title`
 - `description`
 - `siteUrl`
-- CTA label and link values
+- the header `action` button
+- `editBaseUrl` for "Edit this page" links
+
+The homepage hero copy, popular searches, recently updated list, and closing band live in `src/config/home.ts`.
 
 ## Adjust the docs structure
 
-Then update `src/data/docs.ts` so the homepage cards and navigation match your actual docs sections.
+Then update `src/config/docs.ts` so the homepage cards and navigation match your actual docs sections.
 
 ## Refine presentation
 
 Common customizations include:
 
 - changing copy across the homepage and article descriptions
-- adjusting typography and spacing in `src/index.css`
+- changing the accent color, fonts, radii, and dark mode palette through the tokens at the top of `src/styles/global.css`
 - editing layouts in `src/layouts`
 - adding reusable MDX components for callouts or demos
