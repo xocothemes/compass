@@ -7,6 +7,7 @@ All notable changes to Compass are documented here.
 - Updated the starter docs to match the current theme: frontmatter, edit links, search, navigation, branding, project structure, and the image lightbox.
 - Fixed the Code Tabs usage example.
 - Removed a duplicate example from the Syntax Highlighting article.
+- The sticky header and mobile "On this page" bar are now fully opaque.
 
 ## 3.0.0 - 2026-10-08
 

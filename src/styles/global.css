@@ -91,7 +91,7 @@
   --glow-a: rgb(85 70 240 / 0.2);
   --glow-b: rgb(236 72 153 / 0.1);
   --grid-dot: rgb(14 14 20 / 0.09);
-  --header-bg: rgb(255 255 255 / 0.88);
+  --header-bg: #ffffff;
   --shadow-sm: 0 1px 2px rgb(16 16 28 / 0.05);
   --shadow-md: 0 1px 2px rgb(16 16 28 / 0.04), 0 12px 32px -16px rgb(16 16 28 / 0.16);
   --shadow-lg: 0 2px 4px rgb(16 16 28 / 0.04), 0 32px 80px -24px rgb(16 16 28 / 0.3);
@@ -125,7 +125,7 @@ html.dark {
   --glow-a: rgb(124 112 255 / 0.22);
   --glow-b: rgb(236 72 153 / 0.08);
   --grid-dot: rgb(255 255 255 / 0.07);
-  --header-bg: rgb(10 10 14 / 0.88);
+  --header-bg: #0a0a0e;
   --shadow-sm: 0 1px 2px rgb(0 0 0 / 0.4);
   --shadow-md: 0 1px 2px rgb(0 0 0 / 0.4), 0 16px 40px -20px rgb(0 0 0 / 0.7);
   --shadow-lg: 0 0 0 1px rgb(255 255 255 / 0.04), 0 32px 80px -24px rgb(0 0 0 / 0.85);
@@ -342,8 +342,6 @@ html.dark {
     height: var(--header-height);
     border-bottom: 1px solid var(--line);
     background: var(--header-bg);
-    backdrop-filter: saturate(1.6) blur(16px);
-    -webkit-backdrop-filter: saturate(1.6) blur(16px);
   }
 
   .site-nav-link {
@@ -1141,8 +1139,6 @@ html.dark {
     z-index: 30;
     border-bottom: 1px solid var(--line);
     background: var(--header-bg);
-    backdrop-filter: saturate(1.6) blur(16px);
-    -webkit-backdrop-filter: saturate(1.6) blur(16px);
   }
 
   .docs-mobile-toc summary::-webkit-details-marker {
