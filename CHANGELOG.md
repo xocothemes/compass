@@ -2,12 +2,14 @@
 
 All notable changes to Compass are documented here.
 
-## Unreleased
+## 3.0.1 - 2026-10-21
 
 - Updated the starter docs to match the current theme: frontmatter, edit links, search, navigation, branding, project structure, and the image lightbox.
 - Fixed the Code Tabs usage example.
 - Removed a duplicate example from the Syntax Highlighting article.
 - The sticky header and mobile "On this page" bar are now fully opaque.
+- Updated Astro to 7.4.1 and other dependencies.
+- Updated `AGENTS.md` for Astro 7.
 
 ## 3.0.0 - 2026-10-08
 
